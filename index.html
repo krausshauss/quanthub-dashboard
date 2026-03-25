@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuantHub · Sales Rep Scorecard</title>
+<meta name="robots" content="noindex">
+<meta http-equiv="X-Frame-Options" content="ALLOWALL">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Slab:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ── QUANTHUB BRAND TOKENS ────────────────────────── */
+:root {
+  --qh-blue:       #0077B5;   /* Primary */
+  --qh-dark-blue:  #0B4971;   /* Secondary */
+  --qh-green:      #69A62A;   /* Accent */
+  --qh-grey:       #3A3C3E;   /* Type */
+  --qh-gradient:   linear-gradient(90deg, #0077B5, #0B4971);
+
+  /* Surface system */
+  --bg:       #F4F6F9;
+  --surface:  #FFFFFF;
+  --surface2: #F0F4F8;
+  --border:   #DDE4EF;
+  --border2:  #B8C8DC;
+  --text:     #3A3C3E;
+  --text2:    #4A5568;
+  --muted:    #7A8FA6;
+  --dim:      #B0BCC8;
+
+  /* Status */
+  --green:    #5A9420;
+  --green-bg: #EBF5DC;
+  --green-bd: #B2D87A;
+  --blue:     #0077B5;
+  --blue-bg:  #E0F0FA;
+  --blue-bd:  #7ABDE0;
+  --amber:    #C07800;
+  --amber-bg: #FFF4DC;
+  --amber-bd: #F0C868;
+  --orange:   #C04A10;
+  --orange-bg:#FFEDE4;
+  --orange-bd:#F0A080;
+  --red:      #B82038;
+  --red-bg:   #FFECEF;
+  --red-bd:   #E8909A;
+  --gold:     #9A7000;
+  --gold-bg:  #FFF8DC;
+  --gold-bd:  #E8D060;
+
+  --font:    'Roboto', sans-serif;
+  --slab:    'Roboto Slab', serif;
+  --mono:    'Roboto Mono', monospace;
+  --r:       8px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); min-height: 100vh; font-size: 14px; }
+
+/* ── TOP BAR ───────────────────────────────────────── */
+.topbar {
+  background: var(--qh-gradient);
+  padding: 0 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px; position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,119,181,0.25);
+}
+/* ── QH LOGO SVG (inline) ──────────────────────────── */
+.qh-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.qh-logo-mark { width: 32px; height: 32px; }
+.qh-wordmark { font-family: var(--font); font-size: 18px; font-weight: 700; color: #fff; letter-spacing: -0.01em; }
+.topbar-right { font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.7); text-align: right; line-height: 1.6; }
+.topbar-right strong { color: #fff; }
+
+/* ── PAGE WRAP ─────────────────────────────────────── */
+.wrap { max-width: 1160px; margin: 0 auto; padding: 28px 20px 60px; }
+
+/* ── PAGE HEADER ───────────────────────────────────── */
+.page-header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 24px; gap: 16px; flex-wrap: wrap;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--qh-blue);
+}
+.ph-left {}
+.ph-eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: var(--qh-blue); text-transform: uppercase; margin-bottom: 4px; }
+.ph-title { font-family: var(--slab); font-size: clamp(22px,3.5vw,32px); font-weight: 700; color: var(--qh-dark-blue); letter-spacing: -0.01em; }
+.ph-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.ph-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.export-pill {
+  font-family: var(--mono); font-size: 10px; color: var(--muted);
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 4px 10px; border-radius: 20px;
+}
+.update-note { font-size: 10px; color: var(--muted); text-align: right; max-width: 220px; line-height: 1.5; }
+
+/* ── KPI STRIP ─────────────────────────────────────── */
+.kpi-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 24px; }
+.kpi {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 14px 16px;
+  border-top: 3px solid;
+}
+.kpi-label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 7px; }
+.kpi-val { font-family: var(--slab); font-size: 26px; font-weight: 700; line-height: 1; }
+.kpi-sub { font-size: 11px; color: var(--muted); margin-top: 5px; }
+.kpi.b { border-top-color: var(--qh-blue); } .kpi.b .kpi-val { color: var(--qh-blue); }
+.kpi.g { border-top-color: var(--qh-green); } .kpi.g .kpi-val { color: var(--green); }
+.kpi.a { border-top-color: #C07800; } .kpi.a .kpi-val { color: var(--amber); }
+.kpi.r { border-top-color: var(--red); } .kpi.r .kpi-val { color: var(--red); }
+
+/* ── SECTION LABEL ─────────────────────────────────── */
+.sec-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--muted); display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+}
+.sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ── REP GRID ──────────────────────────────────────── */
+.rep-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 24px; }
+.rep-card {
+  background: var(--surface); border: 2px solid var(--border);
+  border-radius: var(--r); padding: 14px; cursor: pointer;
+  transition: all 0.15s;
+}
+.rep-card:hover { border-color: var(--border2); box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+.rep-card.active { border-color: var(--qh-blue); box-shadow: 0 0 0 3px rgba(0,119,181,0.15); }
+.rc-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.rc-avatar {
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 12px; font-weight: 700; border: 2px solid;
+}
+.rc-name { font-weight: 700; font-size: 13px; color: var(--text); line-height: 1.2; }
+.rc-role { font-size: 10px; color: var(--muted); margin-top: 1px; }
+.rc-score { margin-left: auto; }
+.rc-pillars { display: grid; grid-template-columns: repeat(4,1fr); gap: 4px; }
+.pil-mini { background: var(--bg); border-radius: 6px; padding: 5px 3px; text-align: center; }
+.pil-mini-l { font-size: 8px; font-weight: 700; color: var(--muted); margin-bottom: 1px; }
+.pil-mini-v { font-family: var(--mono); font-size: 13px; font-weight: 700; }
+
+/* ── DETAIL PANEL ──────────────────────────────────── */
+.detail {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px; margin-bottom: 24px;
+}
+.d-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
+  padding-bottom: 16px; border-bottom: 1px solid var(--border);
+}
+.d-name { font-family: var(--slab); font-size: 22px; font-weight: 700; color: var(--qh-dark-blue); }
+.d-sub { font-size: 11px; color: var(--muted); margin-top: 3px; }
+.tabs {
+  display: flex; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 8px; padding: 3px; gap: 3px;
+}
+.tab {
+  padding: 6px 16px; border-radius: 6px; border: none; cursor: pointer;
+  font-family: var(--font); font-size: 12px; font-weight: 500;
+  background: transparent; color: var(--muted); transition: all 0.15s;
+}
+.tab.on {
+  background: var(--qh-blue); color: #fff;
+  box-shadow: 0 1px 4px rgba(0,119,181,0.3);
+}
+.tc { display: none; }
+.tc.on { display: block; }
+
+/* ── PILLAR CARDS ──────────────────────────────────── */
+.p-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+.p-card {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px; border-top: 3px solid;
+}
+.p-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.p-name {
+  font-family: var(--font); font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.07em; color: var(--text2);
+}
+.p-badge {
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  padding: 2px 10px; border-radius: 20px; border: 1px solid;
+}
+
+/* ── METRICS ───────────────────────────────────────── */
+.mrow { margin-bottom: 9px; }
+.mrow-top { display: flex; justify-content: space-between; margin-bottom: 3px; }
+.mlabel { font-size: 10px; color: var(--muted); }
+.mval { font-family: var(--mono); font-size: 10px; font-weight: 600; }
+.bar-t { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.bar-f { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+
+/* stat trio */
+.stat-trio { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; margin-bottom: 12px; }
+.stat-box { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 6px; text-align: center; }
+.stat-l { font-size: 8px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+.stat-v { font-family: var(--mono); font-size: 15px; font-weight: 700; }
+
+/* ── EXPANSION ─────────────────────────────────────── */
+.exp-section {
+  background: var(--gold-bg); border: 1px solid var(--gold-bd);
+  border-radius: 10px; padding: 14px; margin-top: 12px;
+  border-left: 3px solid var(--qh-green);
+}
+.exp-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.exp-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gold); }
+.exp-bonus {
+  font-family: var(--mono); font-size: 10px; color: var(--gold);
+  background: rgba(154,112,0,0.1); padding: 2px 8px; border-radius: 10px; border: 1px solid var(--gold-bd);
+}
+.exp-deal {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 9px; background: white; border-radius: 7px;
+  border: 1px solid var(--gold-bd); margin-bottom: 5px;
+}
+.exp-deal-name { flex: 1; font-size: 11px; }
+.exp-deal-amt { font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--gold); }
+.exp-stage { font-size: 9px; font-family: var(--mono); padding: 2px 7px; border-radius: 7px; }
+
+/* ── PIPELINE ──────────────────────────────────────── */
+.stage-group { margin-bottom: 16px; }
+.stage-hdr { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.stage-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.stage-nm { font-family: var(--mono); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+.stage-ct { font-size: 9px; color: var(--muted); }
+.deal-row { display: flex; align-items: flex-start; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.deal-nw { flex: 1; min-width: 0; }
+.deal-nm { font-size: 11px; color: var(--text); }
+.deal-ns { font-size: 9px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.deal-amt { font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--text2); flex-shrink: 0; }
+.stale-pill { font-size: 9px; font-family: var(--mono); padding: 2px 6px; border-radius: 8px; flex-shrink: 0; border: 1px solid; }
+
+/* ── COMPARE ───────────────────────────────────────── */
+.cmp-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 16px; }
+.cmp-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 9px; padding: 12px 14px; }
+.cmp-label { font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
+.cmp-vals { display: flex; align-items: flex-end; justify-content: space-between; gap: 6px; }
+.cmp-before { font-family: var(--mono); font-size: 13px; color: var(--dim); }
+.cmp-arrow { font-size: 13px; flex-shrink: 0; }
+.cmp-after  { font-family: var(--mono); font-size: 18px; font-weight: 700; }
+.insights { display: flex; flex-direction: column; gap: 8px; }
+.ins { border-radius: 9px; padding: 11px 13px; border: 1px solid; }
+.ins-title { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+.ins-body  { font-size: 11px; color: var(--text2); line-height: 1.55; }
+
+/* alert */
+.alert-banner {
+  background: var(--orange-bg); border: 1px solid var(--orange-bd);
+  border-radius: 8px; padding: 9px 12px; font-size: 10px; color: var(--orange); margin-top: 10px;
+  font-weight: 500;
+}
+
+/* ── UPDATE PANEL ──────────────────────────────────── */
+.update-panel {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; margin-top: 20px;
+  border-left: 3px solid var(--qh-blue);
+}
+.update-title { font-family: var(--slab); font-size: 14px; font-weight: 700; color: var(--qh-dark-blue); margin-bottom: 14px; }
+.u-step { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px; }
+.u-num {
+  font-family: var(--mono); font-size: 10px; font-weight: 700; color: #fff;
+  background: var(--qh-blue); width: 20px; height: 20px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+}
+.u-text { font-size: 11px; color: var(--muted); line-height: 1.55; }
+.u-text code {
+  font-family: var(--mono); font-size: 10px; background: var(--bg);
+  padding: 1px 5px; border-radius: 4px; color: var(--qh-dark-blue); border: 1px solid var(--border);
+}
+
+/* ── FOOTER ────────────────────────────────────────── */
+.footer {
+  margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+}
+.footer-logo { display: flex; align-items: center; gap: 8px; opacity: 0.5; }
+.footer-text { font-size: 10px; color: var(--muted); }
+
+/* ── RESPONSIVE ────────────────────────────────────── */
+@media(max-width:900px){ .rep-grid{grid-template-columns:repeat(2,1fr);} .kpi-strip{grid-template-columns:repeat(2,1fr);} .p-grid{grid-template-columns:1fr;} }
+@media(max-width:540px){ .rep-grid{grid-template-columns:1fr 1fr;} .cmp-grid{grid-template-columns:repeat(2,1fr);} }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a class="qh-logo" href="#">
+    <!-- QuantHub logo mark: circuit/node icon -->
+    <svg class="qh-logo-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer nodes -->
+      <circle cx="20" cy="4"  r="3" fill="white"/>
+      <circle cx="36" cy="20" r="3" fill="white"/>
+      <circle cx="20" cy="36" r="3" fill="white"/>
+      <circle cx="4"  cy="20" r="3" fill="white"/>
+      <!-- Corner nodes -->
+      <circle cx="8"  cy="8"  r="2.2" fill="rgba(255,255,255,0.6)"/>
+      <circle cx="32" cy="8"  r="2.2" fill="rgba(255,255,255,0.6)"/>
+      <circle cx="32" cy="32" r="2.2" fill="rgba(255,255,255,0.6)"/>
+      <circle cx="8"  cy="32" r="2.2" fill="rgba(255,255,255,0.6)"/>
+      <!-- Center -->
+      <circle cx="20" cy="20" r="4" fill="white"/>
+      <!-- Connectors -->
+      <line x1="20" y1="7"  x2="20" y2="16" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="33" y1="20" x2="24" y2="20" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="20" y1="24" x2="20" y2="33" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="7"  y1="20" x2="16" y2="20" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+      <!-- Diagonal connectors (lighter) -->
+      <line x1="9.5"  y1="9.5"  x2="16.5" y2="16.5" stroke="rgba(255,255,255,0.45)" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="30.5" y1="9.5"  x2="23.5" y2="16.5" stroke="rgba(255,255,255,0.45)" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="30.5" y1="30.5" x2="23.5" y2="23.5" stroke="rgba(255,255,255,0.45)" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="9.5"  y1="30.5" x2="16.5" y2="23.5" stroke="rgba(255,255,255,0.45)" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    <span class="qh-wordmark">quanthub</span>
+  </a>
+  <div class="topbar-right">
+    <div><strong>Sales Rep Scorecard</strong> · Higher Education</div>
+    <div id="topbarDate">—</div>
+  </div>
+</div>
+
+<!-- WRAP -->
+<div class="wrap">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="ph-left">
+      <div class="ph-eyebrow">Dark Yeti Inc. · Sales Operations</div>
+      <div class="ph-title">Sales Rep Scorecard</div>
+      <div class="ph-sub" id="phSub"></div>
+    </div>
+    <div class="ph-right">
+      <div class="export-pill" id="exportPill"></div>
+      <div class="update-note">Weekly: edit <code style="font-size:9px;background:#f0f4f8;padding:1px 4px;border-radius:3px;border:1px solid #dde4ef;font-family:monospace">SCORECARD_DATA</code> block in file</div>
+    </div>
+  </div>
+
+  <!-- KPI STRIP -->
+  <div class="kpi-strip" id="kpiStrip"></div>
+
+  <!-- REP CARDS -->
+  <div class="sec-label">Rep Performance · Click to drill in</div>
+  <div class="rep-grid" id="repGrid"></div>
+
+  <!-- DETAIL -->
+  <div class="detail" id="detail">
+    <div class="d-header">
+      <div>
+        <div class="d-name" id="dName"></div>
+        <div class="d-sub" id="dSub"></div>
+      </div>
+      <div class="tabs">
+        <button class="tab on" onclick="switchTab(this,'scorecard')">Scorecard</button>
+        <button class="tab"    onclick="switchTab(this,'pipeline')">Pipeline</button>
+        <button class="tab"    onclick="switchTab(this,'compare')">vs Mar 9</button>
+      </div>
+    </div>
+    <div class="tc on" id="tc-scorecard"><div class="p-grid" id="pillarGrid"></div><div id="expSection"></div></div>
+    <div class="tc"    id="tc-pipeline"><div id="pipContent"></div></div>
+    <div class="tc"    id="tc-compare"><div id="cmpContent"></div></div>
+  </div>
+
+  <!-- UPDATE INSTRUCTIONS -->
+  <div class="update-panel">
+    <div class="update-title">📋 Weekly Update — Every Wednesday</div>
+    <div class="u-step"><div class="u-num">1</div><div class="u-text">HubSpot → Reports → Export All Deals (Higher Education) as CSV</div></div>
+    <div class="u-step"><div class="u-num">2</div><div class="u-text">Open this file in VS Code, Notepad++, or TextEdit</div></div>
+    <div class="u-step"><div class="u-num">3</div><div class="u-text">Find <code>SCORECARD_DATA</code> in the &lt;script&gt; — update each rep's <code>cw_amount</code>, <code>pipeline_value</code>, <code>active_deals</code>, <code>stale_7d</code>, activity counts, quality percentages, and deal list</div></div>
+    <div class="u-step"><div class="u-num">4</div><div class="u-text">Update <code>WEEK_LABEL</code> and <code>EXPORT_DATE</code> at the top of the data block</div></div>
+    <div class="u-step"><div class="u-num">5</div><div class="u-text">Save → open in browser → share via email or Slack. No login, no server required.</div></div>
+    <div class="u-step"><div class="u-num">6</div><div class="u-text">SMS touches: reps self-report in standup → enter in <code>text_touches_week</code> (HubSpot gap — tracked manually until integrated)</div></div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-logo">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="4" r="3" fill="#0077B5"/><circle cx="36" cy="20" r="3" fill="#0077B5"/>
+        <circle cx="20" cy="36" r="3" fill="#0077B5"/><circle cx="4" cy="20" r="3" fill="#0077B5"/>
+        <circle cx="20" cy="20" r="4" fill="#0B4971"/>
+        <line x1="20" y1="7" x2="20" y2="16" stroke="#0077B5" stroke-width="2" stroke-linecap="round"/>
+        <line x1="33" y1="20" x2="24" y2="20" stroke="#0077B5" stroke-width="2" stroke-linecap="round"/>
+        <line x1="20" y1="24" x2="20" y2="33" stroke="#0077B5" stroke-width="2" stroke-linecap="round"/>
+        <line x1="7" y1="20" x2="16" y2="20" stroke="#0077B5" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span style="font-family:'Roboto',sans-serif;font-size:13px;font-weight:700;color:#0B4971">quanthub</span>
+    </div>
+    <div class="footer-text">© 2026 QuantHub · Prepared by Dark Yeti Inc. · Confidential</div>
+  </div>
+
+</div><!-- /wrap -->
+
+<script>
+// ═══════════════════════════════════════════════════════════
+//  SCORECARD_DATA  —  UPDATE THIS BLOCK EACH WEEK
+// ═══════════════════════════════════════════════════════════
+const WEEK_LABEL  = "Week of March 25, 2026";
+const EXPORT_DATE = "March 25, 2026";
+const QUARTER     = "Q1 2026";
+const QUOTA       = 100000;
+
+const REPS = [
+  {
+    id:"joe", name:"Joe DeRario", initials:"JD", role:"Account Executive",
+    cw_amount:2000, cw_deals:1,
+    active_deals:15, pipeline_value:442524, stale_7d:1, deals_advanced_week:4, avg_days_to_close:38,
+    ip_meetings_week:2, vr_calls_week:3, phone_calls_week:13, text_touches_week:5,
+    meetings_target:6, calls_target:15, text_target:5,
+    next_step_pct:93, amount_populated:93, close_date_set:93, bant_pct:80, stage_flow_pct:93, daily_verified:100,
+    expansion_deals:[
+      {name:"Dalton State College - Summer 2026", amount:2000, stage:"Closed Won", cw:true},
+    ],
+    deals:[
+      {name:"SciF - Corp Deal",                    stage:"Negotiation",   amount:256000,stale:0, next:"Waiting on Job Descriptions from Raquel"},
+      {name:"IMG Academy - AI Literacy",           stage:"Discovery/Demo",amount:78000, stale:0, next:"Call w/ Portia to review Catalog"},
+      {name:"Valdosta State University",           stage:"Negotiation",   amount:74000, stale:0, next:"Guclu confirmed review — sync Tue 3/25"},
+      {name:"Morocco Pilot Universities",          stage:"Opportunity",   amount:9600,  stale:0, next:"3/16 call follow-up"},
+      {name:"UNA - CIS 292 Summer 2026",           stage:"Commit/Verbal", amount:3300,  stale:0, next:"Get bookstore contact — VM left for Justin"},
+      {name:"Silvanus Udoka - Clark Atlanta",      stage:"Commit/Verbal", amount:3200,  stale:0, next:"Get bookstore intro"},
+      {name:"University of Evansville",            stage:"Trial",         amount:3040,  stale:0, next:"Connect with Suresh re: bookstore"},
+      {name:"Georgia Southern - Entrepreneurship", stage:"Trial",         amount:2960,  stale:1, next:"Meeting with Katia 3/25"},
+      {name:"Illinois State - AI/Excel Pilot",    stage:"Trial",         amount:2160,  stale:0, next:"Sync with Della — review pilot outcomes"},
+      {name:"CLARK UNIVERSITY - MBA Excel",        stage:"Opportunity",   amount:3600,  stale:5, next:"Shared syllabus matching — waiting on feedback"},
+      {name:"Lewis University - AI In Marketing",  stage:"Discovery/Demo",amount:1344,  stale:2, next:"Jim reviewing — lock follow up meeting"},
+      {name:"Coastal Alabama CC - Student Pilot",  stage:"Opportunity",   amount:1360,  stale:0, next:"Follow-up early April after Ryan speaks with Ann"},
+      {name:"AI in Marketing - Loras College",     stage:"Opportunity",   amount:960,   stale:0, next:"Syllabus received — mapping modules"},
+      {name:"West Georgia UoWG John Upson",        stage:"Trial",         amount:null,  stale:0, next:""},
+      {name:"XX Christopher Johnson - W. Georgia", stage:"Unknown",       amount:3000,  stale:41,next:"STALE 41d — close lost or reassign"},
+    ],
+    baseline:{cw_amount:0,active_deals:14,pipeline_value:389000,stale_7d:3,high_touch_week:8,next_step_pct:71},
+  },
+  {
+    id:"jason", name:"Jason Rupert", initials:"JR", role:"Account Executive",
+    cw_amount:9600, cw_deals:1,
+    active_deals:18, pipeline_value:98953, stale_7d:6, deals_advanced_week:2, avg_days_to_close:72,
+    ip_meetings_week:1, vr_calls_week:2, phone_calls_week:6, text_touches_week:2,
+    meetings_target:6, calls_target:15, text_target:5,
+    next_step_pct:100, amount_populated:78, close_date_set:50, bant_pct:44, stage_flow_pct:72, daily_verified:67,
+    expansion_deals:[],
+    deals:[
+      {name:"The College of New Jersey",         stage:"Discovery/Demo",amount:28800,stale:1, next:"Intro meeting after spring break 3-23"},
+      {name:"Alabama A&M - Potential New Deal",  stage:"Discovery/Demo",amount:10625,stale:8, next:"Keep talking to Dr. McKey about other profs"},
+      {name:"RISK: Florida State University",    stage:"Trial",         amount:9600, stale:1, next:"Send agreement doc to Marina"},
+      {name:"Univ. of Nebraska–Lincoln (Opp)",   stage:"Opportunity",   amount:20000,stale:1, next:"Sched intro meeting — AI Marketing + syllabus"},
+      {name:"George Fox University",             stage:"Discovery/Demo",amount:5760, stale:21,next:"Follow up meeting sched"},
+      {name:"University of Maryland",            stage:"Trial",         amount:5400, stale:6, next:"Sched meeting June/July for fall"},
+      {name:"Univ. Nebraska–Lincoln (Demo)",     stage:"Discovery/Demo",amount:4000, stale:1, next:"Sched intro meeting"},
+      {name:"Alabama A&M University - New Deal", stage:"Discovery/Demo",amount:3200, stale:8, next:"Map syllabus to QH modules"},
+      {name:"UAB - New Deal",                    stage:"Discovery/Demo",amount:2400, stale:8, next:"Reach out late April per George's request"},
+      {name:"FIU - Tofazzal Hossain",            stage:"Opportunity",   amount:1872, stale:6, next:"Trial review & decision sched 3-18"},
+      {name:"UNT Dallas - Jason Garrett",        stage:"Discovery/Demo",amount:1680, stale:5, next:"Ping early April for follow up"},
+      {name:"Miami Dade College",                stage:"Trial",         amount:1440, stale:6, next:"Reconnecting August prior to fall term"},
+      {name:"Mississippi College - Retha Price", stage:"Opportunity",   amount:1920, stale:27,next:"Get meeting sched for module alignment"},
+      {name:"Pensacola Christian College",       stage:"Trial",         amount:1920, stale:0, next:"Follow Up Meeting 4-8 — Applied Data Science"},
+      {name:"Oakland University",                stage:"Discovery/Demo",amount:240,  stale:0, next:"Meeting sched 3-30 — student count + syllabus"},
+      {name:"Middle Georgia State University",   stage:"Discovery/Demo",amount:96,   stale:5, next:"Sched intro meeting"},
+      {name:"UNC Wilmington - Barry Wray",       stage:"Discovery/Demo",amount:null, stale:0, next:"Check in 4-1 to confirm modules for fall"},
+      {name:"Samford University - Matt Mazzei",  stage:"Discovery/Demo",amount:null, stale:8, next:"Email re: marketing teachers for demo w/ Nate"},
+    ],
+    baseline:{cw_amount:0,active_deals:15,pipeline_value:88000,stale_7d:7,high_touch_week:4,next_step_pct:60},
+  },
+  {
+    id:"nate", name:"Nate Spargo", initials:"NS", role:"Account Executive",
+    cw_amount:218636, cw_deals:12,
+    active_deals:3, pipeline_value:98465, stale_7d:1, deals_advanced_week:1, avg_days_to_close:28,
+    ip_meetings_week:3, vr_calls_week:4, phone_calls_week:8, text_touches_week:6,
+    meetings_target:6, calls_target:15, text_target:5,
+    next_step_pct:0, amount_populated:100, close_date_set:67, bant_pct:100, stage_flow_pct:100, daily_verified:67,
+    expansion_deals:[
+      {name:"Sam Houston State - School Wide Pilot",amount:15000, stage:"Closed Won",cw:true},
+      {name:"Culverhouse MIS 200 Spring 2026",      amount:167750,stage:"Closed Won",cw:true},
+      {name:"UAB AI Literacy - Manish",             amount:8970,  stage:"Closed Won",cw:true},
+      {name:"High Point University - BUA1050",      amount:5760,  stage:"Closed Won",cw:true},
+    ],
+    deals:[
+      {name:"Mercer - University-wide AI Literacy",   stage:"Negotiation",  amount:55825,stale:33,next:"⚠ NO NEXT STEP — 33 days stale"},
+      {name:"High Point Univ. - Wide AI Foundations", stage:"Negotiation",  amount:40000,stale:0, next:"Active — next activity today"},
+      {name:"Wright State Univ. - Linda Helentjaris", stage:"Commit/Verbal",amount:2640, stale:1, next:""},
+    ],
+    baseline:{cw_amount:218636,active_deals:4,pipeline_value:140000,stale_7d:2,high_touch_week:9,next_step_pct:75},
+  },
+  {
+    id:"mk", name:"Michael Krause", initials:"MK", role:"Consultant / Deal Assist",
+    cw_amount:0, cw_deals:0,
+    active_deals:1, pipeline_value:2000, stale_7d:0, deals_advanced_week:1, avg_days_to_close:30,
+    ip_meetings_week:2, vr_calls_week:5, phone_calls_week:4, text_touches_week:3,
+    meetings_target:4, calls_target:8, text_target:3,
+    next_step_pct:0, amount_populated:100, close_date_set:0, bant_pct:100, stage_flow_pct:100, daily_verified:100,
+    expansion_deals:[],
+    deals:[
+      {name:"UNC Pembroke - Dr. Stewart Thomas / Dean",stage:"Discovery/Demo",amount:2000,stale:0,
+       next:"⚠ UPDATE NEEDED: Dean hosting all-faculty demo — amount & stage undervalued in HubSpot"},
+    ],
+    baseline:{cw_amount:0,active_deals:0,pipeline_value:0,stale_7d:0,high_touch_week:0,next_step_pct:0},
+  },
+];
+
+// ═══════════════════════════════════════════════════════════
+//  SCORING ENGINE
+// ═══════════════════════════════════════════════════════════
+function clamp(v){return Math.min(100,Math.max(0,v));}
+function pct(a,b){return b===0?0:Math.round(a/b*100);}
+
+function grade(s){
+  if(s>=90)return{l:"A",color:"#5A9420",bg:"#EBF5DC",bd:"#B2D87A"};
+  if(s>=75)return{l:"B",color:"#0077B5",bg:"#E0F0FA",bd:"#7ABDE0"};
+  if(s>=60)return{l:"C",color:"#C07800",bg:"#FFF4DC",bd:"#F0C868"};
+  if(s>=40)return{l:"D",color:"#C04A10",bg:"#FFEDE4",bd:"#F0A080"};
+  return         {l:"F",color:"#B82038",bg:"#FFECEF",bd:"#E8909A"};
+}
+
+function score(r){
+  const cw  = clamp(pct(r.cw_amount,QUOTA));
+  const cov = clamp(pct(r.pipeline_value,QUOTA*3));
+  const stl = clamp(100-r.stale_7d*8);
+  const adv = clamp(r.deals_advanced_week*25);
+  const cyc = clamp(100-Math.max(0,(r.avg_days_to_close-30)/60*100));
+  const vel = Math.round(cov*0.3+stl*0.3+adv*0.2+cyc*0.2);
+  const mtg = clamp(pct(r.ip_meetings_week+r.vr_calls_week,r.meetings_target));
+  const cal = clamp(pct(r.phone_calls_week,r.calls_target));
+  const txt = clamp(pct(r.text_touches_week,r.text_target));
+  const act = Math.round(mtg*0.45+cal*0.40+txt*0.15);
+  const qal = Math.round(r.next_step_pct*0.25+r.amount_populated*0.15+r.close_date_set*0.15+r.bant_pct*0.20+r.stage_flow_pct*0.15+r.daily_verified*0.10);
+  const expBonus = Math.min(8,r.expansion_deals.filter(d=>d.cw).length*4);
+  const overall = clamp(Math.round(cw*0.40+vel*0.25+act*0.20+qal*0.15)+expBonus);
+  return{cw,vel,act,qal,expBonus,overall,cov,stl,adv,mtg,cal,txt};
+}
+
+const STAGES={
+  "Negotiation":   "#0B4971",
+  "Commit/Verbal": "#0077B5",
+  "Trial":         "#69A62A",
+  "Opportunity":   "#C07800",
+  "Discovery/Demo":"#7A8FA6",
+  "Unknown":       "#B0BCC8",
+};
+const STAGE_ORDER=["Negotiation","Commit/Verbal","Trial","Opportunity","Discovery/Demo","Unknown"];
+
+function fmt(v){if(!v&&v!==0)return"—";return v>=1000?"$"+(v/1000).toFixed(0)+"K":"$"+v;}
+
+function radial(s,sz,sw){
+  const g=grade(s),r=(sz-sw)/2,c=sz/2,circ=2*Math.PI*r,off=circ-s/100*circ;
+  return`<svg width="${sz}" height="${sz}" style="transform:rotate(-90deg)">
+    <circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="#DDE4EF" stroke-width="${sw}"/>
+    <circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="${g.color}" stroke-width="${sw}"
+      stroke-dasharray="${circ.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}" stroke-linecap="round"/>
+    <text x="${c}" y="${c+sz*0.08}" text-anchor="middle" fill="${g.color}"
+      font-size="${sz*0.22}" font-weight="700" font-family="'Roboto Mono',monospace"
+      style="transform:rotate(90deg);transform-origin:${c}px ${c}px">${s}</text>
+  </svg>`;
+}
+function bar(val,color){return`<div class="bar-t"><div class="bar-f" style="width:${clamp(val)}%;background:${color}"></div></div>`;}
+function metRow(label,val,target){
+  const p=clamp(pct(val,target));
+  const c=p>=90?"#5A9420":p>=65?"#C07800":"#B82038";
+  return`<div class="mrow"><div class="mrow-top"><span class="mlabel">${label}</span><span class="mval" style="color:${c}">${val} / ${target}</span></div>${bar(p,c)}</div>`;
+}
+function metPct(label,val){
+  const c=val>=90?"#5A9420":val>=65?"#C07800":"#B82038";
+  return`<div class="mrow"><div class="mrow-top"><span class="mlabel">${label}</span><span class="mval" style="color:${c}">${val}%</span></div>${bar(val,c)}</div>`;
+}
+
+// ── INIT ────────────────────────────────────────────────────
+document.getElementById("topbarDate").textContent = `Export: ${EXPORT_DATE}`;
+document.getElementById("phSub").textContent = `${QUARTER} · ${WEEK_LABEL} · Quota $${(QUOTA/1000).toFixed(0)}K / rep`;
+document.getElementById("exportPill").textContent = `Export: ${EXPORT_DATE}`;
+
+const totCW    = REPS.reduce((s,r)=>s+r.cw_amount,0);
+const totPip   = REPS.reduce((s,r)=>s+r.pipeline_value,0);
+const totDeals = REPS.reduce((s,r)=>s+r.active_deals,0);
+const totStale = REPS.reduce((s,r)=>s+r.stale_7d,0);
+const aeReps   = REPS.filter(r=>r.role.includes("Account")).length;
+
+document.getElementById("kpiStrip").innerHTML=`
+  <div class="kpi b"><div class="kpi-label">2026 YTD Closed Won</div><div class="kpi-val">$${(totCW/1000).toFixed(0)}K</div><div class="kpi-sub">${REPS.reduce((s,r)=>s+r.cw_deals,0)} deals closed this year</div></div>
+  <div class="kpi g"><div class="kpi-label">Active Pipeline</div><div class="kpi-val">$${(totPip/1000).toFixed(0)}K</div><div class="kpi-sub">${totDeals} active deals</div></div>
+  <div class="kpi ${totStale>5?"r":totStale>2?"a":"g"}"><div class="kpi-label">Stale &gt;7 Days</div><div class="kpi-val">${totStale}</div><div class="kpi-sub">${totStale>5?"⚠ Action required today":totStale>0?"Monitor in standup":"All current ✓"}</div></div>
+  <div class="kpi a"><div class="kpi-label">Team Quota Attainment</div><div class="kpi-val">${Math.round(totCW/(QUOTA*aeReps)*100)}%</div><div class="kpi-sub">vs $${(QUOTA*aeReps/1000).toFixed(0)}K combined Q1 target</div></div>`;
+
+let activeId = REPS[0].id;
+
+function buildCards(){
+  document.getElementById("repGrid").innerHTML = REPS.map(r=>{
+    const s=score(r), g=grade(s.overall);
+    const active = activeId===r.id;
+    return`<div class="rep-card${active?" active":""}" onclick="selectRep('${r.id}')">
+      <div class="rc-top">
+        <div class="rc-avatar" style="background:${g.bg};border-color:${g.color};color:${g.color}">${r.initials}</div>
+        <div><div class="rc-name">${r.name}</div><div class="rc-role">${r.role}</div></div>
+        <div class="rc-score">${radial(s.overall,50,5)}</div>
+      </div>
+      <div class="rc-pillars">
+        ${[["CW",s.cw],["VEL",s.vel],["ACT",s.act],["QAL",s.qal]].map(([l,v])=>{
+          const gg=grade(v);
+          return`<div class="pil-mini" style="background:${gg.bg}"><div class="pil-mini-l">${l}</div><div class="pil-mini-v" style="color:${gg.color}">${v}</div></div>`;
+        }).join("")}
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function selectRep(id){
+  activeId=id; buildCards(); renderDetail(id);
+  document.getElementById("detail").scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+function renderDetail(id){
+  const r=REPS.find(x=>x.id===id);
+  const s=score(r), g=grade(s.overall);
+  const expCWAmt = r.expansion_deals.filter(d=>d.cw).reduce((sum,d)=>sum+d.amount,0);
+  const totalHT  = r.ip_meetings_week+r.vr_calls_week+r.phone_calls_week+r.text_touches_week;
+
+  document.getElementById("dName").innerHTML=`<span style="color:${g.color}">${r.name}</span>`;
+  document.getElementById("dSub").textContent=`$${(r.cw_amount/1000).toFixed(1)}K CW · ${r.active_deals} active deals · $${(r.pipeline_value/1000).toFixed(0)}K pipeline · Score ${s.overall} — Grade ${g.l}`;
+
+  const cwG=grade(s.cw), velG=grade(s.vel), actG=grade(s.act), qualG=grade(s.qal);
+
+  document.getElementById("pillarGrid").innerHTML=`
+    <div class="p-card" style="border-top-color:${cwG.color}">
+      <div class="p-head">
+        <div class="p-name">CW Revenue to Quota <span style="color:var(--muted);font-weight:400">(40%)</span></div>
+        <div class="p-badge" style="color:${cwG.color};background:${cwG.bg};border-color:${cwG.bd}">${s.cw} · ${cwG.l}</div>
+      </div>
+      <div class="mrow"><div class="mrow-top"><span class="mlabel">2026 YTD Closed Won vs $100K Quota</span><span class="mval" style="color:${cwG.color}">$${(r.cw_amount/1000).toFixed(1)}K / $100K</span></div>
+      <div class="bar-t" style="height:8px"><div class="bar-f" style="width:${clamp(pct(r.cw_amount,QUOTA))}%;height:100%;background:linear-gradient(90deg,${cwG.color}80,${cwG.color})"></div></div></div>
+      <div class="stat-trio">
+        <div class="stat-box"><div class="stat-l">Deals Won</div><div class="stat-v" style="color:${cwG.color}">${r.cw_deals}</div></div>
+        <div class="stat-box"><div class="stat-l">Gap to Quota</div><div class="stat-v" style="color:var(--muted)">$${Math.max(0,(QUOTA-r.cw_amount)/1000).toFixed(0)}K</div></div>
+        <div class="stat-box"><div class="stat-l">Attainment</div><div class="stat-v" style="color:${cwG.color}">${pct(r.cw_amount,QUOTA)}%</div></div>
+      </div>
+      ${expCWAmt>0?`<div style="padding:7px 10px;background:var(--gold-bg);border:1px solid var(--gold-bd);border-left:3px solid var(--qh-green);border-radius:7px;font-size:10px;color:var(--gold);font-weight:500">★ Expansion revenue included: $${(expCWAmt/1000).toFixed(1)}K — rep retains full account ownership</div>`:""}
+    </div>
+
+    <div class="p-card" style="border-top-color:${velG.color}">
+      <div class="p-head">
+        <div class="p-name">Deal Velocity <span style="color:var(--muted);font-weight:400">(25%)</span></div>
+        <div class="p-badge" style="color:${velG.color};background:${velG.bg};border-color:${velG.bd}">${s.vel} · ${velG.l}</div>
+      </div>
+      <div class="stat-trio">
+        <div class="stat-box"><div class="stat-l">Pipeline</div><div class="stat-v" style="color:${r.pipeline_value>=QUOTA*3?"#5A9420":r.pipeline_value>=QUOTA?"#C07800":"#B82038"}">${fmt(r.pipeline_value)}</div></div>
+        <div class="stat-box"><div class="stat-l">Advanced</div><div class="stat-v" style="color:${r.deals_advanced_week>=3?"#5A9420":r.deals_advanced_week>=1?"#C07800":"#B82038"}">${r.deals_advanced_week}</div></div>
+        <div class="stat-box"><div class="stat-l">Stale >7d</div><div class="stat-v" style="color:${r.stale_7d===0?"#5A9420":r.stale_7d<=2?"#C07800":"#B82038"}">${r.stale_7d}</div></div>
+      </div>
+      ${metPct("Pipeline Coverage (vs 3× quota)",s.cov)}
+      ${metPct("Stage Advancement",s.adv)}
+      ${metPct("Stale Deal Health",s.stl)}
+    </div>
+
+    <div class="p-card" style="border-top-color:${actG.color}">
+      <div class="p-head">
+        <div class="p-name">Qualified Activity <span style="color:var(--muted);font-weight:400">(20%)</span></div>
+        <div class="p-badge" style="color:${actG.color};background:${actG.bg};border-color:${actG.bd}">${s.act} · ${actG.l}</div>
+      </div>
+      <div style="font-size:9px;color:var(--muted);margin-bottom:10px;padding:6px 8px;background:var(--bg);border-radius:6px;line-height:1.6;border:1px solid var(--border)">
+        <strong style="color:var(--text2)">High Touch</strong> = IP meetings + VR/Zoom + Phone calls &nbsp;·&nbsp; Email not counted &nbsp;·&nbsp; SMS self-reported standup
+      </div>
+      ${metRow("IP + Video Meetings",r.ip_meetings_week+r.vr_calls_week,r.meetings_target)}
+      ${metRow("Phone Calls",r.phone_calls_week,r.calls_target)}
+      ${metRow("Text/SMS Touches (self-reported)",r.text_touches_week,r.text_target)}
+      <div style="margin-top:8px;padding:6px 9px;background:var(--bg);border-radius:7px;border:1px solid var(--border);font-size:10px;color:var(--text2)">
+        Total high-touch this week: <strong style="font-family:var(--mono);color:${actG.color}">${totalHT}</strong>
+        &nbsp;(${r.ip_meetings_week} IP · ${r.vr_calls_week} VR · ${r.phone_calls_week} calls · ${r.text_touches_week} texts)
+      </div>
+    </div>
+
+    <div class="p-card" style="border-top-color:${qualG.color}">
+      <div class="p-head">
+        <div class="p-name">Deal Quality <span style="color:var(--muted);font-weight:400">(15%)</span></div>
+        <div class="p-badge" style="color:${qualG.color};background:${qualG.bg};border-color:${qualG.bd}">${s.qal} · ${qualG.l}</div>
+      </div>
+      ${metPct("Next Step Populated",r.next_step_pct)}
+      ${metPct("Amount / ARR Populated",r.amount_populated)}
+      ${metPct("Close Date Set",r.close_date_set)}
+      ${metPct("BANT Criteria Complete",r.bant_pct)}
+      ${metPct("Proper Stage Flow (no skips)",r.stage_flow_pct)}
+      ${metPct("Active Deals Verified Daily",r.daily_verified)}
+    </div>`;
+
+  // Expansion
+  let expHtml="";
+  if(r.expansion_deals.length){
+    const totExp=r.expansion_deals.reduce((s,d)=>s+d.amount,0);
+    expHtml=`<div class="exp-section">
+      <div class="exp-head">
+        <div class="exp-title">★ Expansion Ownership · Post-Close Pipeline</div>
+        <div class="exp-bonus">+${s.expBonus} pts bonus · $${(totExp/1000).toFixed(0)}K owned</div>
+      </div>
+      ${r.expansion_deals.map(d=>{
+        const sc=d.stage==="Closed Won"?"#5A9420":"#C07800";
+        return`<div class="exp-deal"><div class="exp-deal-name">${d.name}</div><div class="exp-deal-amt">${fmt(d.amount)}</div><div class="exp-stage" style="background:${d.stage==="Closed Won"?"#EBF5DC":"#FFF4DC"};color:${sc};border:1px solid ${d.stage==="Closed Won"?"#B2D87A":"#F0C868"}">${d.stage}</div></div>`;
+      }).join("")}
+      <div style="margin-top:8px;font-size:10px;color:var(--muted)">Rep owns all renewals, upsells, and cross-sells on these accounts. Counts toward CW + earns score bonus.</div>
+    </div>`;
+  }
+  document.getElementById("expSection").innerHTML=expHtml;
+
+  // Pipeline
+  const grouped={};
+  STAGE_ORDER.forEach(s=>{grouped[s]=[];});
+  r.deals.forEach(d=>{(grouped[d.stage]=grouped[d.stage]||[]).push(d);});
+  let pipHtml=`<div style="font-size:11px;color:var(--muted);margin-bottom:14px">${r.name} · ${r.active_deals} active deals · ${fmt(r.pipeline_value)} total pipeline</div>`;
+  STAGE_ORDER.forEach(stage=>{
+    const deals=grouped[stage]; if(!deals||!deals.length)return;
+    const sc=STAGES[stage]||"#7A8FA6";
+    pipHtml+=`<div class="stage-group">
+      <div class="stage-hdr"><div class="stage-dot" style="background:${sc}"></div><span class="stage-nm" style="color:${sc}">${stage}</span><span class="stage-ct">(${deals.length})</span></div>
+      ${deals.map(d=>{
+        const sw=d.stale>14?`<span class="stale-pill" style="background:#FFECEF;color:#B82038;border-color:#E8909A">${d.stale}d</span>`:d.stale>7?`<span class="stale-pill" style="background:#FFEDE4;color:#C04A10;border-color:#F0A080">${d.stale}d</span>`:"";
+        return`<div class="deal-row"><div class="deal-nw"><div class="deal-nm">${d.name}</div>${d.next?`<div class="deal-ns">${d.next}</div>`:""}</div><div class="deal-amt">${fmt(d.amount)}</div>${sw}</div>`;
+      }).join("")}
+    </div>`;
+  });
+  if(r.stale_7d>0)pipHtml+=`<div class="alert-banner">⚠ ${r.stale_7d} deal${r.stale_7d>1?"s":""} stale >7 days — address in today's standup.</div>`;
+  document.getElementById("pipContent").innerHTML=pipHtml;
+
+  // Compare
+  const b=r.baseline, htNow=r.ip_meetings_week+r.vr_calls_week+r.phone_calls_week;
+  const metrics=[
+    {l:"2026 CW Revenue",   bef:b.cw_amount,     aft:r.cw_amount,     f:v=>"$"+(v/1000).toFixed(1)+"K",good:"up"},
+    {l:"Active Deals",      bef:b.active_deals,   aft:r.active_deals,   f:v=>v,                           good:"up"},
+    {l:"Pipeline Value",    bef:b.pipeline_value, aft:r.pipeline_value, f:v=>"$"+(v/1000).toFixed(0)+"K",good:"up"},
+    {l:"Stale >7 Days",     bef:b.stale_7d,       aft:r.stale_7d,       f:v=>v,                           good:"down"},
+    {l:"High Touch / Wk",   bef:b.high_touch_week,aft:htNow,            f:v=>v,                           good:"up"},
+    {l:"Next Step %",       bef:b.next_step_pct,  aft:r.next_step_pct,  f:v=>v+"%",                       good:"up"},
+  ];
+  let cmpHtml=`<div style="font-size:11px;color:var(--muted);margin-bottom:14px">Week 4 baseline (Mar 9) vs today's export (${EXPORT_DATE})</div><div class="cmp-grid">`;
+  metrics.forEach(m=>{
+    const up=m.aft>m.bef, same=m.aft===m.bef;
+    const good=m.good==="up"?up:!up;
+    const color=same?"#B0BCC8":good?"#5A9420":"#B82038";
+    cmpHtml+=`<div class="cmp-card"><div class="cmp-label">${m.l}</div><div class="cmp-vals"><div class="cmp-before">${m.f(m.bef)}</div><div class="cmp-arrow" style="color:${color}">${same?"→":up?"▲":"▼"}</div><div class="cmp-after" style="color:${color}">${m.f(m.aft)}</div></div></div>`;
+  });
+  cmpHtml+="</div>";
+
+  const insightMap={
+    joe:[
+      {color:"#5A9420",title:"🎯 Big 3 in late stages",body:"SciF ($256K), Valdosta ($74K), and IMG Academy ($78K) all active in Negotiation or Discovery. If 2 of 3 close, Joe exceeds quota significantly. Active every day, disciplined pipeline."},
+      {color:"#C07800",title:"⚡ CW gap is a timing story, not an effort story",body:"$2K CW so far — but $408K in Negotiation. This is pipeline timing, not execution failure. Coverage is strong."},
+      {color:"#B82038",title:"⚠ West Georgia deal — 41 days stale",body:"XX Christopher Johnson hasn't been touched in 41 days, no proper stage. Close Lost or reassign before next weekly review."},
+    ],
+    jason:[
+      {color:"#C07800",title:"📊 Wide pipeline, shallow depth",body:"18 active deals but $98.9K total — avg $5.5K/deal. 83% stuck in Discovery or Opportunity. Pipeline width ≠ velocity."},
+      {color:"#B82038",title:"⚠ 6 deals stale >7 days",body:"Alabama A&M ×2, George Fox (21d!), UAB, Samford, Mississippi College. Move or close-lost these. Stale count is inflating deal volume without adding real pipeline value."},
+      {color:"#5A9420",title:"✅ Next step discipline — 100%",body:"Every active deal has a next step populated, up from ~60% at baseline. Foundation for velocity is there. Now execute on them."},
+    ],
+    nate:[
+      {color:"#5A9420",title:"🏆 Nate is carrying Q1 revenue",body:"$218.6K of $269.4K team YTD closed won. 12 deals, including Culverhouse MIS 200 at $167.7K. Expansion ownership model is the proof point."},
+      {color:"#B82038",title:"⚠ Mercer — 33 days stale, no next step",body:"$55.8K in Negotiation. Last touch Feb 19. No next step in HubSpot. Needs contact today or risks going cold entirely."},
+      {color:"#C07800",title:"📋 Next steps missing from all 3 active deals",body:"Despite strong revenue, none of Nate's 3 active deals have a next step populated. Data hygiene must improve as pipeline grows."},
+    ],
+    mk:[
+      {color:"#0077B5",title:"🎓 UNC Pembroke — dean-hosted faculty demo",body:"Dr. Stewart Thomas hosting an all-faculty demo is a strong institutional signal. This deal is currently a $2K stub and is almost certainly 10-20× undervalued."},
+      {color:"#C07800",title:"🔧 HubSpot record needs urgent update",body:"Update amount, stage, and close date before next weekly review. Dean-level engagement warrants proper pipeline treatment."},
+    ],
+  };
+  const ins=insightMap[r.id]||[];
+  if(ins.length){
+    cmpHtml+=`<div class="insights">${ins.map(i=>`<div class="ins" style="border-left:3px solid ${i.color};border-color:${i.color}30;background:${i.color}08"><div class="ins-title" style="color:${i.color}">${i.title}</div><div class="ins-body">${i.body}</div></div>`).join("")}</div>`;
+  }
+  document.getElementById("cmpContent").innerHTML=cmpHtml;
+}
+
+function switchTab(btn,name){
+  document.querySelectorAll(".tc").forEach(el=>el.classList.remove("on"));
+  document.querySelectorAll(".tab").forEach(el=>el.classList.remove("on"));
+  document.getElementById("tc-"+name).classList.add("on");
+  btn.classList.add("on");
+}
+
+buildCards();
+renderDetail(REPS[0].id);
+</script>
+</body>
+</html>
