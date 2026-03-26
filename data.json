@@ -1,1 +1,474 @@
-{}
+{
+  "reps": [
+    {
+      "id": "jd",
+      "name": "Joe DeRario",
+      "initials": "JD",
+      "role": "Account Executive",
+      "cw_amount": 2000,
+      "cw_deals": 1,
+      "active_deals": 14,
+      "pipeline_value": 439524,
+      "stale_7d": 1,
+      "deals_advanced_week": 13,
+      "avg_days_to_close": 103,
+      "ip_meetings_week": 8,
+      "vr_calls_week": 7,
+      "phone_calls_week": 0,
+      "text_touches_week": 0,
+      "meetings_target": 6,
+      "calls_target": 15,
+      "text_target": 5,
+      "next_step_pct": 93,
+      "amount_populated": 93,
+      "close_date_set": 100,
+      "stage_flow_pct": 100,
+      "bant_pct": 50,
+      "daily_verified": 80,
+      "raw_calls": 0,
+      "raw_meetings": 15,
+      "raw_emails": 69,
+      "expansion_deals": [
+        {
+          "name": "Dalton State College - Summer 2026 GenAI",
+          "amount": 2000,
+          "stage": "Closed Won",
+          "cw": true
+        }
+      ],
+      "deals": [
+        {
+          "name": "SciF - Corp Deal",
+          "stage": "Negotiation",
+          "amount": 256000,
+          "stale": 2,
+          "next": "Waiting on Job Descriptions from Raquel"
+        },
+        {
+          "name": "IMG Academy - AI Literacy",
+          "stage": "Discovery/Demo (SQL)",
+          "amount": 78000,
+          "stale": 2,
+          "next": "Call w/ Portia to review Catalog and modules to move forward"
+        },
+        {
+          "name": "Valdosta State University - New Deal",
+          "stage": "Negotiation",
+          "amount": 74000,
+          "stale": 2,
+          "next": "3/20 - Guclu confirmed review, JD offered to sync on Tuesday 3/25"
+        },
+        {
+          "name": "Morocco Pilot Universities  - Channel Partner",
+          "stage": "Sales Opportunity",
+          "amount": 9600,
+          "stale": 2,
+          "next": "3/16 Call"
+        },
+        {
+          "name": "CLARK UNIVERSITY - MBA Excel",
+          "stage": "Sales Opportunity",
+          "amount": 3600,
+          "stale": 7,
+          "next": "Shared with Cheryl Syllabus matching - Waiting on feedback. Email sent 3/10"
+        },
+        {
+          "name": "UNA - CIS 292 Summer 2026 Pilot Section",
+          "stage": "Commit/Verbal",
+          "amount": 3300,
+          "stale": 2,
+          "next": "Get bookstore contact to move deal forward. VM left for Justin. Continue to push for close"
+        },
+        {
+          "name": "Silvanus Udoka - Clark Atlanta University-SBAA",
+          "stage": "Commit/Verbal",
+          "amount": 3200,
+          "stale": 2,
+          "next": "Get bookstore intro"
+        },
+        {
+          "name": "University of Evansville -Marketing Strat",
+          "stage": "Trial (optional)",
+          "amount": 3040,
+          "stale": 2,
+          "next": "Connect with Suresh - regarding intro to bookstore"
+        },
+        {
+          "name": "Georgia Southern University - Entrepreneurship",
+          "stage": "Trial (optional)",
+          "amount": 2960,
+          "stale": 3,
+          "next": "Meeting with Katia to move to bookstore on 3/25"
+        },
+        {
+          "name": "Illinois State University - New Deal AI / Excel Pilot",
+          "stage": "Trial (optional)",
+          "amount": 2160,
+          "stale": 2,
+          "next": "Sync with Della to review pilot outcomes 3/23"
+        },
+        {
+          "name": "Coastal Alabama Community College - Student Pilot",
+          "stage": "Sales Opportunity",
+          "amount": 1360,
+          "stale": 2,
+          "next": "Set a follow-up task for early April to reconnect after Ryan speaks with Ann, and prepare a brief recap of how QuantHub could support their AI pilot so you're ready when he circles back."
+        },
+        {
+          "name": "Lewis University - AI In Marketing",
+          "stage": "Discovery/Demo (SQL)",
+          "amount": 1344,
+          "stale": 4,
+          "next": "3/20- Jim reviewing. JD to lock follow up meeting."
+        },
+        {
+          "name": "AI in Marketing Loras College - New Deal",
+          "stage": "Sales Opportunity",
+          "amount": 960,
+          "stale": 2,
+          "next": "3/20 - Syllabus received. Working on mapping and securing review meeting"
+        },
+        {
+          "name": "West Georgia UoWG John Upson",
+          "stage": "Trial (optional)",
+          "amount": null,
+          "stale": 1,
+          "next": ""
+        }
+      ]
+    },
+    {
+      "id": "jr",
+      "name": "Jason Rupert",
+      "initials": "JR",
+      "role": "Account Executive",
+      "cw_amount": 9600,
+      "cw_deals": 1,
+      "active_deals": 18,
+      "pipeline_value": 98953,
+      "stale_7d": 11,
+      "deals_advanced_week": 7,
+      "avg_days_to_close": 57,
+      "ip_meetings_week": 8,
+      "vr_calls_week": 8,
+      "phone_calls_week": 6,
+      "text_touches_week": 0,
+      "meetings_target": 6,
+      "calls_target": 15,
+      "text_target": 5,
+      "next_step_pct": 100,
+      "amount_populated": 89,
+      "close_date_set": 100,
+      "stage_flow_pct": 100,
+      "bant_pct": 50,
+      "daily_verified": 80,
+      "raw_calls": 6,
+      "raw_meetings": 16,
+      "raw_emails": 277,
+      "expansion_deals": [
+        {
+          "name": "University of Alabama at Birmingham - Alicia McCall - Fall 26",
+          "amount": 9600,
+          "stage": "Closed Won",
+          "cw": true
+        }
+      ],
+      "deals": [
+        {
+          "name": "The College of New Jersey - New Deal",
+          "stage": "Discovery/Demo (SQL)",
+          "amount": 28800,
+          "stale": 3,
+          "next": "Sched intro meeting after return from spring break on 3-23 - JR\nGet Louis Tucci in the platform. He is on a committee and needs their approval for QH. Wants a foundational course for all students to take. 600 students to start, he is mostly interested in AI foundations and AI in the age of marketing."
+        },
+        {
+          "name": "University of Nebraska–Lincoln - New Deal",
+          "stage": "Sales Opportunity",
+          "amount": 20000,
+          "stale": 3,
+          "next": "Sched intro meeting - JR\n\nAI Marketing introduction + syllabus submission + setup next meeting after his spring break - Returns 3-23"
+        },
+        {
+          "name": "Alabama A&M University - Potential New Deal after Dr. McKey",
+          "stage": "Discovery/Demo (SQL)",
+          "amount": 10625,
+          "stale": 10,
+          "next": "Sched intro meeting - JR\nKeep talking to Dr. McKey about other professors to add. See what modules they'd want and get them in the platform."
+        },
+        {
+          "name": "RISK: Florida State University - Spring Pilot - Marina Girju",
+          "stage": "Trial (optional)",
+          "amount": 9600,
+          "stale": 3,
+          "next": "Send agreement doc to Marina, Initiate pilot implementation process"
+        },
+        {
+          "name": "George Fox University - New Deal",
+          "stage": "Discovery/Demo (SQL)",
+          "amount": 5760,
+          "stale": 23,
+          "next": "Follow up meeting sched"
+        },
+        {
+          "name": "University of Maryland - New Deal",
+          "stage": "Trial (optional)",
+          "amount": 5400,
+          "stale": 8,
+          "next": "Sched meeting for June/July to finalize for fall"
+        },
+        {
+          "name": "University of Nebraska–Lincoln - New Deal",
+          "stage": "Discovery/Demo (SQL)",
+          "amount": 4000,
+          "stale": 3,
+          "next": "Sched intro meeting - JR"
+        },
+        {
+          "name": "Alabama A&M University - New Deal",
+          "stage": "Discovery/Demo (SQL)",
+          "amount": 3200,
+          "stale": 10,
+          "next": "Sched intro meeting - JR\nMap her syllabus to Quanthub modules. Meeting 2/25 to discuss next steps."
+        },
+        {
+          "name": "University of Alabama at Birmingham - New Deal",
+          "stage": "Discovery/Demo (SQL)",
+          "amount": 2400,
+          "stale": 10,
+          "next": "Reach out in late April per George's request to sched intro meeting - JR"
+        },
+        {
+          "name": "Pensacola Christian College - Jim White",
+          "stage": "Trial (optional)",
+          "amount": 1920,
+          "stale": 2,
+          "next": "Follow Up Meeting Sched for 4-8, reviewing Applied Data Science modules for fall"
+        },
+        {
+          "name": "Mississippi College - Retha Price",
+          "stage": "Sales Opportunity",
+          "amount": 1920,
+          "stale": 29,
+          "next": "Need to get meeting sched to review module alignment"
+        },
+        {
+          "name": "FIU - Tofazzal Hossain",
+          "stage": "Sales Opportunity",
+          "amount": 1872,
+          "stale": 8,
+          "next": "Trial review & potential decision sched for 3-18"
+        },
+        {
+          "name": "University of North Texas at Dallas - Jason Garrett",
+          "stage": "Discovery/Demo (SQL)",
+          "amount": 1680,
+          "stale": 7,
+          "next": "Ping at beg of April to sched follow up meeting - JR\n\nEmail Trial: Send Jason an email with a 1-week free trial account access.\n\nRequest Syllabus: Ask Jason to reply with his course syllabus so the content team can map it to specific QuantHub modules.\n\nCalendar Invite: Send Jason a calendar invitation for the follow-up meeting scheduled for Thursday, March 19th at 1:00 PM CST. (DONE)\n\nMap Modules (Internal): Once the syllabus is received, have the content team align it with recommended modules before the follow-up meeting.\n\nPrep Pricing (Internal): Calculate formal discounted pricing once Jason confirms the exact number of modules and students for future semesters."
+        },
+        {
+          "name": "Miami Dade College - Max Ramirez",
+          "stage": "Trial (optional)",
+          "amount": 1440,
+          "stale": 8,
+          "next": "Reconnecting in August prior to fall term"
+        },
+        {
+          "name": "Oakland University - New Deal",
+          "stage": "Discovery/Demo (SQL)",
+          "amount": 240,
+          "stale": 2,
+          "next": "Meeting sched for 3-30 - JR\nFind the student count and see how his syllabus is coming along. See if we can still help build it with him or if he has enough for us to map our modules to."
+        },
+        {
+          "name": "Middle Georgia State University - New Deal",
+          "stage": "Discovery/Demo (SQL)",
+          "amount": 96,
+          "stale": 7,
+          "next": "Sched intro meeting - JR"
+        },
+        {
+          "name": "University of North Carolina Wilmington - Barry Wray",
+          "stage": "Discovery/Demo (SQL)",
+          "amount": null,
+          "stale": 2,
+          "next": "Check in on 4-1 to confirm specific modules for fall"
+        },
+        {
+          "name": "Samford University - Matt Mazzei",
+          "stage": "Discovery/Demo (SQL)",
+          "amount": null,
+          "stale": 10,
+          "next": "Sched intro meeting - JR\nEmail Dr. Mazzei about connecting with the marketing teachers for a review and demo session with Nate and Matthew"
+        }
+      ]
+    },
+    {
+      "id": "ns",
+      "name": "Nate Spargo",
+      "initials": "NS",
+      "role": "Account Executive",
+      "cw_amount": 218636,
+      "cw_deals": 12,
+      "active_deals": 3,
+      "pipeline_value": 98465,
+      "stale_7d": 1,
+      "deals_advanced_week": 2,
+      "avg_days_to_close": 196,
+      "ip_meetings_week": 9,
+      "vr_calls_week": 9,
+      "phone_calls_week": 6,
+      "text_touches_week": 0,
+      "meetings_target": 6,
+      "calls_target": 15,
+      "text_target": 5,
+      "next_step_pct": 0,
+      "amount_populated": 100,
+      "close_date_set": 100,
+      "stage_flow_pct": 100,
+      "bant_pct": 50,
+      "daily_verified": 80,
+      "raw_calls": 6,
+      "raw_meetings": 18,
+      "raw_emails": 63,
+      "expansion_deals": [
+        {
+          "name": "Culverhouse MIS 200- Spring 2026",
+          "amount": 167750,
+          "stage": "Closed Won",
+          "cw": true
+        },
+        {
+          "name": "Sam Houston State University - School Wide Pilot - Late Spring/Early Summer",
+          "amount": 15000,
+          "stage": "Closed Won",
+          "cw": true
+        },
+        {
+          "name": "The University of Alabama -Jeff Lucas-MIS 221, 321, 497 - Spring 2026",
+          "amount": 9064,
+          "stage": "Closed Won",
+          "cw": true
+        },
+        {
+          "name": "UAB - AI Literacy - Manish - Spring 2026",
+          "amount": 8970,
+          "stage": "Closed Won",
+          "cw": true
+        },
+        {
+          "name": "The University of Alabama - MKT - Bill Koleszar - Spring 2026",
+          "amount": 7092,
+          "stage": "Closed Won",
+          "cw": true
+        },
+        {
+          "name": "High Point University-Daniel Hall - BUA1050 - Spring 2026",
+          "amount": 5760,
+          "stage": "Closed Won",
+          "cw": true
+        },
+        {
+          "name": "Karla Gower - APR 472 - Spring 2026",
+          "amount": 2200,
+          "stage": "Closed Won",
+          "cw": true
+        },
+        {
+          "name": "The University of Alabama - Bryan Hochstein - MKT 537, 539 -Spring 2026",
+          "amount": 1312,
+          "stage": "Closed Won",
+          "cw": true
+        },
+        {
+          "name": "Jacksonville State University - Amy Simon - CBA 330 - Spring 2026",
+          "amount": 912,
+          "stage": "Closed Won",
+          "cw": true
+        },
+        {
+          "name": "University of South Carolina Upstate - Elizabeth Cole - ACCT 433 - Spring 2026",
+          "amount": 280,
+          "stage": "Closed Won",
+          "cw": true
+        },
+        {
+          "name": "The University of Alabama - Paul Moreton - UH 229-005 -Spring 2026",
+          "amount": 176,
+          "stage": "Closed Won",
+          "cw": true
+        },
+        {
+          "name": "USC Upstate - UMA Gupta - MSBA 715 - Spring 2026",
+          "amount": 120,
+          "stage": "Closed Won",
+          "cw": true
+        }
+      ],
+      "deals": [
+        {
+          "name": "Mercer - University-wide AI Literacy Expansion",
+          "stage": "Negotiation",
+          "amount": 55825,
+          "stale": 35,
+          "next": ""
+        },
+        {
+          "name": "High Point University - University Wide AI Foundations",
+          "stage": "Negotiation",
+          "amount": 40000,
+          "stale": 2,
+          "next": ""
+        },
+        {
+          "name": "Wright State University - Linda Helentjaris - APS 2070 - Spring 2026",
+          "stage": "Commit/Verbal",
+          "amount": 2640,
+          "stale": 3,
+          "next": ""
+        }
+      ]
+    },
+    {
+      "id": "mk",
+      "name": "Michael Krause",
+      "initials": "MK",
+      "role": "Consultant / Deal Assist",
+      "cw_amount": 0,
+      "cw_deals": 0,
+      "active_deals": 1,
+      "pipeline_value": 2000,
+      "stale_7d": 0,
+      "deals_advanced_week": 1,
+      "avg_days_to_close": 7,
+      "ip_meetings_week": 2,
+      "vr_calls_week": 1,
+      "phone_calls_week": 1,
+      "text_touches_week": 0,
+      "meetings_target": 4,
+      "calls_target": 8,
+      "text_target": 5,
+      "next_step_pct": 0,
+      "amount_populated": 100,
+      "close_date_set": 100,
+      "stage_flow_pct": 100,
+      "bant_pct": 50,
+      "daily_verified": 80,
+      "raw_calls": 1,
+      "raw_meetings": 3,
+      "raw_emails": 41,
+      "expansion_deals": [],
+      "deals": [
+        {
+          "name": "UNC Pembroke - New Deal",
+          "stage": "Discovery/Demo (SQL)",
+          "amount": 2000,
+          "stale": 1,
+          "next": ""
+        }
+      ]
+    }
+  ],
+  "exportDate": "March 26, 2026",
+  "savedAt": "2026-03-26T22:59:36.599Z",
+  "version": 10
+}
