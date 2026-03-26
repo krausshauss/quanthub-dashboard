@@ -897,7 +897,7 @@ function showValidation(rawDeals, repsBuilt) {
 
   // ── WARNINGS ─────────────────────────────────────────
   const warnings = [];
-  if (allCW2026.length === 0) warnings.push({ level:'warn', msg:'<strong>No 2026 Closed Won deals detected.</strong> This usually means the date filter failed or the export doesn't include closed deals. Check your HubSpot export settings.' });
+  if (allCW2026.length === 0) warnings.push({ level:'warn', msg:'<strong>No 2026 Closed Won deals detected.</strong> This usually means the date filter failed or the export does not include closed deals. Check your HubSpot export settings.' });
   if (rawDeals.length < 20) warnings.push({ level:'warn', msg:`<strong>Only ${rawDeals.length} deals parsed.</strong> Expected 100+. The CSV may have been truncated or exported with filters applied.` });
   if (noNextStep > allActive.length * 0.5) warnings.push({ level:'warn', msg:`<strong>${noNextStep} of ${allActive.length} active deals have no next step</strong> — over 50%. This will heavily penalize Deal Quality scores.` });
   if (staleCount > allActive.length * 0.4) warnings.push({ level:'warn', msg:`<strong>${staleCount} deals are stale (>7 days no activity)</strong> — ${Math.round(staleCount/allActive.length*100)}% of active pipeline. Address in standup before scores are reviewed.` });
@@ -975,7 +975,7 @@ function buildScorecard(){
   if(pb) pb.remove();
   buildCards(); renderDetail(activeId); show('scScreen');
 
-  // Save to GitHub repo (async — don't block UI)
+  // Save to GitHub repo (async — do not block UI)
   const savingBadge = document.getElementById('srcBadge');
   if(savingBadge) savingBadge.innerHTML = '⏳ Saving to repo...';
   saveToGitHub(repData, exportDateStr).then(result => {
