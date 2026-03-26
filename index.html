@@ -1416,14 +1416,8 @@ async function loadFromGitHub() {
     }
     if (!res.ok) { console.warn('Data fetch failed:', res.status); return null; }
     const payload = await res.json();
-    if (!payload || !payload.reps || !payload.reps.length) {
-      console.log('No scorecard data found — showing upload screen');
-      return null;
-    }
-    if (!payload.version || payload.version < DATA_VERSION) {
-      console.log('Data version mismatch — showing upload screen');
-      return null;
-    }
+    if (!payload || !payload.reps || !payload.reps.length) return null;
+
     return payload;
   } catch(e) {
     console.warn('Could not load scorecard data:', e.message);
