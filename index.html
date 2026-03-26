@@ -443,7 +443,7 @@ input[type=file]{display:none;}
 </div>
 
 <!-- ══ SCREEN 3: SCORECARD ═══════════════════════════ -->
-<div id="scScreen">
+<div id="scScreen" style="display:none;">
 <div class="wrap">
   <div class="ph">
     <div>
@@ -1195,7 +1195,7 @@ function show(id){
   screens.forEach(s=>{
     const el=document.getElementById(s);
     if(s===id){
-      const flexScreens=['uploadScreen','loadingScreen','noDataScreen'];
+      const flexScreens=['uploadScreen','loadingScreen','noDataScreen'];  // these use display:flex
       el.style.display = flexScreens.includes(s) ? 'flex' : 'block';
       if(flexScreens.includes(s)){el.style.alignItems='center';el.style.justifyContent='center';}
       if(s==='valScreen'||s==='ovScreen'){el.style.display='block';}
