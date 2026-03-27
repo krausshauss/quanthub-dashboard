@@ -300,7 +300,7 @@ input[type=file]{display:none;}
     </svg>
     <span class="qh-wm">quanthub</span>
   </a>
-  <div class="tb-r"><div><strong>Sales Rep Scorecard</strong> · Higher Education</div><div id="tbInfo">Upload files to begin</div></div>
+  <div class="tb-r"><div><strong>Sales Rep Scorecard</strong> · Higher Education <span id="appVersionBadge" style="opacity:.5;font-size:9px;letter-spacing:.05em;margin-left:5px;font-family:var(--mono);"></span></div><div id="tbInfo">Upload files to begin</div></div>
 </div>
 
 <!-- ══ SCREEN 1: UPLOAD ══════════════════════════════ -->
@@ -531,7 +531,7 @@ input[type=file]{display:none;}
       <svg width="16" height="16" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="4" r="3" fill="#0077B5"/><circle cx="36" cy="20" r="3" fill="#0077B5"/><circle cx="20" cy="36" r="3" fill="#0077B5"/><circle cx="4" cy="20" r="3" fill="#0077B5"/><circle cx="20" cy="20" r="4" fill="#0B4971"/><line x1="20" y1="7" x2="20" y2="16" stroke="#0077B5" stroke-width="2.5" stroke-linecap="round"/><line x1="33" y1="20" x2="24" y2="20" stroke="#0077B5" stroke-width="2.5" stroke-linecap="round"/><line x1="20" y1="24" x2="20" y2="33" stroke="#0077B5" stroke-width="2.5" stroke-linecap="round"/><line x1="7" y1="20" x2="16" y2="20" stroke="#0077B5" stroke-width="2.5" stroke-linecap="round"/></svg>
       <span style="font-family:var(--font);font-size:12px;font-weight:700;color:#0B4971">quanthub</span>
     </div>
-    <div style="font-size:10px;color:var(--muted)">© 2026 QuantHub · Prepared by Dark Yeti Inc. · Confidential</div>
+    <div style="font-size:10px;color:var(--muted)">© 2026 QuantHub · Prepared by Dark Yeti Inc. · Confidential · <span id="footerVersion" style="font-family:var(--mono);"></span></div>
   </div>
 </div>
 </div>
@@ -543,6 +543,7 @@ input[type=file]{display:none;}
 const ADMIN_PIN  = '7777';   // ← Your 4-digit PIN
 const WORKER_URL = 'https://quanthub-proxy.michael-20e.workers.dev/';
 const DATA_VERSION = 10;
+const APP_VERSION   = 'v17e';
 
 let isAdminUnlocked = false;
 
@@ -1500,6 +1501,11 @@ function clearStorage() {}
 
 // ── ON PAGE LOAD: fetch data.json → show scorecard or upload ──────────────
 window.addEventListener('DOMContentLoaded', () => {
+  // Show app version
+  const vb = document.getElementById('appVersionBadge');
+  if(vb) vb.textContent = APP_VERSION;
+  const fv = document.getElementById('footerVersion');
+  if(fv) fv.textContent = APP_VERSION;
   show('loadingScreen');
   loadFromGitHub().then(saved => {
     console.log('[QH] loadFromGitHub result:', saved ? 'DATA FOUND (' + saved.reps.length + ' reps)' : 'NO DATA');
@@ -1531,7 +1537,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function restoreScorecard(saved) {
   const exportDate = saved.exportDate || 'Previous export';
-  const savedAt = saved.savedAt ? formatSavedAt(saved.savedAt) : 'unknown';
+  const savedAt = saved.savedAt ? (() => {
+    const d = new Date(saved.savedAt);
+    return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) +
+           ' at ' + d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+  })() : 'unknown';
 
   document.getElementById('phSb').textContent = `${QUARTER} · Quota $${(QUOTA/1000).toFixed(0)}K/rep`;
   document.getElementById('srcBadge').innerHTML = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> ${repData.reduce((s,r)=>s+r.active_deals,0)} deals · ${exportDate}`;
