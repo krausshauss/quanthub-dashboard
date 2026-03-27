@@ -19,7 +19,7 @@
 #pinModal.open{display:flex;align-items:center;justify-content:center;}
 </style>
 <title>QuantHub · Sales Rep Scorecard</title>
-<!-- QH-VERSION: v18 -->
+<!-- QH-VERSION: v18a -->
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Slab:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -1317,9 +1317,9 @@ function buildKpiStrip() {
   const pipeInsight = `Active pipeline across all reps. <strong>10× growth target = $${(QUOTA*aeN/100).toFixed(0)}K team total.</strong> Current coverage: ${Math.round(totPip/(QUOTA*aeN)*100)}% of that target. ${totPip<QUOTA*aeN*3?'Pipeline is critically thin. Top-of-funnel activity needs to increase significantly across all reps.':totPip<QUOTA*aeN*6?'Building but not at growth target yet. Keep deal flow coming at the top.':'Strong pipeline coverage — focus on advancing late-stage deals to close.'}`;
 
   const topRep = repData.filter(r=>r.role.includes('Account')).sort((a,b)=>b.cw_amount-a.cw_amount)[0];
-  const cwInsight = `Team YTD closed won vs $${(TEAM_TARGET/1000).toFixed(0)}K annual target (net new + expansion). <strong>At ${Math.round(totCW/TEAM_TARGET*100)}% of target.</strong> ${repData.filter(r=>r.cw_amount>0).length} of ${aeN} AEs have closed revenue this year. ${topRep?topRep.name.split(' ')[0]+' leads with $'+(topRep.cw_amount/1000).toFixed(0)+'K.':''} Each rep carries a $${(QUOTA/1000).toFixed(0)}K quarterly quota.`;
+  const cwInsight = `Team YTD closed won vs $1M annual target (net new + expansion). <strong>At ${Math.round(totCW/TEAM_TARGET*100)}% of target.</strong> ${repData.filter(r=>r.cw_amount>0).length} of ${aeN} AEs have closed revenue this year. ${topRep?topRep.name.split(' ')[0]+' leads with $'+(topRep.cw_amount/1000).toFixed(0)+'K.':''} Each rep carries a $${(QUOTA/1000).toFixed(0)}K quarterly quota.`;
 
-  const attInsight = `Q1 2026 quota attainment across ${aeN} AEs vs $${(QUOTA*aeN/1000).toFixed(0)}K combined quarterly quota. Toward annual $${(TEAM_TARGET/1000).toFixed(0)}K target: ${Math.round(totCW/TEAM_TARGET*100)}% achieved. ${teamAtt>=100?'Q1 quota met — exceptional.':teamAtt>=75?'On pace for Q1. Protect late-stage deals.':teamAtt>=40?'Behind Q1 quota. Identify closeable deals now.':'<strong>Significantly behind Q1 quota.</strong> Immediate pipeline review required.'} Click each rep card for details.`;
+  const attInsight = `Q1 2026 quota attainment across ${aeN} AEs vs $${(QUOTA*aeN/1000).toFixed(0)}K combined quarterly quota. Toward annual $1M target: ${Math.round(totCW/TEAM_TARGET*100)}% achieved. ${teamAtt>=100?'Q1 quota met — exceptional.':teamAtt>=75?'On pace for Q1. Protect late-stage deals.':teamAtt>=40?'Behind Q1 quota. Identify closeable deals now.':'<strong>Significantly behind Q1 quota.</strong> Immediate pipeline review required.'} Click each rep card for details.`;
 
   document.getElementById('kpiStrip').innerHTML = `
     <div class="kpi b" style="border-top-width:4px;">
@@ -1330,11 +1330,11 @@ function buildKpiStrip() {
         <div class="ins-tip">${cwInsight}</div>
       </div>
       <div style="margin:5px 0 3px;height:4px;background:var(--border);border-radius:2px;overflow:hidden;"><div style="height:100%;width:${Math.min(100,Math.round(totCW/TEAM_TARGET*100))}%;background:var(--qh-blue);border-radius:2px;transition:width .5s;"></div></div>
-      <div class="kpi-s">${repData.reduce((s,r)=>s+r.cw_deals,0)} deals · vs $${(TEAM_TARGET/1000).toFixed(0)}K target</div>
+      <div class="kpi-s">${repData.reduce((s,r)=>s+r.cw_deals,0)} deals · vs <strong>$1M</strong> annual target</div>
     </div>
     <div class="kpi g"><div class="kpi-l">Active Pipeline</div><div class="kpi-v-wrap"><div class="kpi-v">$${(totPip/1000).toFixed(0)}K</div><div class="ins-tip">${pipeInsight}</div></div><div class="kpi-s">${totD} active deals</div></div>
     <div class="kpi ${totS>5?'r':totS>2?'a':'g'}"><div class="kpi-l">Stale &gt;7 Days</div><div class="kpi-v-wrap"><div class="kpi-v">${totS}</div><div class="ins-tip">${staleInsight}</div></div><div class="kpi-s">${totS>5?'⚠ Action required':totS>0?'Monitor standup':'All current ✓'}</div></div>
-    <div class="kpi a"><div class="kpi-l">Team Quota Attainment</div><div class="kpi-v-wrap"><div class="kpi-v">${teamAtt}%</div><div class="ins-tip">${attInsight}</div></div><div class="kpi-s">vs $${(QUOTA*aeN/1000).toFixed(0)}K Q1 target</div></div>`;
+    <div class="kpi a"><div class="kpi-l">Team Quota Attainment</div><div class="kpi-v-wrap"><div class="kpi-v">${teamAtt}%</div><div class="ins-tip">${attInsight}</div></div><div class="kpi-s">vs $${(QUOTA*aeN/1000).toFixed(0)}K Q1 · $1M annual</div></div>`;
 }
 
 // ── GRADE INSIGHT COPY ─────────────────────────────────────────────────
