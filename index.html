@@ -16,7 +16,7 @@
 .pin-btn{padding:14px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);font-family:var(--mono);font-size:16px;font-weight:700;color:var(--text);cursor:pointer;transition:background .1s;}
 .pin-btn:hover{background:var(--bl-bg);}
 #pinModal{display:none;}
-#pinModal.open{display:flex;}
+#pinModal.open{display:flex;align-items:center;justify-content:center;}
 </style>
 <title>QuantHub · Sales Rep Scorecard</title>
 <!-- QH-VERSION: v17b-final -->
@@ -361,6 +361,45 @@ input[type=file]{display:none;}
 </div>
 </div>
 
+<!-- ══ PIN MODAL ════════════════════════════════════════ -->
+<div id="pinModal" style="display:none;position:fixed;inset:0;background:rgba(10,20,40,.75);z-index:99999;align-items:center;justify-content:center;backdrop-filter:blur(4px);">
+  <div style="background:#fff;border-radius:16px;padding:28px 32px;max-width:300px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.4);text-align:center;">
+    <svg width="32" height="32" viewBox="0 0 40 40" fill="none" style="margin:0 auto 10px;display:block">
+      <circle cx="20" cy="4" r="3" fill="#0077B5"/><circle cx="36" cy="20" r="3" fill="#0077B5"/>
+      <circle cx="20" cy="36" r="3" fill="#0077B5"/><circle cx="4" cy="20" r="3" fill="#0077B5"/>
+      <circle cx="20" cy="20" r="4" fill="#0B4971"/>
+      <line x1="20" y1="7" x2="20" y2="16" stroke="#0077B5" stroke-width="2" stroke-linecap="round"/>
+      <line x1="33" y1="20" x2="24" y2="20" stroke="#0077B5" stroke-width="2" stroke-linecap="round"/>
+      <line x1="20" y1="24" x2="20" y2="33" stroke="#0077B5" stroke-width="2" stroke-linecap="round"/>
+      <line x1="7" y1="20" x2="16" y2="20" stroke="#0077B5" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <div style="font-family:var(--slab);font-size:16px;font-weight:700;color:var(--qh-dark);margin-bottom:4px;">Admin Access</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:16px;">Enter PIN to load new data</div>
+    <div style="display:flex;gap:8px;justify-content:center;margin-bottom:16px;">
+      <div id="pd0" style="width:12px;height:12px;border-radius:50%;border:2px solid #dde4ef;background:#f4f6f9;"></div>
+      <div id="pd1" style="width:12px;height:12px;border-radius:50%;border:2px solid #dde4ef;background:#f4f6f9;"></div>
+      <div id="pd2" style="width:12px;height:12px;border-radius:50%;border:2px solid #dde4ef;background:#f4f6f9;"></div>
+      <div id="pd3" style="width:12px;height:12px;border-radius:50%;border:2px solid #dde4ef;background:#f4f6f9;"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;">
+      <button class="pin-btn" onclick="pinPress('1')">1</button>
+      <button class="pin-btn" onclick="pinPress('2')">2</button>
+      <button class="pin-btn" onclick="pinPress('3')">3</button>
+      <button class="pin-btn" onclick="pinPress('4')">4</button>
+      <button class="pin-btn" onclick="pinPress('5')">5</button>
+      <button class="pin-btn" onclick="pinPress('6')">6</button>
+      <button class="pin-btn" onclick="pinPress('7')">7</button>
+      <button class="pin-btn" onclick="pinPress('8')">8</button>
+      <button class="pin-btn" onclick="pinPress('9')">9</button>
+      <div></div>
+      <button class="pin-btn" onclick="pinPress('0')">0</button>
+      <button class="pin-btn" onclick="pinPress('back')" style="font-size:14px;">⌫</button>
+    </div>
+    <div id="pinError" style="font-size:11px;color:#b82038;min-height:16px;margin-bottom:8px;"></div>
+    <button onclick="closePinModal()" style="font-size:11px;color:var(--muted);background:none;border:none;cursor:pointer;padding:4px 8px;">Cancel</button>
+  </div>
+</div>
+
 <!-- ══ LOADING SCREEN ══════════════════════════════════ -->
 <div id="loadingScreen" style="display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 52px);">
   <div style="text-align:center;">
@@ -455,12 +494,12 @@ input[type=file]{display:none;}
       <div class="ph-tt">Sales Rep Scorecard</div>
       <div class="ph-sb" id="phSb"></div>
     </div>
-    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
       <button class="btn-rl" onclick="requestLoadNew()">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
         Load New Data
       </button>
-      <span class="src-badge" id="srcBadge"></span>
+      <span class="src-badge" id="srcBadge" style="font-size:10px;"></span>
     </div>
   </div>
   <div class="kpi-strip" id="kpiStrip"></div>
