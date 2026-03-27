@@ -1381,11 +1381,17 @@ function showPinModal() {
   pinEntry = '';
   updatePinDots();
   document.getElementById('pinError').textContent = '';
-  document.getElementById('pinModal').classList.add('open');
+  const modal = document.getElementById('pinModal');
+  // Move to body root to escape any stacking context issues
+  document.body.appendChild(modal);
+  modal.style.display = 'flex';
+  modal.style.alignItems = 'center';
+  modal.style.justifyContent = 'center';
 }
 
 function closePinModal() {
-  document.getElementById('pinModal').classList.remove('open');
+  const modal = document.getElementById('pinModal');
+  modal.style.display = 'none';
   pinEntry = '';
 }
 
