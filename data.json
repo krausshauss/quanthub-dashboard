@@ -109,7 +109,7 @@
           "name": "Wright State University - Linda Helentjaris - APS 2070 - Spring 2026",
           "stage": "Commit/Verbal",
           "amount": 2640,
-          "stale": 5,
+          "stale": 6,
           "next": "",
           "id": "37277051241"
         },
@@ -125,7 +125,7 @@
           "name": "High Point University - University Wide AI Foundations",
           "stage": "Negotiation",
           "amount": 40000,
-          "stale": 1,
+          "stale": 2,
           "next": "",
           "id": "57618912060"
         }
@@ -182,7 +182,7 @@
           "name": "Auburn University at Montgomery",
           "stage": "Discovery/Demo (SQL)",
           "amount": 1344,
-          "stale": 404,
+          "stale": 405,
           "next": "3/26: Met with Ben and Jeff—there’s interest in running a quick pilot before rolling it out to students.",
           "id": "28432600466"
         },
@@ -190,7 +190,7 @@
           "name": "Silvanus Udoka - Clark Atlanta University-SBAA",
           "stage": "Commit/Verbal",
           "amount": 3200,
-          "stale": 3,
+          "stale": 4,
           "next": "Get bookstore intro ",
           "id": "40613389058"
         },
@@ -198,7 +198,7 @@
           "name": "University of Evansville -Marketing Strat",
           "stage": "Trial (optional)",
           "amount": 3040,
-          "stale": 2,
+          "stale": 3,
           "next": "Connect with Suresh - regarding intro to bookstore\n",
           "id": "42100108688"
         },
@@ -222,7 +222,7 @@
           "name": "Georgia Southern University - Entrepreneurship ",
           "stage": "Trial (optional)",
           "amount": 2960,
-          "stale": 5,
+          "stale": 6,
           "next": "Meeting with Katia to move to bookstore on 3/25\n\n\n",
           "id": "54943321264"
         },
@@ -238,7 +238,7 @@
           "name": "Valdosta State University - New Deal",
           "stage": "Negotiation",
           "amount": 74000,
-          "stale": 4,
+          "stale": 5,
           "next": "3/20 - Guclu confirmed review, JD offered to sync on Tuesday 3/25",
           "id": "56549266038"
         },
@@ -254,7 +254,7 @@
           "name": "Lewis University - AI In Marketing",
           "stage": "Discovery/Demo (SQL)",
           "amount": 1344,
-          "stale": 6,
+          "stale": 7,
           "next": "3/20- Jim reviewing. JD to lock follow up meeting. ",
           "id": "57553905670"
         },
@@ -270,7 +270,7 @@
           "name": "West Georgia UoWG John Upson",
           "stage": "Negotiation",
           "amount": 15800,
-          "stale": 1,
+          "stale": 2,
           "next": "",
           "id": "58025395292"
         },
@@ -294,7 +294,7 @@
           "name": "Southeastern Louisiana University - New Deal",
           "stage": "Identified",
           "amount": null,
-          "stale": 0,
+          "stale": 1,
           "next": "",
           "id": "58404371467"
         }
@@ -336,7 +336,7 @@
           "name": "AUDIT: Customer: Jacksonville State University - Full Course Roll Out",
           "stage": "Discovery/Demo (SQL)",
           "amount": null,
-          "stale": 1,
+          "stale": 2,
           "next": "Amy already has a class with it, we want it to be college wide now. Find a way to slowly get them on board.",
           "id": "32557674616"
         },
@@ -352,7 +352,7 @@
           "name": "AUDIT - University of Alabama at Birmingham - Thomas DeCarlo",
           "stage": "Discovery/Demo (SQL)",
           "amount": 320,
-          "stale": 2,
+          "stale": 3,
           "next": "He showed interest during Nate and Matthew's UAB workshop. First step is getting him to actually respond and book a demo.",
           "id": "55478396442"
         }
@@ -368,7 +368,7 @@
       "active_deals": 19,
       "pipeline_value": 146953,
       "stale_7d": 12,
-      "deals_advanced_week": 16,
+      "deals_advanced_week": 17,
       "avg_days_to_close": 57,
       "ip_meetings_week": 7,
       "vr_calls_week": 7,
@@ -401,7 +401,7 @@
           "name": "Samford University - Matt Mazzei",
           "stage": "Discovery/Demo (SQL)",
           "amount": null,
-          "stale": 12,
+          "stale": 13,
           "next": "Sched intro meeting - JR\nEmail Dr. Mazzei about connecting with the marketing teachers for a review and demo session with Nate and Matthew",
           "id": "37626456748"
         },
@@ -433,7 +433,7 @@
           "name": "Middle Georgia State University - New Deal",
           "stage": "Discovery/Demo (SQL)",
           "amount": 96,
-          "stale": 9,
+          "stale": 10,
           "next": "Sched intro meeting - JR",
           "id": "55478407713"
         },
@@ -441,7 +441,7 @@
           "name": "Mississippi College - Retha Price",
           "stage": "Sales Opportunity",
           "amount": 1920,
-          "stale": 31,
+          "stale": 32,
           "next": "Need to get meeting sched to review module alignment",
           "id": "55927331339"
         },
@@ -449,7 +449,7 @@
           "name": "FIU - Tofazzal Hossain",
           "stage": "Sales Opportunity",
           "amount": 1872,
-          "stale": 10,
+          "stale": 11,
           "next": "Trial review & potential decision sched for 3-18",
           "id": "55922545591"
         },
@@ -473,7 +473,7 @@
           "name": "Alabama A&M University - New Deal",
           "stage": "Discovery/Demo (SQL)",
           "amount": 3200,
-          "stale": 12,
+          "stale": 13,
           "next": "Sched intro meeting - JR\nMap her syllabus to Quanthub modules. Meeting 2/25 to discuss next steps. ",
           "id": "55922594665"
         },
@@ -481,7 +481,7 @@
           "name": "Alabama A&M University - Potential New Deal after Dr. McKey",
           "stage": "Discovery/Demo (SQL)",
           "amount": 10625,
-          "stale": 12,
+          "stale": 13,
           "next": "Sched intro meeting - JR\nKeep talking to Dr. McKey about other professors to add. See what modules they'd want and get them in the platform.",
           "id": "56122128190"
         },
@@ -489,7 +489,7 @@
           "name": "University of Alabama at Birmingham - New Deal",
           "stage": "Discovery/Demo (SQL)",
           "amount": 2400,
-          "stale": 12,
+          "stale": 13,
           "next": "Reach out in late April per George's request to sched intro meeting - JR",
           "id": "56175409521"
         },
@@ -505,7 +505,7 @@
           "name": "George Fox University - New Deal",
           "stage": "Discovery/Demo (SQL)",
           "amount": 5760,
-          "stale": 25,
+          "stale": 26,
           "next": "Follow up meeting sched",
           "id": "57396962627"
         },
@@ -529,7 +529,7 @@
           "name": "University of North Texas at Dallas - Jason Garrett",
           "stage": "Discovery/Demo (SQL)",
           "amount": 1680,
-          "stale": 9,
+          "stale": 10,
           "next": "Ping at beg of April to sched follow up meeting - JR\n\nEmail Trial: Send Jason an email with a 1-week free trial account access.\n\nRequest Syllabus: Ask Jason to reply with his course syllabus so the content team can map it to specific QuantHub modules.\n\nCalendar Invite: Send Jason a calendar invitation for the follow-up meeting scheduled for Thursday, March 19th at 1:00 PM CST. (DONE)\n\nMap Modules (Internal): Once the syllabus is received, have the content team align it with recommended modules before the follow-up meeting.\n\nPrep Pricing (Internal): Calculate formal discounted pricing once Jason confirms the exact number of modules and students for future semesters.",
           "id": "57830356277"
         },
@@ -545,7 +545,7 @@
           "name": "University of North Carolina Wilmington - Barry Wray",
           "stage": "Discovery/Demo (SQL)",
           "amount": null,
-          "stale": 4,
+          "stale": 5,
           "next": "Check in on 4-1 to confirm specific modules for fall",
           "id": "58208304444"
         }
@@ -562,7 +562,7 @@
       "pipeline_value": 15800,
       "stale_7d": 0,
       "deals_advanced_week": 1,
-      "avg_days_to_close": 9,
+      "avg_days_to_close": 10,
       "ip_meetings_week": 2,
       "vr_calls_week": 2,
       "phone_calls_week": 1,
@@ -570,7 +570,7 @@
       "raw_calls": 1,
       "raw_meetings": 4,
       "raw_emails": 0,
-      "raw_sms": 0,
+      "raw_sms": 4,
       "raw_linkedin": 0,
       "meetings_target": 4,
       "calls_target": 8,
@@ -587,7 +587,7 @@
           "name": "UNC Pembroke - New Deal",
           "stage": "Sales Opportunity",
           "amount": 15800,
-          "stale": 0,
+          "stale": 1,
           "next": "",
           "id": "58134866019"
         }
@@ -597,6 +597,6 @@
   "version": 10,
   "source": "hubspot-api",
   "exportDate": "March 29, 2026",
-  "savedAt": "2026-03-29T05:05:45.684Z",
+  "savedAt": "2026-03-29T14:21:15.414Z",
   "history": []
 }
