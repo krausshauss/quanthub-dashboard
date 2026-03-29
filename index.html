@@ -312,7 +312,7 @@ input[type=file]{display:none;}
     <span style="font-family:var(--slab);font-size:15px;font-weight:700;color:var(--qh-dark)">Sales Rep Scorecard</span>
   </div>
   <div class="up-title">Upload Weekly HubSpot Exports</div>
-  <div class="up-sub">Drop both files below — the scorecard computes automatically. No manual data entry required for pipeline, quality, velocity, or activity.</div>
+  <div class="up-sub">The scorecard loads automatically from HubSpot. If you see this screen, click "Sync HubSpot" after entering your PIN, or upload legacy CSV files below.</div>
 
   <!-- Inputs outside clickable areas to prevent event bubbling -->
   <input type="file" id="inp1" accept=".csv" style="display:none" onchange="handleFile(1,this.files[0])">
@@ -354,10 +354,9 @@ input[type=file]{display:none;}
   </button>
 
   <div class="up-note">
-    <strong>What gets auto-computed from your files:</strong><br>
-    Pipeline value · Active deals · Stale deals · Next step % · Amount & close date populated · Stage flow · Deal velocity · Weekly calls · Weekly meetings<br><br>
-    <strong>What you'll enter manually (30 seconds per rep):</strong><br>
-    BANT % · Daily verification % · Text/SMS touches (not in HubSpot)
+    <strong>What comes live from HubSpot API (no files needed):</strong><br>
+    Pipeline value · Active deals · Stale deals · Next step % · Amount & close date · Stage flow · Deal velocity · Calls · Meetings · SMS · LinkedIn<br><br>
+    <strong>Or upload legacy CSV files if API sync is unavailable.</strong>
   </div>
 </div>
 </div>
@@ -549,7 +548,7 @@ input[type=file]{display:none;}
 const ADMIN_PIN         = null;  // PIN validated server-side by Cloudflare Worker — not stored here
 const WORKER_URL        = 'https://quanthub-proxy.michael-20e.workers.dev/';
 const HUBSPOT_PORTAL_ID = '7316176';  // ← Your HubSpot portal ID (from any HubSpot URL)
-const APP_VERSION       = 'v19b';
+const APP_VERSION = 'v19f';
 
 let isAdminUnlocked = false;
 
