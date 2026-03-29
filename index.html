@@ -1065,10 +1065,34 @@ function scoreRep(r){
   const adv=clamp(r.deals_advanced_week*25);
   const cyc=clamp(100-Math.max(0,(r.avg_days_to_close-30)/60*100));
   const vel=Math.round(cov*.3+stl*.3+adv*.2+cyc*.2);
-  const mtg=clamp(pct(r.ip_meetings_week+r.vr_calls_week,r.meetings_target));
-  const cal=clamp(pct(r.phone_calls_week,r.calls_target));
-  const txt=clamp(pct(r.text_touches_week,r.text_target));
-  const act=Math.round(mtg*.45+cal*.4+txt*.15);
+  // Activity scoring:
+  // Meetings = highest value (weight 50%)
+  // Calls/SMS/LinkedIn score equally (weight 50% combined)
+  // Each can individually reach 100% — exceeding any target = full score for that component
+  // Score = max of individual component scores, weighted by hierarchy
+  const meetings_total = r.ip_meetings_week + r.vr_calls_week + (r.raw_meetings||0);
+  const calls_total    = r.phone_calls_week + (r.raw_calls||0);
+  const sms_total      = (r.raw_sms||0) + r.text_touches_week;
+  const linkedin_total = r.raw_linkedin||0;
+
+  // Deduplicate — use whichever raw count is higher
+  const mtgCount  = Math.max(meetings_total, r.raw_meetings||0);
+  const callCount = Math.max(calls_total,    r.raw_calls||0);
+
+  // Meeting score (can reach 100% at target, bonus for exceeding)
+  const mtg = clamp(pct(mtgCount, r.meetings_target));
+
+  // Non-meeting touches — calls, SMS, LinkedIn all count equally
+  // If any one of them hits target, that component is 100%
+  const callScore = clamp(pct(callCount,    r.calls_target));
+  const smsScore  = clamp(pct(sms_total,    r.text_target));
+  const liScore   = clamp(pct(linkedin_total, r.text_target)); // same target as texts
+
+  // Best non-meeting touch score (you only need to excel at one)
+  const bestNonMtg = Math.max(callScore, smsScore, liScore);
+
+  // Combined: meetings 50% weight, best non-meeting touch 50% weight
+  const act = Math.round(mtg * 0.5 + bestNonMtg * 0.5);
   const qal=Math.round(r.next_step_pct*.25+r.amount_populated*.15+r.close_date_set*.15+r.bant_pct*.2+r.stage_flow_pct*.15+r.daily_verified*.1);
   const expB=Math.min(8,r.expansion_deals.filter(d=>d.cw).length*4);
   const overall=clamp(Math.round(cw*.4+vel*.25+act*.2+qal*.15)+expB);
@@ -1178,13 +1202,13 @@ function renderDetail(id){
         <div class="act-detail-title">This week · live from HubSpot API</div>
         <div class="act-row"><span class="act-row-l">Meetings (all types)</span><span class="act-row-v">${r.raw_meetings}</span></div>
         <div class="act-row"><span class="act-row-l">Calls logged</span><span class="act-row-v">${r.raw_calls}</span></div>
-        <div class="act-row"><span class="act-row-l">SMS / Text logged</span><span class="act-row-v">${r.raw_sms||0}</span></div>
-        <div class="act-row"><span class="act-row-l">LinkedIn activity</span><span class="act-row-v">${r.raw_linkedin||0}</span></div>
+        <div class="act-row"><span class="act-row-l">LinkedIn touches</span><span class="act-row-v">${r.raw_linkedin||0}</span></div>
+        <div class="act-row"><span class="act-row-l">SMS / Text logged</span><span class="act-row-v">${(r.raw_sms||0)+r.text_touches_week}</span></div>
         <div class="act-row"><span class="act-row-l">Emails sent (not scored)</span><span class="act-row-v" style="color:var(--muted)">${r.raw_emails}</span></div>
       </div>
       ${mRow('Meetings vs target',r.raw_meetings,r.meetings_target,INS.mtg)}
       ${mRow('Calls vs target',r.raw_calls,r.calls_target,INS.calls)}
-      ${mRow('SMS/Text vs target',(r.raw_sms||0)+r.text_touches_week,r.text_target,INS.texts)}
+      ${mRow('SMS + LinkedIn vs target',(r.raw_sms||0)+(r.raw_linkedin||0)+r.text_touches_week,r.text_target,INS.texts)}
       <div style="margin-top:6px;font-size:9px;color:var(--muted)">Note: HubSpot does not distinguish IP vs VR meeting type. Both count as high-touch.</div>
     </div>
 
