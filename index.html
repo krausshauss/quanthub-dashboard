@@ -19,7 +19,7 @@
 #pinModal.open{display:flex;align-items:center;justify-content:center;}
 </style>
 <title>QuantHub · Sales Rep Scorecard</title>
-<!-- QH-VERSION: v19aa -->
+<!-- QH-VERSION: v19n -->
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Slab:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -555,7 +555,7 @@ input[type=file]{display:none;}
 const ADMIN_PIN         = null;  // PIN validated server-side by Cloudflare Worker — not stored here
 const WORKER_URL        = 'https://quanthub-proxy.michael-20e.workers.dev/';
 const HUBSPOT_PORTAL_ID = '7316176';  // ← Your HubSpot portal ID (from any HubSpot URL)
-const APP_VERSION = 'v19l';
+const APP_VERSION = 'v19n';
 
 let isAdminUnlocked = false;
 let pinMode  = 'load';
@@ -1527,7 +1527,6 @@ function gradeInsight(pillar, score, rep) {
 //  PIN LOCK
 // ═══════════════════════════════════════════════════════
 let pinEntry = '';
-let pinMode  = 'load'; // 'load' or 'refresh'
 
 function showPinModal() {
   pinEntry = '';
@@ -1717,68 +1716,58 @@ function clearStorage() {}
 
 // ── ON PAGE LOAD: fetch data.json → show scorecard or upload ──────────────
 window.addEventListener('DOMContentLoaded', () => {
-  const vb = document.getElementById('appVersionBadge');
+  // Set version badge
+  var vb = document.getElementById('appVersionBadge');
   if(vb) vb.textContent = APP_VERSION;
-  const fv = document.getElementById('footerVersion');
+  var fv = document.getElementById('footerVersion');
   if(fv) fv.textContent = APP_VERSION;
+
+  // Show loading screen
   show('loadingScreen');
 
-  // Show debug panel immediately during load
-  dbg('v' + APP_VERSION + ' starting...', '#69A62A');
-  dbg('Worker: ' + WORKER_URL);
-
-  // 10 second hard timeout - if no response, go to upload screen
-  const FETCH_TIMEOUT = 10000;
-  let fetchDone = false;
-
-  const timer = setTimeout(function() {
+  // Hard timeout — show upload screen after 12s no matter what
+  var timedOut = false;
+  var fetchDone = false;
+  setTimeout(function() {
     if (!fetchDone) {
+      timedOut = true;
       fetchDone = true;
-      dbg('TIMEOUT after ' + (FETCH_TIMEOUT/1000) + 's — Worker not responding', '#FF6B6B');
-      dbg('Check: Is Worker deployed? Is HUBSPOT_TOKEN set in Cloudflare?', '#FFA500');
+      var el = document.getElementById('loadingMsg');
+      if(el) el.textContent = 'Timed out — Worker not responding. Try Sync HubSpot.';
       show('uploadScreen');
     }
-  }, FETCH_TIMEOUT);
+  }, 12000);
 
-  dbg('Fetching from Worker...');
+  // Fetch from Worker
   fetch(WORKER_URL + '?t=' + Date.now())
     .then(function(res) {
-      dbg('HTTP ' + res.status + ' received', res.ok ? '#69A62A' : '#FF6B6B');
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
     })
     .then(function(saved) {
-      if (fetchDone) return; // timed out already
+      if (timedOut) return;
       fetchDone = true;
-      clearTimeout(timer);
-      const repCount = saved && saved.reps ? saved.reps.length : 0;
-      dbg('Got ' + repCount + ' reps · source=' + (saved && saved.source || '?'));
-      if (!repCount) {
-        dbg('Payload has no reps — keys: ' + (saved ? Object.keys(saved).join(', ') : 'null'), '#FF6B6B');
+      if (saved && saved.reps && saved.reps.length) {
+        window._scorecardData = saved;
+        repData  = saved.reps;
+        activeId = repData[0].id;
+        try {
+          restoreScorecard(saved);
+        } catch(e) {
+          try { buildKpiStrip(); } catch(x) {}
+          try { buildCards();    } catch(x) {}
+          try { renderDetail(activeId); } catch(x) {}
+          show('scScreen');
+        }
+      } else {
         show('uploadScreen');
-        return;
-      }
-      window._scorecardData = saved;
-      repData  = saved.reps;
-      activeId = repData[0].id;
-      dbg('activeId=' + activeId + ' · calling restoreScorecard...');
-      try {
-        restoreScorecard(saved);
-        dbg('Scorecard loaded ✓', '#69A62A');
-      } catch(e) {
-        dbg('restoreScorecard threw: ' + e.message, '#FF6B6B');
-        try { buildKpiStrip(); } catch(x) { dbg('buildKpiStrip: '+x.message,'#FF6B6B'); }
-        try { buildCards();    } catch(x) { dbg('buildCards: '+x.message,'#FF6B6B'); }
-        try { renderDetail(activeId); } catch(x) { dbg('renderDetail: '+x.message,'#FF6B6B'); }
-        show('scScreen');
-        dbg('Manual render fallback done', '#FFA500');
       }
     })
     .catch(function(e) {
-      if (fetchDone) return;
+      if (timedOut) return;
       fetchDone = true;
-      clearTimeout(timer);
-      dbg('Fetch error: ' + e.message, '#FF6B6B');
+      var el = document.getElementById('loadingMsg');
+      if(el) el.textContent = 'Error: ' + e.message;
       show('uploadScreen');
     });
 })
