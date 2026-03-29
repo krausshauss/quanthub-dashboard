@@ -280,6 +280,13 @@ input[type=file]{display:none;}
 </style>
 </head>
 <body>
+<div id="debugPanel" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#0B4971;color:#fff;font-family:monospace;font-size:11px;padding:8px 12px;z-index:9999;max-height:180px;overflow-y:auto;border-top:2px solid #69A62A;">
+  <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+    <strong>🔍 Debug Log</strong>
+    <button onclick="document.getElementById('debugPanel').style.display='none'" style="background:none;border:none;color:#fff;cursor:pointer;font-size:13px">✕</button>
+  </div>
+  <div id="debugLog"></div>
+</div>
 
 <!-- TOP BAR -->
 <div class="topbar">
@@ -548,9 +555,34 @@ input[type=file]{display:none;}
 const ADMIN_PIN         = null;  // PIN validated server-side by Cloudflare Worker — not stored here
 const WORKER_URL        = 'https://quanthub-proxy.michael-20e.workers.dev/';
 const HUBSPOT_PORTAL_ID = '7316176';  // ← Your HubSpot portal ID (from any HubSpot URL)
-const APP_VERSION = 'v19j';
+const APP_VERSION = 'v19k';
 
 let isAdminUnlocked = false;
+let pinMode  = 'load';
+
+// ── DEBUG LOGGER (visible on-page panel) ──────────────
+const DEBUG = true;
+function dbg(msg, color) {
+  console.log('[QH]', msg);
+  if (!DEBUG) return;
+  try {
+    let panel = document.getElementById('debugPanel');
+    let log   = document.getElementById('debugLog');
+    if (!panel) {
+      panel = document.createElement('div');
+      panel.id = 'debugPanel';
+      panel.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#0B2E45;color:#fff;font-family:monospace;font-size:11px;padding:8px 12px;z-index:99999;max-height:200px;overflow-y:auto;border-top:3px solid #69A62A;';
+      panel.innerHTML = '<div style="display:flex;justify-content:space-between;margin-bottom:4px"><strong style="color:#69A62A">🔍 QH Debug v19k</strong><button onclick="this.parentNode.parentNode.style.display=\'none\'" style="background:none;border:1px solid #fff;color:#fff;cursor:pointer;padding:1px 6px;border-radius:3px">Hide</button></div><div id="debugLog"></div>';
+      document.body.appendChild(panel);
+      log = document.getElementById('debugLog');
+    }
+    const line = document.createElement('div');
+    line.style.cssText = 'padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.1);color:' + (color||'#B3D8F0');
+    line.textContent = new Date().toLocaleTimeString() + ' › ' + msg;
+    log.appendChild(line);
+    panel.scrollTop = panel.scrollHeight;
+  } catch(e) {}
+}
 
 // ═══════════════════════════════════════════════════════
 //  CONFIG
@@ -1690,38 +1722,49 @@ window.addEventListener('DOMContentLoaded', () => {
   const fv = document.getElementById('footerVersion');
   if(fv) fv.textContent = APP_VERSION;
   show('loadingScreen');
-  console.log('[QH] ' + APP_VERSION + ' | Worker: ' + WORKER_URL);
+
+  dbg('Starting v' + APP_VERSION, '#69A62A');
+  dbg('Worker: ' + WORKER_URL);
 
   fetch(WORKER_URL + '?t=' + Date.now())
     .then(function(res) {
-      console.log('[QH] Worker status:', res.status);
+      dbg('Worker responded: HTTP ' + res.status, res.ok ? '#69A62A' : '#FF6B6B');
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
     })
     .then(function(saved) {
-      console.log('[QH] Reps received:', saved && saved.reps ? saved.reps.length : 0);
+      const repCount = saved && saved.reps ? saved.reps.length : 0;
+      dbg('Payload received: ' + repCount + ' reps, source=' + (saved && saved.source || 'unknown'));
       if (saved && saved.reps && saved.reps.length) {
         window._scorecardData = saved;
         repData  = saved.reps;
         activeId = repData[0].id;
+        dbg('repData set, activeId=' + activeId + ', calling restoreScorecard...');
         try {
           restoreScorecard(saved);
+          dbg('restoreScorecard() completed — scorecard should be visible', '#69A62A');
         } catch(e) {
-          console.error('[QH] restore error:', e.message);
-          buildKpiStrip(); buildCards(); renderDetail(activeId); show('scScreen');
+          dbg('restoreScorecard() THREW: ' + e.message, '#FF6B6B');
+          try { buildKpiStrip(); } catch(e2) { dbg('buildKpiStrip failed: '+e2.message,'#FF6B6B'); }
+          try { buildCards(); }    catch(e2) { dbg('buildCards failed: '+e2.message,'#FF6B6B'); }
+          try { renderDetail(activeId); } catch(e2) { dbg('renderDetail failed: '+e2.message,'#FF6B6B'); }
+          show('scScreen');
+          dbg('Fell back to manual render', '#FFA500');
         }
       } else {
-        console.warn('[QH] No reps in payload');
+        dbg('No reps in payload — showing upload screen', '#FF6B6B');
+        dbg('Payload keys: ' + (saved ? Object.keys(saved).join(', ') : 'null'), '#FF6B6B');
         show('uploadScreen');
       }
     })
     .catch(function(e) {
-      console.error('[QH] Fetch failed:', e.message);
+      dbg('Fetch FAILED: ' + e.message, '#FF6B6B');
       show('uploadScreen');
     });
 })
 
 function restoreScorecard(saved) {
+  dbg('restoreScorecard start, exportDate=' + (saved.exportDate||'?'));
   const exportDate = saved.exportDate || 'Previous export';
   const savedAt = saved.savedAt ? (() => {
     const d = new Date(saved.savedAt);
@@ -1745,9 +1788,13 @@ function restoreScorecard(saved) {
   const srcBadge = document.getElementById('srcBadge');
   if(srcBadge) srcBadge.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> ' + repData.reduce((s,r)=>s+r.active_deals,0) + ' deals · ' + exportDate;
 
+  dbg('calling buildCards...');
   buildCards();
+  dbg('calling renderDetail(' + activeId + ')...');
   renderDetail(activeId);
+  dbg('calling show(scScreen)...');
   show('scScreen');
+  dbg('show(scScreen) done — upload screen should be gone', '#69A62A');
 }
 
 function createEl(html) {
