@@ -1209,35 +1209,45 @@ function renderDetail(id){
   document.getElementById('expSec').innerHTML=expHtml;
 
   // PIPELINE
-  const grouped={};STAGE_ORDER.forEach(s=>{grouped[s]=[];});
-  // Group deals — also catch any stage not in STAGE_ORDER
+  const grouped={};
+  STAGE_ORDER.forEach(s=>{grouped[s]=[];});
   const otherDeals=[];
   r.deals.forEach(d=>{
-    if(STAGE_ORDER.includes(d.stage)) (grouped[d.stage]=grouped[d.stage]||[]).push(d);
-    else otherDeals.push(d);
+    if(STAGE_ORDER.includes(d.stage)) {
+      if(!grouped[d.stage]) grouped[d.stage]=[];
+      grouped[d.stage].push(d);
+    } else {
+      otherDeals.push(d);
+    }
   });
-  if(otherDeals.length) grouped['Unknown']=(grouped['Unknown']||[]).concat(otherDeals);
+  if(otherDeals.length){ if(!grouped['Unknown']) grouped['Unknown']=[]; grouped['Unknown']=grouped['Unknown'].concat(otherDeals); }
 
-  let pipHtml=`<div style="font-size:11px;color:var(--muted);margin-bottom:12px">${r.name} · ${r.active_deals} active deals · ${fmt(r.pipeline_value)}</div>`;
+  let pipHtml='<div style="font-size:11px;color:var(--muted);margin-bottom:12px">'+r.name+' · '+r.active_deals+' active deals · '+fmt(r.pipeline_value)+'</div>';
 
-  // Show all stages that have deals (including Unknown)
-  const allStages=[...STAGE_ORDER,'Unknown'];
-  allStages.forEach(stage=>{
-    const deals=grouped[stage];if(!deals||!deals.length)return;
+  const allStages=STAGE_ORDER.concat(['Unknown']);
+  allStages.forEach(function(stage){
+    const deals=grouped[stage];
+    if(!deals||!deals.length) return;
     const sc=STAGE_COLORS[stage]||'#7A8FA6';
-    pipHtml+=`<div class="sg"><div class="sh"><div class="sd" style="background:${sc}"></div><span class="sn" style="color:${sc}">${stage}</span><span class="sc2">(${deals.length})</span></div>
-      ${deals.map(d=>{
-        const sw=d.stale>14?`<span class="sp" style="background:#FFECEF;color:#B82038;border-color:#E8909A">${d.stale}d</span>`:d.stale>7?`<span class="sp" style="background:#FFEDE4;color:#C04A10;border-color:#F0A080">${d.stale}d</span>`:'';
-        const hsLink=d.id&&HUBSPOT_PORTAL_ID?`<a href="https://app.hubspot.com/contacts/${HUBSPOT_PORTAL_ID}/deal/${d.id}" target="_blank" style="color:var(--qh-blue);font-size:9px;text-decoration:none;opacity:.7;margin-left:5px;" title="Open in HubSpot">↗</a>`:'';
-        return`<div class="dr"><div class="dnw"><div class="dn">\${d.name}\${hsLink}</div>\${d.next?'<div class="dns">'+d.next+'</div>':''}</div><div class="da">\${fmt(d.amount)}</div>\${sw}</div>`;
-      }).join('')}
-    </div>`;
+    pipHtml+='<div class="sg"><div class="sh"><div class="sd" style="background:'+sc+'"></div><span class="sn" style="color:'+sc+'">'+stage+'</span><span class="sc2">('+deals.length+')</span></div>';
+    deals.forEach(function(d){
+      const sw=d.stale>14
+        ?'<span class="sp" style="background:#FFECEF;color:#B82038;border-color:#E8909A">'+d.stale+'d</span>'
+        :d.stale>7
+        ?'<span class="sp" style="background:#FFEDE4;color:#C04A10;border-color:#F0A080">'+d.stale+'d</span>'
+        :'';
+      const hsLink=(d.id&&HUBSPOT_PORTAL_ID)
+        ?'<a href="https://app.hubspot.com/contacts/'+HUBSPOT_PORTAL_ID+'/deal/'+d.id+'" target="_blank" style="color:var(--qh-blue);font-size:9px;text-decoration:none;opacity:.7;margin-left:5px;" title="Open in HubSpot">&#x2197;</a>'
+        :'';
+      const nextStep=d.next?'<div class="dns">'+d.next+'</div>':'';
+      pipHtml+='<div class="dr"><div class="dnw"><div class="dn">'+d.name+hsLink+'</div>'+nextStep+'</div><div class="da">'+fmt(d.amount)+'</div>'+sw+'</div>';
+    });
+    pipHtml+='</div>';
   });
-  if(r.stale_7d>0)pipHtml+=`<div class="alert">⚠ \${r.stale_7d} deal\${r.stale_7d>1?'s':''} stale >7 days — address in standup.</div>`;
-  if(!r.deals||!r.deals.length)pipHtml+=`<div style="font-size:12px;color:var(--muted);padding:20px 0;text-align:center;">No active deals found for \${r.name}</div>`;
-  document.getElementById('pipContent').innerHTML=pipHtml;
 
-  // TRENDS
+  if(r.stale_7d>0) pipHtml+='<div class="alert">⚠ '+r.stale_7d+' deal'+(r.stale_7d>1?'s':'')+' stale >7 days — address in standup.</div>';
+  if(!r.deals||!r.deals.length) pipHtml+='<div style="font-size:12px;color:var(--muted);padding:20px 0;text-align:center;">No active deals found for '+r.name+'</div>';
+  document.getElementById('pipContent').innerHTML=pipHtml;  // TRENDS
   document.getElementById('trContent').innerHTML=`<div style="padding:28px;text-align:center;color:var(--muted)">
     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--border2)" stroke-width="1.5" stroke-linecap="round" style="margin:0 auto 12px;display:block"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
     <div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:4px">Week-over-week trends unlock next week</div>
