@@ -555,7 +555,7 @@ input[type=file]{display:none;}
 const ADMIN_PIN         = null;  // PIN validated server-side by Cloudflare Worker — not stored here
 const WORKER_URL        = 'https://quanthub-proxy.michael-20e.workers.dev/';
 const HUBSPOT_PORTAL_ID = '7316176';  // ← Your HubSpot portal ID (from any HubSpot URL)
-const APP_VERSION = 'v19k';
+const APP_VERSION = 'v19l';
 
 let isAdminUnlocked = false;
 let pinMode  = 'load';
@@ -1723,42 +1723,62 @@ window.addEventListener('DOMContentLoaded', () => {
   if(fv) fv.textContent = APP_VERSION;
   show('loadingScreen');
 
-  dbg('Starting v' + APP_VERSION, '#69A62A');
+  // Show debug panel immediately during load
+  dbg('v' + APP_VERSION + ' starting...', '#69A62A');
   dbg('Worker: ' + WORKER_URL);
 
+  // 10 second hard timeout - if no response, go to upload screen
+  const FETCH_TIMEOUT = 10000;
+  let fetchDone = false;
+
+  const timer = setTimeout(function() {
+    if (!fetchDone) {
+      fetchDone = true;
+      dbg('TIMEOUT after ' + (FETCH_TIMEOUT/1000) + 's — Worker not responding', '#FF6B6B');
+      dbg('Check: Is Worker deployed? Is HUBSPOT_TOKEN set in Cloudflare?', '#FFA500');
+      show('uploadScreen');
+    }
+  }, FETCH_TIMEOUT);
+
+  dbg('Fetching from Worker...');
   fetch(WORKER_URL + '?t=' + Date.now())
     .then(function(res) {
-      dbg('Worker responded: HTTP ' + res.status, res.ok ? '#69A62A' : '#FF6B6B');
+      dbg('HTTP ' + res.status + ' received', res.ok ? '#69A62A' : '#FF6B6B');
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
     })
     .then(function(saved) {
+      if (fetchDone) return; // timed out already
+      fetchDone = true;
+      clearTimeout(timer);
       const repCount = saved && saved.reps ? saved.reps.length : 0;
-      dbg('Payload received: ' + repCount + ' reps, source=' + (saved && saved.source || 'unknown'));
-      if (saved && saved.reps && saved.reps.length) {
-        window._scorecardData = saved;
-        repData  = saved.reps;
-        activeId = repData[0].id;
-        dbg('repData set, activeId=' + activeId + ', calling restoreScorecard...');
-        try {
-          restoreScorecard(saved);
-          dbg('restoreScorecard() completed — scorecard should be visible', '#69A62A');
-        } catch(e) {
-          dbg('restoreScorecard() THREW: ' + e.message, '#FF6B6B');
-          try { buildKpiStrip(); } catch(e2) { dbg('buildKpiStrip failed: '+e2.message,'#FF6B6B'); }
-          try { buildCards(); }    catch(e2) { dbg('buildCards failed: '+e2.message,'#FF6B6B'); }
-          try { renderDetail(activeId); } catch(e2) { dbg('renderDetail failed: '+e2.message,'#FF6B6B'); }
-          show('scScreen');
-          dbg('Fell back to manual render', '#FFA500');
-        }
-      } else {
-        dbg('No reps in payload — showing upload screen', '#FF6B6B');
-        dbg('Payload keys: ' + (saved ? Object.keys(saved).join(', ') : 'null'), '#FF6B6B');
+      dbg('Got ' + repCount + ' reps · source=' + (saved && saved.source || '?'));
+      if (!repCount) {
+        dbg('Payload has no reps — keys: ' + (saved ? Object.keys(saved).join(', ') : 'null'), '#FF6B6B');
         show('uploadScreen');
+        return;
+      }
+      window._scorecardData = saved;
+      repData  = saved.reps;
+      activeId = repData[0].id;
+      dbg('activeId=' + activeId + ' · calling restoreScorecard...');
+      try {
+        restoreScorecard(saved);
+        dbg('Scorecard loaded ✓', '#69A62A');
+      } catch(e) {
+        dbg('restoreScorecard threw: ' + e.message, '#FF6B6B');
+        try { buildKpiStrip(); } catch(x) { dbg('buildKpiStrip: '+x.message,'#FF6B6B'); }
+        try { buildCards();    } catch(x) { dbg('buildCards: '+x.message,'#FF6B6B'); }
+        try { renderDetail(activeId); } catch(x) { dbg('renderDetail: '+x.message,'#FF6B6B'); }
+        show('scScreen');
+        dbg('Manual render fallback done', '#FFA500');
       }
     })
     .catch(function(e) {
-      dbg('Fetch FAILED: ' + e.message, '#FF6B6B');
+      if (fetchDone) return;
+      fetchDone = true;
+      clearTimeout(timer);
+      dbg('Fetch error: ' + e.message, '#FF6B6B');
       show('uploadScreen');
     });
 })
