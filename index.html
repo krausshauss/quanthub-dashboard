@@ -548,7 +548,7 @@ input[type=file]{display:none;}
 const ADMIN_PIN         = null;  // PIN validated server-side by Cloudflare Worker — not stored here
 const WORKER_URL        = 'https://quanthub-proxy.michael-20e.workers.dev/';
 const HUBSPOT_PORTAL_ID = '7316176';  // ← Your HubSpot portal ID (from any HubSpot URL)
-const APP_VERSION = 'v19i';
+const APP_VERSION = 'v19j';
 
 let isAdminUnlocked = false;
 
@@ -1685,39 +1685,40 @@ function clearStorage() {}
 
 // ── ON PAGE LOAD: fetch data.json → show scorecard or upload ──────────────
 window.addEventListener('DOMContentLoaded', () => {
-  // Show app version
   const vb = document.getElementById('appVersionBadge');
   if(vb) vb.textContent = APP_VERSION;
   const fv = document.getElementById('footerVersion');
   if(fv) fv.textContent = APP_VERSION;
   show('loadingScreen');
-  loadFromGitHub().then(saved => {
-    console.log('[QH] loadFromGitHub result:', saved ? 'DATA FOUND (' + saved.reps.length + ' reps)' : 'NO DATA');
-    if (saved && saved.reps && saved.reps.length) {
-      window._scorecardData = saved; // store for trends tab
-      repData  = saved.reps;
-      activeId = repData[0].id;
-      try {
-        restoreScorecard(saved);
-        console.log('[QH] restoreScorecard completed OK');
-      } catch(e) {
-        console.error('[QH] restoreScorecard FAILED:', e.message, e.stack);
-        // Still show scorecard even if restore had issues
-        buildKpiStrip();
-        buildCards();
-        renderDetail(activeId);
-        show('scScreen');
+  console.log('[QH] ' + APP_VERSION + ' | Worker: ' + WORKER_URL);
+
+  fetch(WORKER_URL + '?t=' + Date.now())
+    .then(function(res) {
+      console.log('[QH] Worker status:', res.status);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(function(saved) {
+      console.log('[QH] Reps received:', saved && saved.reps ? saved.reps.length : 0);
+      if (saved && saved.reps && saved.reps.length) {
+        window._scorecardData = saved;
+        repData  = saved.reps;
+        activeId = repData[0].id;
+        try {
+          restoreScorecard(saved);
+        } catch(e) {
+          console.error('[QH] restore error:', e.message);
+          buildKpiStrip(); buildCards(); renderDetail(activeId); show('scScreen');
+        }
+      } else {
+        console.warn('[QH] No reps in payload');
+        show('uploadScreen');
       }
-    } else {
-      console.log('[QH] No valid data — showing upload screen');
-      document.getElementById('tbInfo').textContent = 'Upload files to begin';
+    })
+    .catch(function(e) {
+      console.error('[QH] Fetch failed:', e.message);
       show('uploadScreen');
-    }
-  }).catch(e => {
-    console.error('[QH] loadFromGitHub catch:', e.message);
-    document.getElementById('tbInfo').textContent = 'Upload files to begin';
-    show('uploadScreen');
-  });
+    });
 })
 
 function restoreScorecard(saved) {
