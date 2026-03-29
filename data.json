@@ -12,12 +12,12 @@
       "stale_7d": 0,
       "deals_advanced_week": 3,
       "avg_days_to_close": 198,
-      "ip_meetings_week": 11,
-      "vr_calls_week": 11,
+      "ip_meetings_week": 9,
+      "vr_calls_week": 9,
       "phone_calls_week": 9,
       "text_touches_week": 0,
       "raw_calls": 9,
-      "raw_meetings": 22,
+      "raw_meetings": 18,
       "raw_emails": 0,
       "meetings_target": 6,
       "calls_target": 15,
@@ -108,21 +108,24 @@
           "stage": "1096685575",
           "amount": 2640,
           "stale": 5,
-          "next": ""
+          "next": "",
+          "id": "37277051241"
         },
         {
           "name": "Mercer - University-wide AI Literacy Expansion",
           "stage": "1095818331",
           "amount": 55825,
           "stale": 0,
-          "next": ""
+          "next": "",
+          "id": "42089843285"
         },
         {
           "name": "High Point University - University Wide AI Foundations",
           "stage": "1095818331",
           "amount": 40000,
           "stale": 1,
-          "next": ""
+          "next": "",
+          "id": "57618912060"
         }
       ]
     },
@@ -168,112 +171,128 @@
           "stage": "1096685575",
           "amount": 3300,
           "stale": 4,
-          "next": "Get bookstore contact to move deal forward. VM left for Justin. Continue to push for close"
+          "next": "Get bookstore contact to move deal forward. VM left for Justin. Continue to push for close",
+          "id": "23224763413"
         },
         {
           "name": "Auburn University at Montgomery",
           "stage": "36731685",
           "amount": 1344,
           "stale": 404,
-          "next": "3/26: Met with Ben and Jeff—there’s interest in running a quick pilot before rolling it out to students."
+          "next": "3/26: Met with Ben and Jeff—there’s interest in running a quick pilot before rolling it out to students.",
+          "id": "28432600466"
         },
         {
           "name": "Silvanus Udoka - Clark Atlanta University-SBAA",
           "stage": "1096685575",
           "amount": 3200,
           "stale": 3,
-          "next": "Get bookstore intro "
+          "next": "Get bookstore intro ",
+          "id": "40613389058"
         },
         {
           "name": "University of Evansville -Marketing Strat",
           "stage": "1095818330",
           "amount": 3040,
           "stale": 2,
-          "next": "Connect with Suresh - regarding intro to bookstore\n"
+          "next": "Connect with Suresh - regarding intro to bookstore\n",
+          "id": "42100108688"
         },
         {
           "name": "SciF - Corp Deal",
           "stage": "1095818331",
           "amount": 256000,
           "stale": 4,
-          "next": "Waiting on Job Descriptions from Raquel \n"
+          "next": "Waiting on Job Descriptions from Raquel \n",
+          "id": "52224419690"
         },
         {
           "name": "Illinois State University - New Deal AI / Excel Pilot",
           "stage": "1095818330",
           "amount": 2160,
           "stale": 2,
-          "next": "Sync with Della to review pilot outcomes 3/23\n"
+          "next": "Sync with Della to review pilot outcomes 3/23\n",
+          "id": "54352107577"
         },
         {
           "name": "Georgia Southern University - Entrepreneurship ",
           "stage": "1095818330",
           "amount": 2960,
           "stale": 5,
-          "next": "Meeting with Katia to move to bookstore on 3/25\n\n\n"
+          "next": "Meeting with Katia to move to bookstore on 3/25\n\n\n",
+          "id": "54943321264"
         },
         {
           "name": "CLARK UNIVERSITY - MBA Excel",
           "stage": "1095818329",
           "amount": 3600,
           "stale": 10,
-          "next": "Still gap in QuantHub firing inside of Canvas - Charity looking into. Professor is waiting on charity to resolve. \n"
+          "next": "Still gap in QuantHub firing inside of Canvas - Charity looking into. Professor is waiting on charity to resolve. \n",
+          "id": "55623966115"
         },
         {
           "name": "Valdosta State University - New Deal",
           "stage": "1095818331",
           "amount": 74000,
           "stale": 4,
-          "next": "3/20 - Guclu confirmed review, JD offered to sync on Tuesday 3/25"
+          "next": "3/20 - Guclu confirmed review, JD offered to sync on Tuesday 3/25",
+          "id": "56549266038"
         },
         {
           "name": "AI in Marketing Loras College - New Deal",
           "stage": "1095818329",
           "amount": 960,
           "stale": 2,
-          "next": "Working w/ IT to integrate w/ Moodle - Bob Adams\n"
+          "next": "Working w/ IT to integrate w/ Moodle - Bob Adams\n",
+          "id": "56896784292"
         },
         {
           "name": "Lewis University - AI In Marketing",
           "stage": "1095818328",
           "amount": 1344,
           "stale": 6,
-          "next": "3/20- Jim reviewing. JD to lock follow up meeting. "
+          "next": "3/20- Jim reviewing. JD to lock follow up meeting. ",
+          "id": "57553905670"
         },
         {
           "name": "Coastal Alabama Community College - Student Pilot ",
           "stage": "1095818329",
           "amount": 1360,
           "stale": 4,
-          "next": "Set a follow-up task for early April to reconnect after Ryan speaks with Ann, and prepare a brief recap of how QuantHub could support their AI pilot so you're ready when he circles back."
+          "next": "Set a follow-up task for early April to reconnect after Ryan speaks with Ann, and prepare a brief recap of how QuantHub could support their AI pilot so you're ready when he circles back.",
+          "id": "57941138841"
         },
         {
           "name": "West Georgia UoWG John Upson",
           "stage": "1095818331",
           "amount": 15800,
           "stale": 1,
-          "next": ""
+          "next": "",
+          "id": "58025395292"
         },
         {
           "name": "Lander University - New Deal",
           "stage": "36731685",
           "amount": 1200,
           "stale": 12,
-          "next": "JD Scheudled Meeting for Thursday 3/18"
+          "next": "JD Scheudled Meeting for Thursday 3/18",
+          "id": "58029852189"
         },
         {
           "name": "IMG Academy - AI Literacy ",
           "stage": "1095818328",
           "amount": 78000,
           "stale": 4,
-          "next": "Call w/ Portia to review Catalog and modules to move forward "
+          "next": "Call w/ Portia to review Catalog and modules to move forward ",
+          "id": "58288931374"
         },
         {
           "name": "Southeastern Louisiana University - New Deal",
           "stage": "appointmentscheduled",
           "amount": null,
           "stale": 0,
-          "next": ""
+          "next": "",
+          "id": "58404371467"
         }
       ]
     },
@@ -289,12 +308,12 @@
       "stale_7d": 1,
       "deals_advanced_week": 3,
       "avg_days_to_close": 243,
-      "ip_meetings_week": 3,
-      "vr_calls_week": 2,
+      "ip_meetings_week": 1,
+      "vr_calls_week": 1,
       "phone_calls_week": 2,
       "text_touches_week": 0,
       "raw_calls": 2,
-      "raw_meetings": 5,
+      "raw_meetings": 2,
       "raw_emails": 0,
       "meetings_target": 6,
       "calls_target": 15,
@@ -312,21 +331,24 @@
           "stage": "1095818328",
           "amount": null,
           "stale": 1,
-          "next": "Amy already has a class with it, we want it to be college wide now. Find a way to slowly get them on board."
+          "next": "Amy already has a class with it, we want it to be college wide now. Find a way to slowly get them on board.",
+          "id": "32557674616"
         },
         {
           "name": "AUDIT: Matthew Cole - Lawrence Technological University-SBAA",
           "stage": "1095818328",
           "amount": null,
           "stale": 23,
-          "next": ""
+          "next": "",
+          "id": "40604214532"
         },
         {
           "name": "AUDIT - University of Alabama at Birmingham - Thomas DeCarlo",
           "stage": "1095818328",
           "amount": 320,
           "stale": 2,
-          "next": "He showed interest during Nate and Matthew's UAB workshop. First step is getting him to actually respond and book a demo."
+          "next": "He showed interest during Nate and Matthew's UAB workshop. First step is getting him to actually respond and book a demo.",
+          "id": "55478396442"
         }
       ]
     },
@@ -343,11 +365,11 @@
       "deals_advanced_week": 16,
       "avg_days_to_close": 57,
       "ip_meetings_week": 7,
-      "vr_calls_week": 7,
+      "vr_calls_week": 6,
       "phone_calls_week": 6,
       "text_touches_week": 0,
       "raw_calls": 6,
-      "raw_meetings": 14,
+      "raw_meetings": 13,
       "raw_emails": 0,
       "meetings_target": 6,
       "calls_target": 15,
@@ -372,133 +394,152 @@
           "stage": "1095818328",
           "amount": null,
           "stale": 12,
-          "next": "Sched intro meeting - JR\nEmail Dr. Mazzei about connecting with the marketing teachers for a review and demo session with Nate and Matthew"
+          "next": "Sched intro meeting - JR\nEmail Dr. Mazzei about connecting with the marketing teachers for a review and demo session with Nate and Matthew",
+          "id": "37626456748"
         },
         {
           "name": "University of Nebraska–Lincoln - New Deal",
           "stage": "1095818329",
           "amount": 20000,
           "stale": 6,
-          "next": "Sched intro meeting - JR\n\nAI Marketing introduction + syllabus submission + setup next meeting after his spring break - Returns 3-23"
+          "next": "Sched intro meeting - JR\n\nAI Marketing introduction + syllabus submission + setup next meeting after his spring break - Returns 3-23",
+          "id": "52036268604"
         },
         {
           "name": "University of Nebraska–Lincoln - New Deal",
           "stage": "1095818328",
           "amount": 4000,
           "stale": 6,
-          "next": "Sched intro meeting - JR"
+          "next": "Sched intro meeting - JR",
+          "id": "52038717369"
         },
         {
           "name": "RISK: Florida State University - Spring Pilot - Marina Girju",
           "stage": "1095818330",
           "amount": 9600,
           "stale": 6,
-          "next": "Send agreement doc to Marina, Initiate pilot implementation process"
+          "next": "Send agreement doc to Marina, Initiate pilot implementation process",
+          "id": "55478515839"
         },
         {
           "name": "Middle Georgia State University - New Deal",
           "stage": "1095818328",
           "amount": 96,
           "stale": 9,
-          "next": "Sched intro meeting - JR"
+          "next": "Sched intro meeting - JR",
+          "id": "55478407713"
         },
         {
           "name": "Mississippi College - Retha Price",
           "stage": "1095818329",
           "amount": 1920,
           "stale": 31,
-          "next": "Need to get meeting sched to review module alignment"
+          "next": "Need to get meeting sched to review module alignment",
+          "id": "55927331339"
         },
         {
           "name": "FIU - Tofazzal Hossain",
           "stage": "1095818329",
           "amount": 1872,
           "stale": 10,
-          "next": "Trial review & potential decision sched for 3-18"
+          "next": "Trial review & potential decision sched for 3-18",
+          "id": "55922545591"
         },
         {
           "name": "Miami Dade College - Max Ramirez",
           "stage": "1095818330",
           "amount": 1440,
           "stale": 11,
-          "next": "Reconnecting in August prior to fall term"
+          "next": "Reconnecting in August prior to fall term",
+          "id": "55927271211"
         },
         {
           "name": "The College of New Jersey - New Deal",
           "stage": "1095818328",
           "amount": 28800,
           "stale": 4,
-          "next": "Sched intro meeting after return from spring break on 3-23 - JR\nGet Louis Tucci in the platform. He is on a committee and needs their approval for QH. Wants a foundational course for all students to take. 600 students to start, he is mostly interested in AI foundations and AI in the age of marketing. "
+          "next": "Sched intro meeting after return from spring break on 3-23 - JR\nGet Louis Tucci in the platform. He is on a committee and needs their approval for QH. Wants a foundational course for all students to take. 600 students to start, he is mostly interested in AI foundations and AI in the age of marketing. ",
+          "id": "55927464840"
         },
         {
           "name": "Alabama A&M University - New Deal",
           "stage": "1095818328",
           "amount": 3200,
           "stale": 12,
-          "next": "Sched intro meeting - JR\nMap her syllabus to Quanthub modules. Meeting 2/25 to discuss next steps. "
+          "next": "Sched intro meeting - JR\nMap her syllabus to Quanthub modules. Meeting 2/25 to discuss next steps. ",
+          "id": "55922594665"
         },
         {
           "name": "Alabama A&M University - Potential New Deal after Dr. McKey",
           "stage": "1095818328",
           "amount": 10625,
           "stale": 12,
-          "next": "Sched intro meeting - JR\nKeep talking to Dr. McKey about other professors to add. See what modules they'd want and get them in the platform."
+          "next": "Sched intro meeting - JR\nKeep talking to Dr. McKey about other professors to add. See what modules they'd want and get them in the platform.",
+          "id": "56122128190"
         },
         {
           "name": "University of Alabama at Birmingham - New Deal",
           "stage": "1095818328",
           "amount": 2400,
           "stale": 12,
-          "next": "Reach out in late April per George's request to sched intro meeting - JR"
+          "next": "Reach out in late April per George's request to sched intro meeting - JR",
+          "id": "56175409521"
         },
         {
           "name": "Oakland University - New Deal",
           "stage": "1095818328",
           "amount": 240,
           "stale": 5,
-          "next": "Meeting sched for 3-30 - JR\nFind the student count and see how his syllabus is coming along. See if we can still help build it with him or if he has enough for us to map our modules to."
+          "next": "Meeting sched for 3-30 - JR\nFind the student count and see how his syllabus is coming along. See if we can still help build it with him or if he has enough for us to map our modules to.",
+          "id": "57019339560"
         },
         {
           "name": "George Fox University - New Deal",
           "stage": "1095818328",
           "amount": 5760,
           "stale": 25,
-          "next": "Follow up meeting sched"
+          "next": "Follow up meeting sched",
+          "id": "57396962627"
         },
         {
           "name": "Pensacola Christian College - Jim White",
           "stage": "1095818330",
           "amount": 1920,
           "stale": 4,
-          "next": "Follow Up Meeting Sched for 4-8, reviewing Applied Data Science modules for fall"
+          "next": "Follow Up Meeting Sched for 4-8, reviewing Applied Data Science modules for fall",
+          "id": "57553412763"
         },
         {
           "name": "University of Maryland - New Deal",
           "stage": "1095818330",
           "amount": 5400,
           "stale": 11,
-          "next": "Sched meeting for June/July to finalize for fall"
+          "next": "Sched meeting for June/July to finalize for fall",
+          "id": "57619336846"
         },
         {
           "name": "University of North Texas at Dallas - Jason Garrett",
           "stage": "1095818328",
           "amount": 1680,
           "stale": 9,
-          "next": "Ping at beg of April to sched follow up meeting - JR\n\nEmail Trial: Send Jason an email with a 1-week free trial account access.\n\nRequest Syllabus: Ask Jason to reply with his course syllabus so the content team can map it to specific QuantHub modules.\n\nCalendar Invite: Send Jason a calendar invitation for the follow-up meeting scheduled for Thursday, March 19th at 1:00 PM CST. (DONE)\n\nMap Modules (Internal): Once the syllabus is received, have the content team align it with recommended modules before the follow-up meeting.\n\nPrep Pricing (Internal): Calculate formal discounted pricing once Jason confirms the exact number of modules and students for future semesters."
+          "next": "Ping at beg of April to sched follow up meeting - JR\n\nEmail Trial: Send Jason an email with a 1-week free trial account access.\n\nRequest Syllabus: Ask Jason to reply with his course syllabus so the content team can map it to specific QuantHub modules.\n\nCalendar Invite: Send Jason a calendar invitation for the follow-up meeting scheduled for Thursday, March 19th at 1:00 PM CST. (DONE)\n\nMap Modules (Internal): Once the syllabus is received, have the content team align it with recommended modules before the follow-up meeting.\n\nPrep Pricing (Internal): Calculate formal discounted pricing once Jason confirms the exact number of modules and students for future semesters.",
+          "id": "57830356277"
         },
         {
           "name": "Rutgers Business School - Marshall Sponder",
           "stage": "947295049",
           "amount": 48000,
           "stale": 10,
-          "next": "Next meeting sched 3-31"
+          "next": "Next meeting sched 3-31",
+          "id": "58029806122"
         },
         {
           "name": "University of North Carolina Wilmington - Barry Wray",
           "stage": "1095818328",
           "amount": null,
           "stale": 4,
-          "next": "Check in on 4-1 to confirm specific modules for fall"
+          "next": "Check in on 4-1 to confirm specific modules for fall",
+          "id": "58208304444"
         }
       ]
     },
@@ -515,11 +556,11 @@
       "deals_advanced_week": 1,
       "avg_days_to_close": 9,
       "ip_meetings_week": 2,
-      "vr_calls_week": 2,
+      "vr_calls_week": 1,
       "phone_calls_week": 1,
       "text_touches_week": 0,
       "raw_calls": 1,
-      "raw_meetings": 4,
+      "raw_meetings": 3,
       "raw_emails": 0,
       "meetings_target": 4,
       "calls_target": 8,
@@ -537,7 +578,8 @@
           "stage": "1095818329",
           "amount": 15800,
           "stale": 0,
-          "next": ""
+          "next": "",
+          "id": "58134866019"
         }
       ]
     }
@@ -545,5 +587,5 @@
   "version": 10,
   "source": "hubspot-api",
   "exportDate": "March 29, 2026",
-  "savedAt": "2026-03-29T02:59:45.720Z"
+  "savedAt": "2026-03-29T03:11:08.468Z"
 }
