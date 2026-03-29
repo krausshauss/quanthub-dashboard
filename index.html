@@ -524,11 +524,11 @@ input[type=file]{display:none;}
     <div class="tc"    id="tc-tr"><div id="trContent"></div></div>
   </div>
   <div style="padding:13px 16px;background:var(--surface);border:1px solid var(--border);border-radius:9px;border-left:3px solid var(--qh-blue);margin-bottom:16px">
-    <div style="font-family:var(--slab);font-size:12px;font-weight:700;color:var(--qh-dark);margin-bottom:8px">📋 Next Wednesday — 2 exports, 30 seconds</div>
+    <div style="font-family:var(--slab);font-size:12px;font-weight:700;color:var(--qh-dark);margin-bottom:8px">🔄 Data refreshes automatically from HubSpot every 4 hours</div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
-      <div style="font-size:10px;color:var(--muted)"><strong style="color:var(--text2)">1</strong> — Export Higher Education deals pipeline as CSV</div>
-      <div style="font-size:10px;color:var(--muted)"><strong style="color:var(--text2)">2</strong> — Export Sales Activity report (last 7 days) as XLSX</div>
-      <div style="font-size:10px;color:var(--muted)"><strong style="color:var(--text2)">3</strong> — Click "Load New Files", upload both, enter BANT/SMS</div>
+      <div style="font-size:10px;color:var(--muted)"><strong style="color:var(--text2)">Auto</strong> — Pipeline, CW revenue, stale deals, stage advancement pulled live from HubSpot API</div>
+      <div style="font-size:10px;color:var(--muted)"><strong style="color:var(--text2)">Manual</strong> — Click "Sync HubSpot" (PIN required) to force an immediate refresh at any time</div>
+      <div style="font-size:10px;color:var(--muted)"><strong style="color:var(--text2)">Override</strong> — SMS touches, BANT %, and daily verification still entered via "Load New Data"</div>
     </div>
   </div>
   <div class="footer">
@@ -546,9 +546,10 @@ input[type=file]{display:none;}
 //  CONFIG — only WORKER_URL and ADMIN_PIN needed here
 //  All secrets (GitHub token, HubSpot token) live in Cloudflare
 // ═══════════════════════════════════════════════════════
-const ADMIN_PIN   = null;  // PIN validated server-side by Cloudflare Worker — not stored here
-const WORKER_URL  = 'https://quanthub-proxy.michael-20e.workers.dev/';
-const APP_VERSION = 'v19a';
+const ADMIN_PIN         = null;  // PIN validated server-side by Cloudflare Worker — not stored here
+const WORKER_URL        = 'https://quanthub-proxy.michael-20e.workers.dev/';
+const HUBSPOT_PORTAL_ID = '7316176';  // ← Your HubSpot portal ID (from any HubSpot URL)
+const APP_VERSION       = 'v19b';
 
 let isAdminUnlocked = false;
 
@@ -1209,19 +1210,31 @@ function renderDetail(id){
 
   // PIPELINE
   const grouped={};STAGE_ORDER.forEach(s=>{grouped[s]=[];});
-  r.deals.forEach(d=>{(grouped[d.stage]=grouped[d.stage]||[]).push(d);});
+  // Group deals — also catch any stage not in STAGE_ORDER
+  const otherDeals=[];
+  r.deals.forEach(d=>{
+    if(STAGE_ORDER.includes(d.stage)) (grouped[d.stage]=grouped[d.stage]||[]).push(d);
+    else otherDeals.push(d);
+  });
+  if(otherDeals.length) grouped['Unknown']=(grouped['Unknown']||[]).concat(otherDeals);
+
   let pipHtml=`<div style="font-size:11px;color:var(--muted);margin-bottom:12px">${r.name} · ${r.active_deals} active deals · ${fmt(r.pipeline_value)}</div>`;
-  STAGE_ORDER.forEach(stage=>{
+
+  // Show all stages that have deals (including Unknown)
+  const allStages=[...STAGE_ORDER,'Unknown'];
+  allStages.forEach(stage=>{
     const deals=grouped[stage];if(!deals||!deals.length)return;
     const sc=STAGE_COLORS[stage]||'#7A8FA6';
     pipHtml+=`<div class="sg"><div class="sh"><div class="sd" style="background:${sc}"></div><span class="sn" style="color:${sc}">${stage}</span><span class="sc2">(${deals.length})</span></div>
       ${deals.map(d=>{
         const sw=d.stale>14?`<span class="sp" style="background:#FFECEF;color:#B82038;border-color:#E8909A">${d.stale}d</span>`:d.stale>7?`<span class="sp" style="background:#FFEDE4;color:#C04A10;border-color:#F0A080">${d.stale}d</span>`:'';
-        return`<div class="dr"><div class="dnw"><div class="dn">${d.name}</div>${d.next?`<div class="dns">${d.next}</div>`:''}</div><div class="da">${fmt(d.amount)}</div>${sw}</div>`;
+        const hsLink=d.id&&HUBSPOT_PORTAL_ID?`<a href="https://app.hubspot.com/contacts/${HUBSPOT_PORTAL_ID}/deal/${d.id}" target="_blank" style="color:var(--qh-blue);font-size:9px;text-decoration:none;opacity:.7;margin-left:5px;" title="Open in HubSpot">↗</a>`:'';
+        return`<div class="dr"><div class="dnw"><div class="dn">\${d.name}\${hsLink}</div>\${d.next?'<div class="dns">'+d.next+'</div>':''}</div><div class="da">\${fmt(d.amount)}</div>\${sw}</div>`;
       }).join('')}
     </div>`;
   });
-  if(r.stale_7d>0)pipHtml+=`<div class="alert">⚠ ${r.stale_7d} deal${r.stale_7d>1?'s':''} stale >7 days — address in standup.</div>`;
+  if(r.stale_7d>0)pipHtml+=`<div class="alert">⚠ \${r.stale_7d} deal\${r.stale_7d>1?'s':''} stale >7 days — address in standup.</div>`;
+  if(!r.deals||!r.deals.length)pipHtml+=`<div style="font-size:12px;color:var(--muted);padding:20px 0;text-align:center;">No active deals found for \${r.name}</div>`;
   document.getElementById('pipContent').innerHTML=pipHtml;
 
   // TRENDS
