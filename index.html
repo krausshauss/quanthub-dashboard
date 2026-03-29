@@ -1021,6 +1021,7 @@ function buildScorecard(){
   buildKpiStrip();
 
   const exportDateStr = new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  window._scorecardData = { reps: repData, exportDate: exportDateStr, history: [] };
   // Remove any existing persist banner
   const pb = document.getElementById('persistBanner');
   if(pb) pb.remove();
@@ -1174,15 +1175,16 @@ function renderDetail(id){
     <div class="pc" style="border-top-color:${aG.c}">
       <div class="ph2"><div class="pn">Qualified Activity <span style="color:var(--muted);font-weight:400">(20%)</span></div><div class="grade-wrap"><div class="pbg" style="color:${aG.c};background:${aG.bg};border-color:${aG.bd}">${s.act}·${aG.l}</div><div class="ins-tip">${gradeInsight('act',s.act,r)}</div></div></div>
       <div class="act-detail">
-        <div class="act-detail-title">This week · from activity report</div>
+        <div class="act-detail-title">This week · live from HubSpot API</div>
         <div class="act-row"><span class="act-row-l">Meetings (all types)</span><span class="act-row-v">${r.raw_meetings}</span></div>
         <div class="act-row"><span class="act-row-l">Calls logged</span><span class="act-row-v">${r.raw_calls}</span></div>
-        <div class="act-row"><span class="act-row-l">Text/SMS (standup)</span><span class="act-row-v">${r.text_touches_week}</span></div>
+        <div class="act-row"><span class="act-row-l">SMS / Text logged</span><span class="act-row-v">${r.raw_sms||0}</span></div>
+        <div class="act-row"><span class="act-row-l">LinkedIn activity</span><span class="act-row-v">${r.raw_linkedin||0}</span></div>
         <div class="act-row"><span class="act-row-l">Emails sent (not scored)</span><span class="act-row-v" style="color:var(--muted)">${r.raw_emails}</span></div>
       </div>
       ${mRow('Meetings vs target',r.raw_meetings,r.meetings_target,INS.mtg)}
       ${mRow('Calls vs target',r.raw_calls,r.calls_target,INS.calls)}
-      ${mRow('Texts vs target',r.text_touches_week,r.text_target,INS.texts)}
+      ${mRow('SMS/Text vs target',(r.raw_sms||0)+r.text_touches_week,r.text_target,INS.texts)}
       <div style="margin-top:6px;font-size:9px;color:var(--muted)">Note: HubSpot does not distinguish IP vs VR meeting type. Both count as high-touch.</div>
     </div>
 
@@ -1248,11 +1250,67 @@ function renderDetail(id){
   if(r.stale_7d>0) pipHtml+='<div class="alert">⚠ '+r.stale_7d+' deal'+(r.stale_7d>1?'s':'')+' stale >7 days — address in standup.</div>';
   if(!r.deals||!r.deals.length) pipHtml+='<div style="font-size:12px;color:var(--muted);padding:20px 0;text-align:center;">No active deals found for '+r.name+'</div>';
   document.getElementById('pipContent').innerHTML=pipHtml;  // TRENDS
-  document.getElementById('trContent').innerHTML=`<div style="padding:28px;text-align:center;color:var(--muted)">
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--border2)" stroke-width="1.5" stroke-linecap="round" style="margin:0 auto 12px;display:block"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-    <div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:4px">Week-over-week trends unlock next week</div>
-    <div style="font-size:11px">Each upload is stored in memory during the session. Future version will persist trend history in the browser.</div>
-  </div>`;
+  // Build week-over-week trend view
+  const history = (window._scorecardData && window._scorecardData.history) ? window._scorecardData.history : [];
+  const weeks   = history.filter(w => w.reps);
+  const thisRep = r;
+
+  if (!weeks.length) {
+    document.getElementById('trContent').innerHTML = '<div style="padding:28px;text-align:center;color:var(--muted)"><div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:6px">Trends build over time</div><div style="font-size:11px">Week-over-week data accumulates automatically each week. Check back after the next sync cycle (7+ days).</div></div>';
+    return;
+  }
+
+  // Build trend table — current week + up to 4 prior weeks
+  const allWeeks = [{ week: 'This Week', reps: window._scorecardData.reps }].concat(weeks.slice(0,4));
+  const repHistory = allWeeks.map(w => {
+    const rd = (w.reps || []).find(x => x.id === r.id);
+    return { week: w.week, cw: rd ? rd.cw_amount : null, pipe: rd ? rd.pipeline_value : null,
+             active: rd ? rd.active_deals : null, stale: rd ? rd.stale_7d : null,
+             calls: rd ? rd.raw_calls : null, meetings: rd ? rd.raw_meetings : null };
+  });
+
+  function trendArrow(curr, prev) {
+    if (curr === null || prev === null) return '';
+    if (curr > prev) return '<span style="color:#5A9420;font-size:11px;margin-left:4px">▲</span>';
+    if (curr < prev) return '<span style="color:#B82038;font-size:11px;margin-left:4px">▼</span>';
+    return '<span style="color:var(--muted);font-size:11px;margin-left:4px">—</span>';
+  }
+
+  function fmtK(v) { return v === null ? '—' : v >= 1000 ? '$'+(v/1000).toFixed(0)+'K' : '$'+v; }
+
+  let trHtml = '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12px">';
+  trHtml += '<thead><tr style="background:var(--qh-dark);color:#fff">';
+  trHtml += '<th style="padding:8px 10px;text-align:left;font-weight:700">Metric</th>';
+  repHistory.forEach((w,i) => {
+    trHtml += '<th style="padding:8px 10px;text-align:center;font-weight:700;min-width:90px">' + w.week + (i===0?' <span style="font-size:9px;opacity:.7">(current)</span>':'') + '</th>';
+  });
+  trHtml += '</tr></thead><tbody>';
+
+  const metrics = [
+    { label: 'CW Revenue',     key: 'cw',       fmt: fmtK,  good: 'up' },
+    { label: 'Pipeline Value', key: 'pipe',      fmt: fmtK,  good: 'up' },
+    { label: 'Active Deals',   key: 'active',    fmt: v=>v===null?'—':v, good: 'up' },
+    { label: 'Stale >7d',      key: 'stale',     fmt: v=>v===null?'—':v, good: 'down' },
+    { label: 'Calls',          key: 'calls',     fmt: v=>v===null?'—':v, good: 'up' },
+    { label: 'Meetings',       key: 'meetings',  fmt: v=>v===null?'—':v, good: 'up' },
+  ];
+
+  metrics.forEach((m, mi) => {
+    trHtml += '<tr style="background:' + (mi%2===0?'var(--surface)':'var(--bg)') + '">';
+    trHtml += '<td style="padding:7px 10px;font-weight:600;color:var(--text2)">' + m.label + '</td>';
+    repHistory.forEach((w, i) => {
+      const val  = w[m.key];
+      const prev = i < repHistory.length-1 ? repHistory[i+1][m.key] : null;
+      const arrow = i===0 ? trendArrow(val, prev) : '';
+      const color = (i===0&&prev!==null) ? (m.good==='up'?(val>prev?'#5A9420':val<prev?'#B82038':'var(--text2)'):(val<prev?'#5A9420':val>prev?'#B82038':'var(--text2)')) : 'var(--text2)';
+      trHtml += '<td style="padding:7px 10px;text-align:center;color:' + color + ';font-family:var(--mono);font-weight:' + (i===0?'700':'400') + '">' + m.fmt(val) + arrow + '</td>';
+    });
+    trHtml += '</tr>';
+  });
+
+  trHtml += '</tbody></table></div>';
+  trHtml += '<div style="font-size:10px;color:var(--muted);margin-top:10px;padding:6px 8px;background:var(--bg);border-radius:6px">Snapshots captured automatically each week on Sync. Green ▲ = improvement · Red ▼ = decline vs prior week.</div>';
+  document.getElementById('trContent').innerHTML = trHtml;
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1613,6 +1671,7 @@ window.addEventListener('DOMContentLoaded', () => {
   loadFromGitHub().then(saved => {
     console.log('[QH] loadFromGitHub result:', saved ? 'DATA FOUND (' + saved.reps.length + ' reps)' : 'NO DATA');
     if (saved && saved.reps && saved.reps.length) {
+      window._scorecardData = saved; // store for trends tab
       repData  = saved.reps;
       activeId = repData[0].id;
       try {
