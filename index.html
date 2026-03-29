@@ -548,7 +548,7 @@ input[type=file]{display:none;}
 const ADMIN_PIN         = null;  // PIN validated server-side by Cloudflare Worker — not stored here
 const WORKER_URL        = 'https://quanthub-proxy.michael-20e.workers.dev/';
 const HUBSPOT_PORTAL_ID = '7316176';  // ← Your HubSpot portal ID (from any HubSpot URL)
-const APP_VERSION = 'v19f';
+const APP_VERSION = 'v19i';
 
 let isAdminUnlocked = false;
 
@@ -1636,7 +1636,7 @@ async function loadFromGitHub() {
   try {
     const res = await Promise.race([
       fetch(WORKER_URL + '?t=' + Date.now(), { method: 'GET' }),
-      new Promise((_,rej) => setTimeout(()=>rej(new Error('timeout')), 12000))
+      new Promise((_,rej) => setTimeout(()=>rej(new Error('timeout')), 25000))
     ]);
     if (!res.ok) { console.warn('[QH] Worker returned:', res.status); return null; }
     const payload = await res.json();
