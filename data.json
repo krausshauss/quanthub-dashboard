@@ -11,7 +11,7 @@
       "pipeline_value": 98465,
       "stale_7d": 0,
       "deals_advanced_week": 3,
-      "avg_days_to_close": 198,
+      "avg_days_to_close": 199,
       "ip_meetings_week": 11,
       "vr_calls_week": 11,
       "phone_calls_week": 9,
@@ -140,7 +140,7 @@
       "cw_deals": 1,
       "active_deals": 16,
       "pipeline_value": 448268,
-      "stale_7d": 3,
+      "stale_7d": 4,
       "deals_advanced_week": 15,
       "avg_days_to_close": 122,
       "ip_meetings_week": 7,
@@ -174,7 +174,7 @@
           "name": "UNA - CIS 292 Summer 2026 Pilot Section",
           "stage": "Commit/Verbal",
           "amount": 3300,
-          "stale": 5,
+          "stale": 6,
           "next": "Get bookstore contact to move deal forward. VM left for Justin. Continue to push for close",
           "id": "23224763413"
         },
@@ -190,7 +190,7 @@
           "name": "Silvanus Udoka - Clark Atlanta University-SBAA",
           "stage": "Commit/Verbal",
           "amount": 3200,
-          "stale": 4,
+          "stale": 0,
           "next": "Get bookstore intro ",
           "id": "40613389058"
         },
@@ -214,7 +214,7 @@
           "name": "Illinois State University - New Deal AI / Excel Pilot",
           "stage": "Trial (optional)",
           "amount": 2160,
-          "stale": 2,
+          "stale": 3,
           "next": "Sync with Della to review pilot outcomes 3/23\n",
           "id": "54352107577"
         },
@@ -230,7 +230,7 @@
           "name": "CLARK UNIVERSITY - MBA Excel",
           "stage": "Sales Opportunity",
           "amount": 3600,
-          "stale": 10,
+          "stale": 11,
           "next": "Still gap in QuantHub firing inside of Canvas - Charity looking into. Professor is waiting on charity to resolve. \n",
           "id": "55623966115"
         },
@@ -246,7 +246,7 @@
           "name": "AI in Marketing Loras College - New Deal",
           "stage": "Sales Opportunity",
           "amount": 960,
-          "stale": 3,
+          "stale": 4,
           "next": "Working w/ IT to integrate w/ Moodle - Bob Adams\n",
           "id": "56896784292"
         },
@@ -278,7 +278,7 @@
           "name": "Lander University - New Deal",
           "stage": "Discovery/Demo (SQL)",
           "amount": 1200,
-          "stale": 12,
+          "stale": 13,
           "next": "JD Scheudled Meeting for Thursday 3/18",
           "id": "58029852189"
         },
@@ -286,7 +286,7 @@
           "name": "IMG Academy - AI Literacy ",
           "stage": "Discovery/Demo (SQL)",
           "amount": 78000,
-          "stale": 5,
+          "stale": 6,
           "next": "Call w/ Portia to review Catalog and modules to move forward ",
           "id": "58288931374"
         },
@@ -311,7 +311,7 @@
       "pipeline_value": 320,
       "stale_7d": 1,
       "deals_advanced_week": 3,
-      "avg_days_to_close": 243,
+      "avg_days_to_close": 244,
       "ip_meetings_week": 3,
       "vr_calls_week": 2,
       "phone_calls_week": 2,
@@ -344,7 +344,7 @@
           "name": "AUDIT: Matthew Cole - Lawrence Technological University-SBAA",
           "stage": "Discovery/Demo (SQL)",
           "amount": null,
-          "stale": 23,
+          "stale": 24,
           "next": "",
           "id": "40604214532"
         },
@@ -369,7 +369,7 @@
       "pipeline_value": 146953,
       "stale_7d": 12,
       "deals_advanced_week": 17,
-      "avg_days_to_close": 57,
+      "avg_days_to_close": 58,
       "ip_meetings_week": 7,
       "vr_calls_week": 7,
       "phone_calls_week": 6,
@@ -409,7 +409,7 @@
           "name": "University of Nebraska–Lincoln - New Deal",
           "stage": "Sales Opportunity",
           "amount": 20000,
-          "stale": 6,
+          "stale": 7,
           "next": "Sched intro meeting - JR\n\nAI Marketing introduction + syllabus submission + setup next meeting after his spring break - Returns 3-23",
           "id": "52036268604"
         },
@@ -417,7 +417,7 @@
           "name": "University of Nebraska–Lincoln - New Deal",
           "stage": "Discovery/Demo (SQL)",
           "amount": 4000,
-          "stale": 6,
+          "stale": 7,
           "next": "Sched intro meeting - JR",
           "id": "52038717369"
         },
@@ -425,7 +425,7 @@
           "name": "RISK: Florida State University - Spring Pilot - Marina Girju",
           "stage": "Trial (optional)",
           "amount": 9600,
-          "stale": 6,
+          "stale": 7,
           "next": "Send agreement doc to Marina, Initiate pilot implementation process",
           "id": "55478515839"
         },
@@ -457,7 +457,7 @@
           "name": "Miami Dade College - Max Ramirez",
           "stage": "Trial (optional)",
           "amount": 1440,
-          "stale": 11,
+          "stale": 12,
           "next": "Reconnecting in August prior to fall term",
           "id": "55927271211"
         },
@@ -465,7 +465,7 @@
           "name": "The College of New Jersey - New Deal",
           "stage": "Discovery/Demo (SQL)",
           "amount": 28800,
-          "stale": 4,
+          "stale": 5,
           "next": "Sched intro meeting after return from spring break on 3-23 - JR\nGet Louis Tucci in the platform. He is on a committee and needs their approval for QH. Wants a foundational course for all students to take. 600 students to start, he is mostly interested in AI foundations and AI in the age of marketing. ",
           "id": "55927464840"
         },
@@ -497,7 +497,7 @@
           "name": "Oakland University - New Deal",
           "stage": "Discovery/Demo (SQL)",
           "amount": 240,
-          "stale": 5,
+          "stale": 6,
           "next": "Meeting sched for 3-30 - JR\nFind the student count and see how his syllabus is coming along. See if we can still help build it with him or if he has enough for us to map our modules to.",
           "id": "57019339560"
         },
@@ -513,7 +513,7 @@
           "name": "Pensacola Christian College - Jim White",
           "stage": "Trial (optional)",
           "amount": 1920,
-          "stale": 4,
+          "stale": 5,
           "next": "Follow Up Meeting Sched for 4-8, reviewing Applied Data Science modules for fall",
           "id": "57553412763"
         },
@@ -521,7 +521,7 @@
           "name": "University of Maryland - New Deal",
           "stage": "Trial (optional)",
           "amount": 5400,
-          "stale": 11,
+          "stale": 12,
           "next": "Sched meeting for June/July to finalize for fall",
           "id": "57619336846"
         },
@@ -596,7 +596,7 @@
   ],
   "version": 10,
   "source": "hubspot-api",
-  "exportDate": "March 29, 2026",
-  "savedAt": "2026-03-29T14:21:15.414Z",
+  "exportDate": "March 30, 2026",
+  "savedAt": "2026-03-30T03:49:17.924Z",
   "history": []
 }
