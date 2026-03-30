@@ -5,19 +5,19 @@
       "name": "Nate Spargo",
       "initials": "NS",
       "role": "Director of CS",
-      "cw_amount": 218636,
-      "cw_deals": 12,
-      "active_deals": 3,
-      "pipeline_value": 98465,
+      "cw_amount": 221276,
+      "cw_deals": 13,
+      "active_deals": 2,
+      "pipeline_value": 95825,
       "stale_7d": 0,
-      "deals_advanced_week": 3,
-      "avg_days_to_close": 200,
-      "ip_meetings_week": 11,
+      "deals_advanced_week": 2,
+      "avg_days_to_close": 140,
+      "ip_meetings_week": 10,
       "vr_calls_week": 10,
       "phone_calls_week": 7,
       "text_touches_week": 0,
       "raw_calls": 7,
-      "raw_meetings": 21,
+      "raw_meetings": 20,
       "raw_emails": 0,
       "raw_sms": 0,
       "raw_linkedin": 0,
@@ -31,6 +31,12 @@
       "bant_pct": 50,
       "daily_verified": 80,
       "expansion_deals": [
+        {
+          "name": "Wright State University - Linda Helentjaris - APS 2070 - Spring 2026",
+          "amount": 2640,
+          "stage": "Closed Won",
+          "cw": true
+        },
         {
           "name": "Karla Gower - APR 472 - Spring 2026",
           "amount": 2200,
@@ -106,14 +112,6 @@
       ],
       "deals": [
         {
-          "name": "Wright State University - Linda Helentjaris - APS 2070 - Spring 2026",
-          "stage": "Commit/Verbal",
-          "amount": 2640,
-          "stale": 0,
-          "next": "",
-          "id": "37277051241"
-        },
-        {
           "name": "Mercer - University-wide AI Literacy Expansion",
           "stage": "Negotiation",
           "amount": 55825,
@@ -143,12 +141,12 @@
       "stale_7d": 4,
       "deals_advanced_week": 15,
       "avg_days_to_close": 123,
-      "ip_meetings_week": 8,
-      "vr_calls_week": 7,
+      "ip_meetings_week": 9,
+      "vr_calls_week": 8,
       "phone_calls_week": 2,
       "text_touches_week": 0,
       "raw_calls": 2,
-      "raw_meetings": 15,
+      "raw_meetings": 17,
       "raw_emails": 0,
       "raw_sms": 0,
       "raw_linkedin": 0,
@@ -270,7 +268,7 @@
           "name": "West Georgia UoWG John Upson",
           "stage": "Negotiation",
           "amount": 15800,
-          "stale": 3,
+          "stale": 0,
           "next": "",
           "id": "58025395292"
         },
@@ -370,12 +368,12 @@
       "stale_7d": 15,
       "deals_advanced_week": 16,
       "avg_days_to_close": 58,
-      "ip_meetings_week": 8,
-      "vr_calls_week": 7,
+      "ip_meetings_week": 7,
+      "vr_calls_week": 6,
       "phone_calls_week": 0,
       "text_touches_week": 0,
       "raw_calls": 0,
-      "raw_meetings": 15,
+      "raw_meetings": 13,
       "raw_emails": 0,
       "raw_sms": 0,
       "raw_linkedin": 0,
@@ -494,11 +492,11 @@
           "id": "56175409521"
         },
         {
-          "name": "Oakland University - New Deal",
+          "name": "Oakland University - Brandon Gustafson",
           "stage": "Discovery/Demo (SQL)",
           "amount": 240,
           "stale": 0,
-          "next": "Meeting sched for 3-30 - JR\nFind the student count and see how his syllabus is coming along. See if we can still help build it with him or if he has enough for us to map our modules to.",
+          "next": "Calling Brandon on Monday 4-6 to confirm modules for summer or sched call to commit by end of week\n",
           "id": "57019339560"
         },
         {
@@ -575,7 +573,7 @@
       "meetings_target": 4,
       "calls_target": 8,
       "text_target": 3,
-      "next_step_pct": 0,
+      "next_step_pct": 100,
       "amount_populated": 100,
       "close_date_set": 100,
       "stage_flow_pct": 0,
@@ -588,7 +586,7 @@
           "stage": "Sales Opportunity",
           "amount": 15800,
           "stale": 0,
-          "next": "",
+          "next": "Coordinate with Stewart to demo 1:1 with each professor in their Canvas instance. ",
           "id": "58134866019"
         }
       ]
@@ -597,6 +595,6 @@
   "version": 10,
   "source": "hubspot-api",
   "exportDate": "March 30, 2026",
-  "savedAt": "2026-03-30T18:06:27.304Z",
+  "savedAt": "2026-03-30T19:20:55.820Z",
   "history": []
 }
