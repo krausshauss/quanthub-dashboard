@@ -142,11 +142,11 @@
       "deals_advanced_week": 14,
       "avg_days_to_close": 125,
       "ip_meetings_week": 9,
-      "vr_calls_week": 8,
+      "vr_calls_week": 9,
       "phone_calls_week": 3,
       "text_touches_week": 0,
       "raw_calls": 3,
-      "raw_meetings": 17,
+      "raw_meetings": 18,
       "raw_emails": 0,
       "raw_sms": 0,
       "raw_linkedin": 0,
@@ -205,7 +205,7 @@
           "stage": "Negotiation",
           "amount": 256000,
           "stale": 2,
-          "next": "Waiting on Job Descriptions from Raquel \n",
+          "next": "Putting together rationale for Racquel - to share with Exec team",
           "id": "52224419690"
         },
         {
@@ -213,7 +213,7 @@
           "stage": "Trial (optional)",
           "amount": 2160,
           "stale": 2,
-          "next": "Sync with Della to review pilot outcomes 3/23\n",
+          "next": "Della and I sync first week in may - asking for book store intro \n",
           "id": "54352107577"
         },
         {
@@ -244,8 +244,8 @@
           "name": "AI in Marketing Loras College - New Deal",
           "stage": "Sales Opportunity",
           "amount": 960,
-          "stale": 6,
-          "next": "Working w/ IT to integrate w/ Moodle - Bob Adams\n",
+          "stale": 0,
+          "next": "Working w/ IT to integrate w/ Moodle - Bob Adams. Send Bob Interation \n",
           "id": "56896784292"
         },
         {
@@ -369,11 +369,11 @@
       "deals_advanced_week": 15,
       "avg_days_to_close": 57,
       "ip_meetings_week": 9,
-      "vr_calls_week": 8,
+      "vr_calls_week": 9,
       "phone_calls_week": 3,
       "text_touches_week": 0,
       "raw_calls": 3,
-      "raw_meetings": 17,
+      "raw_meetings": 18,
       "raw_emails": 0,
       "raw_sms": 0,
       "raw_linkedin": 2,
@@ -603,6 +603,6 @@
   "version": 10,
   "source": "hubspot-api",
   "exportDate": "April 1, 2026",
-  "savedAt": "2026-04-01T13:29:11.045Z",
+  "savedAt": "2026-04-01T14:59:02.565Z",
   "history": []
 }
