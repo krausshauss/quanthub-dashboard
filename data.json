@@ -14,9 +14,9 @@
       "avg_days_to_close": 144,
       "ip_meetings_week": 12,
       "vr_calls_week": 11,
-      "phone_calls_week": 8,
+      "phone_calls_week": 6,
       "text_touches_week": 0,
-      "raw_calls": 8,
+      "raw_calls": 6,
       "raw_meetings": 23,
       "raw_emails": 0,
       "raw_sms": 0,
@@ -142,11 +142,11 @@
       "deals_advanced_week": 15,
       "avg_days_to_close": 127,
       "ip_meetings_week": 7,
-      "vr_calls_week": 7,
-      "phone_calls_week": 5,
+      "vr_calls_week": 6,
+      "phone_calls_week": 6,
       "text_touches_week": 0,
-      "raw_calls": 5,
-      "raw_meetings": 14,
+      "raw_calls": 6,
+      "raw_meetings": 13,
       "raw_emails": 0,
       "raw_sms": 0,
       "raw_linkedin": 0,
@@ -188,7 +188,7 @@
           "name": "Silvanus Udoka - Clark Atlanta University-SBAA",
           "stage": "Commit/Verbal",
           "amount": 3600,
-          "stale": 1,
+          "stale": 0,
           "next": "Get bookstore intro ",
           "id": "40613389058"
         },
@@ -204,7 +204,7 @@
           "name": "SciF - Corp Deal",
           "stage": "Negotiation",
           "amount": 256000,
-          "stale": 1,
+          "stale": 0,
           "next": "Putting together rationale for Racquel - to share with Exec team",
           "id": "52224419690"
         },
@@ -439,7 +439,7 @@
           "name": "RISK - Miami Dade College - Max Ramirez",
           "stage": "Trial (optional)",
           "amount": 1440,
-          "stale": 1,
+          "stale": 0,
           "next": "Circle back with updated / corrected content",
           "id": "55927271211"
         },
@@ -495,7 +495,7 @@
           "name": "Pensacola Christian College - Jim White",
           "stage": "Trial (optional)",
           "amount": 1920,
-          "stale": 9,
+          "stale": 10,
           "next": "Follow Up Meeting Sched for 4-8, reviewing Applied Data Science modules for fall",
           "id": "57553412763"
         },
@@ -565,7 +565,7 @@
       "meetings_target": 4,
       "calls_target": 8,
       "text_target": 3,
-      "next_step_pct": 50,
+      "next_step_pct": 100,
       "amount_populated": 100,
       "close_date_set": 100,
       "stage_flow_pct": 0,
@@ -585,8 +585,8 @@
           "name": "The University of Texas Rio Grande Valley - New Deal",
           "stage": "Negotiation",
           "amount": 15000,
-          "stale": 1,
-          "next": "",
+          "stale": 0,
+          "next": "Follow up with Jerald to finalize deal shaping and move to signatures. ",
           "id": "58686450958"
         }
       ]
@@ -595,6 +595,6 @@
   "version": 10,
   "source": "hubspot-api",
   "exportDate": "April 3, 2026",
-  "savedAt": "2026-04-03T13:50:08.952Z",
+  "savedAt": "2026-04-03T17:12:05.663Z",
   "history": []
 }
