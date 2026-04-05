@@ -19,7 +19,7 @@
 #pinModal.open{display:flex;align-items:center;justify-content:center;}
 </style>
 <title>QuantHub · Sales Rep Scorecard</title>
-<!-- QH-VERSION: v19n -->
+<!-- QH-VERSION: v20a -->
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Slab:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -108,6 +108,35 @@ input[type=file]{display:none;}
 .ph-sb{font-size:11px;color:var(--muted);margin-top:3px;}
 .btn-rl{display:inline-flex;align-items:center;gap:6px;background:var(--surface);color:var(--qh-blue);border:1px solid var(--bl-bd);border-radius:7px;padding:6px 13px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);}
 .src-badge{font-size:10px;color:var(--ok);background:var(--ok-bg);padding:3px 8px;border-radius:20px;border:1px solid var(--ok-bd);display:inline-flex;align-items:center;gap:4px;}
+
+/* ANNUAL TICKER */
+.annual-ticker{background:linear-gradient(135deg,#0B4971,#0077B5);border-radius:12px;padding:16px 20px;margin-bottom:14px;color:#fff;position:relative;overflow:hidden;}
+.annual-ticker::before{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.06);}
+.annual-ticker::after{content:'';position:absolute;right:30px;bottom:-30px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.04);}
+.at-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px;}
+.at-label{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.6);}
+.at-amount{font-family:var(--slab);font-size:28px;font-weight:700;color:#fff;line-height:1;}
+.at-pct{font-family:var(--mono);font-size:15px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);}
+.at-bar-wrap{height:8px;background:rgba(255,255,255,.15);border-radius:4px;overflow:hidden;margin-bottom:6px;}
+.at-bar{height:100%;border-radius:4px;background:linear-gradient(90deg,#69A62A,#8BC34A);transition:width .8s ease;}
+.at-sub{display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,.55);}
+
+/* QUARTERLY ROLLUP */
+.qtr-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+.qt{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;border-top:3px solid var(--border2);position:relative;transition:box-shadow .15s;}
+.qt.active{border-top-color:var(--qh-blue);box-shadow:0 2px 12px rgba(0,119,181,.12);}
+.qt.hit{border-top-color:var(--ok);}
+.qt-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:6px;display:flex;align-items:center;gap:5px;}
+.qt-badge{font-size:8px;padding:1px 6px;border-radius:10px;font-weight:700;}
+.qt-badge.current{background:var(--bl-bg);color:var(--bl);border:1px solid var(--bl-bd);}
+.qt-badge.done{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-bd);}
+.qt-badge.future{background:var(--bg);color:var(--dim);border:1px solid var(--border);}
+.qt-amount{font-family:var(--slab);font-size:20px;font-weight:700;color:var(--text);line-height:1;margin-bottom:4px;}
+.qt.active .qt-amount{color:var(--qh-blue);}
+.qt.hit .qt-amount{color:var(--ok);}
+.qt-bar-wrap{height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-bottom:5px;}
+.qt-bar{height:100%;border-radius:2px;transition:width .6s ease;}
+.qt-sub{font-size:9px;color:var(--muted);}
 
 /* KPI STRIP */
 .kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
@@ -309,6 +338,11 @@ input[type=file]{display:none;}
     <span class="qh-wm">quanthub</span>
   </a>
   <div class="tb-r"><div><strong>Sales Rep Scorecard</strong> · Higher Education <span id="appVersionBadge" style="opacity:.5;font-size:9px;letter-spacing:.05em;margin-left:5px;font-family:var(--mono);"></span></div><div id="tbInfo">Upload files to begin</div></div>
+</div>
+
+<!-- ══ DEV ENVIRONMENT BANNER ══ -->
+<div id="devBanner" style="display:none;background:#C07800;color:#fff;text-align:center;padding:7px 16px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;">
+  ⚠ DEV ENVIRONMENT · Changes here do not affect production · quanthub-dashboard-dev
 </div>
 
 <!-- ══ SCREEN 1: UPLOAD ══════════════════════════════ -->
@@ -513,6 +547,8 @@ input[type=file]{display:none;}
       <span class="src-badge" id="srcBadge" style="font-size:10px;"></span>
     </div>
   </div>
+  <div id="annualTicker"></div>
+  <div class="qtr-strip" id="qtrStrip"></div>
   <div class="kpi-strip" id="kpiStrip"></div>
   <div class="sec">Rep Performance · Click to drill in</div>
   <div class="rep-grid" id="repGrid"></div>
@@ -555,7 +591,7 @@ input[type=file]{display:none;}
 const ADMIN_PIN         = null;  // PIN validated server-side by Cloudflare Worker — not stored here
 const WORKER_URL        = 'https://quanthub-proxy.michael-20e.workers.dev/';
 const HUBSPOT_PORTAL_ID = '7316176';  // ← Your HubSpot portal ID (from any HubSpot URL)
-const APP_VERSION = 'v19n';
+const APP_VERSION = 'v20a';
 
 let isAdminUnlocked = false;
 let pinMode  = 'load';
@@ -1049,10 +1085,10 @@ function buildScorecard(){
   const totS=repData.reduce((s,r)=>s+r.stale_7d,0);
   const aeN=repData.filter(r=>r.role.includes('Account')).length;
 
-  buildKpiStrip();
-
   const exportDateStr = new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  // Set _scorecardData BEFORE buildKpiStrip so buildQtrStrip can access history (empty on first load)
   window._scorecardData = { reps: repData, exportDate: exportDateStr, history: [] };
+  buildKpiStrip();
   // Remove any existing persist banner
   const pb = document.getElementById('persistBanner');
   if(pb) pb.remove();
@@ -1311,15 +1347,21 @@ function renderDetail(id){
   const thisRep = r;
 
   if (!weeks.length) {
-    document.getElementById('trContent').innerHTML = '<div style="padding:28px;text-align:center;color:var(--muted)"><div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:6px">Trends build over time</div><div style="font-size:11px">Week-over-week data accumulates automatically each week. Check back after the next sync cycle (7+ days).</div></div>';
+    document.getElementById('trContent').innerHTML = `
+      <div style="padding:24px;text-align:center;color:var(--muted)">
+        <div style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:6px">📈 Building Trend History</div>
+        <div style="font-size:11px;line-height:1.7">Week-over-week snapshots accumulate automatically.<br>
+        Each HubSpot Sync captures a new data point when 7+ days have passed since the last snapshot.<br><br>
+        <strong style="color:var(--text2)">Current week data is live above.</strong> Check back next week for trend arrows.</div>
+      </div>`;
     return;
   }
 
   // Build trend table — current week + up to 4 prior weeks
-  const allWeeks = [{ week: 'This Week', reps: window._scorecardData.reps }].concat(weeks.slice(0,4));
+  const allWeeks = [{ week: 'This Week', savedAt: window._scorecardData.savedAt, reps: window._scorecardData.reps }].concat(weeks.slice(0,4));
   const repHistory = allWeeks.map(w => {
     const rd = (w.reps || []).find(x => x.id === r.id);
-    return { week: w.week, cw: rd ? rd.cw_amount : null, pipe: rd ? rd.pipeline_value : null,
+    return { week: w.week, savedAt: w.savedAt, cw: rd ? rd.cw_amount : null, pipe: rd ? rd.pipeline_value : null,
              active: rd ? rd.active_deals : null, stale: rd ? rd.stale_7d : null,
              calls: rd ? rd.raw_calls : null, meetings: rd ? rd.raw_meetings : null };
   });
@@ -1337,7 +1379,9 @@ function renderDetail(id){
   trHtml += '<thead><tr style="background:var(--qh-dark);color:#fff">';
   trHtml += '<th style="padding:8px 10px;text-align:left;font-weight:700">Metric</th>';
   repHistory.forEach((w,i) => {
-    trHtml += '<th style="padding:8px 10px;text-align:center;font-weight:700;min-width:90px">' + w.week + (i===0?' <span style="font-size:9px;opacity:.7">(current)</span>':'') + '</th>';
+    const weekLabel = i===0 ? 'This Week' : (w.week || ('Week -' + i));
+    const dateLabel = (i>0 && w.savedAt) ? '<div style="font-size:8px;opacity:.55;font-weight:400;font-family:var(--font)">' + new Date(w.savedAt).toLocaleDateString('en-US',{month:'short',day:'numeric'}) + '</div>' : '';
+    trHtml += '<th style="padding:8px 10px;text-align:center;font-weight:700;min-width:90px">' + weekLabel + (i===0?'<span style="font-size:9px;opacity:.7"> (live)</span>':'') + dateLabel + '</th>';
   });
   trHtml += '</tr></thead><tbody>';
 
@@ -1439,8 +1483,125 @@ function reset(){
 
 
 
+// ── ANNUAL TICKER ─────────────────────────────────────────────────────
+function buildAnnualTicker() {
+  const totCW = repData.reduce((s,r)=>s+r.cw_amount,0);
+  const pct   = Math.min(100, Math.round(totCW / TEAM_TARGET * 100));
+  const gap   = Math.max(0, TEAM_TARGET - totCW);
+  const el    = document.getElementById('annualTicker');
+  if (!el) return;
+  el.innerHTML = `
+    <div class="annual-ticker">
+      <div class="at-top">
+        <div>
+          <div class="at-label">2026 Annual Revenue · Progress to $1M Target</div>
+          <div class="at-amount">$${(totCW/1000).toFixed(0)}K <span style="font-family:var(--font);font-size:14px;font-weight:400;opacity:.7">closed won</span></div>
+        </div>
+        <div style="text-align:right">
+          <div class="at-pct">${pct}% of $1M</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.55);margin-top:4px">$${(gap/1000).toFixed(0)}K remaining</div>
+        </div>
+      </div>
+      <div class="at-bar-wrap"><div class="at-bar" style="width:${pct}%"></div></div>
+      <div class="at-sub">
+        <span>${repData.reduce((s,r)=>s+r.cw_deals,0)} deals closed · ${repData.filter(r=>r.cw_amount>0).length} of ${repData.filter(r=>r.role.includes('Account')).length} AEs producing</span>
+        <span>$${(TEAM_TARGET/1000).toFixed(0)}K target</span>
+      </div>
+    </div>`;
+}
+
+// ── QUARTERLY ROLLUP ───────────────────────────────────────────────────
+// Q definitions — dates are hard-coded for 2026 fiscal year
+const QUARTERS = [
+  { label: 'Q1 2026', start: '2026-01-01', end: '2026-03-31', quota: 100000 },
+  { label: 'Q2 2026', start: '2026-04-01', end: '2026-06-30', quota: 100000 },
+  { label: 'Q3 2026', start: '2026-07-01', end: '2026-09-30', quota: 100000 },
+  { label: 'Q4 2026', start: '2026-10-01', end: '2026-12-31', quota: 100000 },
+];
+
+function getQuarterForDate(dateStr) {
+  const d = new Date(dateStr);
+  return QUARTERS.findIndex(q => d >= new Date(q.start) && d <= new Date(q.end + 'T23:59:59'));
+}
+
+function buildQtrStrip() {
+  const el = document.getElementById('qtrStrip');
+  if (!el) return;
+
+  const now       = new Date();
+  const curQtrIdx = QUARTERS.findIndex(q => now >= new Date(q.start) && now <= new Date(q.end + 'T23:59:59'));
+
+  // Tally CW revenue per quarter from rep deal data
+  // We use rep.cw_amount for current quarter (already filtered to 2026 by worker)
+  // For prior quarters we'd need history — use history snapshots where available
+  const history = (window._scorecardData && window._scorecardData.history) ? window._scorecardData.history : [];
+
+  // Build quarter totals
+  // Current quarter: live rep data
+  // Prior quarters: look in history for snapshot closest to quarter end
+  const qTotals = QUARTERS.map((q, qi) => {
+    if (qi === curQtrIdx) {
+      // Current quarter — live data
+      return repData.reduce((s,r) => s + r.cw_amount, 0);
+    } else if (qi < curQtrIdx) {
+      // Past quarter — try to find in history
+      // history entries have savedAt; pick the one whose savedAt falls in the quarter
+      const qEnd = new Date(q.end + 'T23:59:59');
+      const qStart = new Date(q.start);
+      const match = history.find(h => {
+        if (!h.savedAt) return false;
+        const d = new Date(h.savedAt);
+        return d >= qStart && d <= qEnd;
+      });
+      if (match) return (match.reps || []).reduce((s,r) => s + (r.cw_amount||0), 0);
+      // Fallback: if Q1 is past and we have no history entry for it,
+      // check if current data is from Q2+ and use cw_amount as Q1 proxy
+      // (imperfect but better than 0)
+      return null; // unknown — show as N/A
+    } else {
+      return null; // future
+    }
+  });
+
+  const aeN = repData.filter(r=>r.role.includes('Account')).length;
+
+  el.innerHTML = QUARTERS.map((q, qi) => {
+    const isCurrent = qi === curQtrIdx;
+    const isPast    = qi < curQtrIdx;
+    const isFuture  = qi > curQtrIdx;
+    const amt       = qTotals[qi];
+    const teamQuota = q.quota * Math.max(1, aeN);
+    const pct       = amt !== null ? Math.min(100, Math.round(amt / teamQuota * 100)) : 0;
+    const hit       = amt !== null && amt >= teamQuota;
+
+    let cls = 'qt';
+    if (isCurrent) cls += ' active';
+    if (hit) cls += ' hit';
+
+    let badgeLabel = isCurrent ? 'Current' : isPast ? 'Complete' : 'Upcoming';
+    let badgeCls   = isCurrent ? 'current' : isPast ? 'done' : 'future';
+
+    let amtDisplay = amt !== null ? '$' + (amt/1000).toFixed(0) + 'K' : '—';
+    let barColor   = hit ? 'var(--qh-green)' : isCurrent ? 'var(--qh-blue)' : isPast ? 'var(--dim)' : 'var(--border2)';
+    let subText    = isFuture
+      ? 'Starts ' + new Date(q.start).toLocaleDateString('en-US',{month:'short',day:'numeric'})
+      : amt !== null
+        ? (hit ? '✓ Quota hit' : pct + '% of $' + (teamQuota/1000).toFixed(0) + 'K quota')
+        : 'No data yet';
+
+    return `<div class="${cls}">
+      <div class="qt-label">${q.label} <span class="qt-badge ${badgeCls}">${badgeLabel}</span></div>
+      <div class="qt-amount">${amtDisplay}</div>
+      <div class="qt-bar-wrap"><div class="qt-bar" style="width:${pct}%;background:${barColor}"></div></div>
+      <div class="qt-sub">${subText}</div>
+    </div>`;
+  }).join('');
+}
+
 // ── KPI STRIP BUILDER (shared by build + restore) ─────────────────────
 function buildKpiStrip() {
+  buildAnnualTicker();
+  buildQtrStrip();
   const totCW  = repData.reduce((s,r)=>s+r.cw_amount,0);
   const totPip = repData.reduce((s,r)=>s+r.pipeline_value,0);
   const totD   = repData.reduce((s,r)=>s+r.active_deals,0);
@@ -1722,6 +1883,14 @@ window.addEventListener('DOMContentLoaded', () => {
   var fv = document.getElementById('footerVersion');
   if(fv) fv.textContent = APP_VERSION;
 
+  // Show DEV banner if on dev URL
+  var devBanner = document.getElementById('devBanner');
+  if(devBanner && (window.location.hostname.includes('dashboard-dev') || window.location.search.includes('dev=1'))) {
+    devBanner.style.display = 'block';
+    // Also update version badge with -dev suffix
+    if(vb) vb.textContent = APP_VERSION + '-dev';
+  }
+
   // Show loading screen
   show('loadingScreen');
 
@@ -1777,8 +1946,9 @@ function restoreScorecard(saved) {
   const exportDate = saved.exportDate || 'Previous export';
   const savedAt = saved.savedAt ? (() => {
     const d = new Date(saved.savedAt);
-    return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) +
-           ' at ' + d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+    const datePart = d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    const timePart = d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true,timeZone:'America/New_York'});
+    return datePart + ' · ' + timePart + ' ET';
   })() : 'unknown';
 
   document.getElementById('phSb').textContent = `${QUARTER} · Quota $${(QUOTA/1000).toFixed(0)}K/rep`;
@@ -1795,7 +1965,7 @@ function restoreScorecard(saved) {
 
   // Update the export badge with last saved info
   const srcBadge = document.getElementById('srcBadge');
-  if(srcBadge) srcBadge.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> ' + repData.reduce((s,r)=>s+r.active_deals,0) + ' deals · ' + exportDate;
+  if(srcBadge) srcBadge.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> ' + repData.reduce((s,r)=>s+r.active_deals,0) + ' deals · Synced ' + savedAt;
 
   dbg('calling buildCards...');
   buildCards();
