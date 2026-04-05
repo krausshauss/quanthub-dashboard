@@ -360,7 +360,7 @@
       "raw_meetings": 23,
       "raw_emails": 0,
       "raw_sms": 0,
-      "raw_linkedin": 2,
+      "raw_linkedin": 0,
       "meetings_target": 6,
       "calls_target": 15,
       "text_target": 5,
@@ -560,7 +560,7 @@
       "raw_calls": 1,
       "raw_meetings": 9,
       "raw_emails": 0,
-      "raw_sms": 2,
+      "raw_sms": 0,
       "raw_linkedin": 0,
       "meetings_target": 4,
       "calls_target": 8,
@@ -595,6 +595,6 @@
   "version": 10,
   "source": "hubspot-api",
   "exportDate": "April 5, 2026",
-  "savedAt": "2026-04-05T20:20:10.345Z",
+  "savedAt": "2026-04-05T20:20:25.306Z",
   "history": []
 }
