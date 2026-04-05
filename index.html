@@ -1538,28 +1538,34 @@ function buildQtrStrip() {
 
   // Build quarter totals
   // Current quarter: live rep data
-  // Prior quarters: look in history for snapshot closest to quarter end
+  // Prior quarters: look in history for snapshot closest to quarter end,
+  //   with fallback to live data for the most recent past quarter when
+  //   no history snapshot exists yet (e.g. first week of a new quarter)
+  const liveCW = repData.reduce((s,r) => s + r.cw_amount, 0);
+
   const qTotals = QUARTERS.map((q, qi) => {
     if (qi === curQtrIdx) {
       // Current quarter — live data
-      return repData.reduce((s,r) => s + r.cw_amount, 0);
+      return liveCW;
     } else if (qi < curQtrIdx) {
-      // Past quarter — try to find in history
-      // history entries have savedAt; pick the one whose savedAt falls in the quarter
-      const qEnd = new Date(q.end + 'T23:59:59');
+      // Past quarter — try to find a history snapshot from within that quarter
+      const qEnd   = new Date(q.end + 'T23:59:59');
       const qStart = new Date(q.start);
-      const match = history.find(h => {
+      const match  = history.find(h => {
         if (!h.savedAt) return false;
         const d = new Date(h.savedAt);
         return d >= qStart && d <= qEnd;
       });
       if (match) return (match.reps || []).reduce((s,r) => s + (r.cw_amount||0), 0);
-      // Fallback: if Q1 is past and we have no history entry for it,
-      // check if current data is from Q2+ and use cw_amount as Q1 proxy
-      // (imperfect but better than 0)
-      return null; // unknown — show as N/A
+
+      // No history snapshot for this past quarter yet.
+      // If it's the quarter immediately before the current one, use live CW as
+      // a proxy — all current CW almost certainly closed in that quarter.
+      if (qi === curQtrIdx - 1) return liveCW;
+
+      return null; // older quarters with no data
     } else {
-      return null; // future
+      return null; // future quarters
     }
   });
 
