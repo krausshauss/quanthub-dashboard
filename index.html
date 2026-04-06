@@ -1513,10 +1513,10 @@ function buildAnnualTicker() {
 // ── QUARTERLY ROLLUP ───────────────────────────────────────────────────
 // Q definitions — dates are hard-coded for 2026 fiscal year
 const QUARTERS = [
-  { label: 'Q1 2026', start: '2026-01-01', end: '2026-03-31', quota: 100000 },
-  { label: 'Q2 2026', start: '2026-04-01', end: '2026-06-30', quota: 100000 },
-  { label: 'Q3 2026', start: '2026-07-01', end: '2026-09-30', quota: 100000 },
-  { label: 'Q4 2026', start: '2026-10-01', end: '2026-12-31', quota: 100000 },
+  { label: 'Q1 2026', start: '2026-01-01', end: '2026-03-31', quota: 250000 },
+  { label: 'Q2 2026', start: '2026-04-01', end: '2026-06-30', quota: 250000 },
+  { label: 'Q3 2026', start: '2026-07-01', end: '2026-09-30', quota: 250000 },
+  { label: 'Q4 2026', start: '2026-10-01', end: '2026-12-31', quota: 250000 },
 ];
 
 function getQuarterForDate(dateStr) {
@@ -1541,14 +1541,27 @@ function buildQtrStrip() {
   // Prior quarters: look in history for snapshot closest to quarter end,
   //   with fallback to live data for the most recent past quarter when
   //   no history snapshot exists yet (e.g. first week of a new quarter)
+  // Use per-quarter CW from worker if available (q1_cw, q2_cw etc),
+  // otherwise fall back to history snapshots or live totals
   const liveCW = repData.reduce((s,r) => s + r.cw_amount, 0);
+  const qCW = [
+    repData.reduce((s,r) => s + (r.q1_cw != null ? r.q1_cw : 0), 0),
+    repData.reduce((s,r) => s + (r.q2_cw != null ? r.q2_cw : 0), 0),
+    repData.reduce((s,r) => s + (r.q3_cw != null ? r.q3_cw : 0), 0),
+    repData.reduce((s,r) => s + (r.q4_cw != null ? r.q4_cw : 0), 0),
+  ];
+  const hasQBreakdown = repData.some(r => r.q1_cw != null);
 
   const qTotals = QUARTERS.map((q, qi) => {
+    // Use per-quarter breakdown from worker if available
+    if (hasQBreakdown) return qCW[qi] || 0;
+
     if (qi === curQtrIdx) {
-      // Current quarter — live data
-      return liveCW;
+      // Current quarter — no per-quarter data yet, show 0 (nothing closed in new quarter)
+      // Exception: if we're in Q1 (no prior quarter), show live CW
+      return curQtrIdx === 0 ? liveCW : 0;
     } else if (qi < curQtrIdx) {
-      // Past quarter — try to find a history snapshot from within that quarter
+      // Past quarter — try history snapshot from within that quarter first
       const qEnd   = new Date(q.end + 'T23:59:59');
       const qStart = new Date(q.start);
       const match  = history.find(h => {
@@ -1558,9 +1571,8 @@ function buildQtrStrip() {
       });
       if (match) return (match.reps || []).reduce((s,r) => s + (r.cw_amount||0), 0);
 
-      // No history snapshot for this past quarter yet.
-      // If it's the quarter immediately before the current one, use live CW as
-      // a proxy — all current CW almost certainly closed in that quarter.
+      // No snapshot — if it's the quarter immediately before current, use live CW
+      // (safe assumption: all existing CW closed in that quarter since Q-current just started)
       if (qi === curQtrIdx - 1) return liveCW;
 
       return null; // older quarters with no data
@@ -1576,7 +1588,7 @@ function buildQtrStrip() {
     const isPast    = qi < curQtrIdx;
     const isFuture  = qi > curQtrIdx;
     const amt       = qTotals[qi];
-    const teamQuota = q.quota * Math.max(1, aeN);
+    const teamQuota = q.quota; // already team total ($250K/quarter)
     const pct       = amt !== null ? Math.min(100, Math.round(amt / teamQuota * 100)) : 0;
     const hit       = amt !== null && amt >= teamQuota;
 
