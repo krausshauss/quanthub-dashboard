@@ -16,12 +16,12 @@
       "stale_7d": 0,
       "deals_advanced_week": 2,
       "avg_days_to_close": 148,
-      "ip_meetings_week": 4,
-      "vr_calls_week": 4,
+      "ip_meetings_week": 10,
+      "vr_calls_week": 10,
       "phone_calls_week": 5,
       "text_touches_week": 0,
       "raw_calls": 5,
-      "raw_meetings": 8,
+      "raw_meetings": 20,
       "raw_emails": 0,
       "raw_sms": 0,
       "raw_linkedin": 0,
@@ -148,25 +148,25 @@
       "q2_cw": 3200,
       "q3_cw": 0,
       "q4_cw": 0,
-      "active_deals": 15,
-      "pipeline_value": 445368,
+      "active_deals": 16,
+      "pipeline_value": 451768,
       "stale_7d": 8,
-      "deals_advanced_week": 14,
-      "avg_days_to_close": 104,
-      "ip_meetings_week": 2,
-      "vr_calls_week": 1,
+      "deals_advanced_week": 15,
+      "avg_days_to_close": 97,
+      "ip_meetings_week": 7,
+      "vr_calls_week": 6,
       "phone_calls_week": 6,
       "text_touches_week": 0,
       "raw_calls": 6,
-      "raw_meetings": 3,
+      "raw_meetings": 13,
       "raw_emails": 0,
       "raw_sms": 0,
       "raw_linkedin": 0,
       "meetings_target": 6,
       "calls_target": 15,
       "text_target": 5,
-      "next_step_pct": 87,
-      "amount_populated": 93,
+      "next_step_pct": 88,
+      "amount_populated": 94,
       "close_date_set": 100,
       "stage_flow_pct": 0,
       "bant_pct": 50,
@@ -261,7 +261,7 @@
           "stage": "Negotiation",
           "amount": 74000,
           "stale": 0,
-          "next": "3/20 - Guclu confirmed review, JD offered to sync on Tuesday 3/25",
+          "next": "JD - To revise proposal to $5oK Pilot based on feedback. Spoke to Guclu to decrease budget to 47K - push back was to only do 50 to see if its what they want prior to full rollout ",
           "id": "56549266038",
           "deal_score": 62,
           "likelihood": null
@@ -301,7 +301,7 @@
           "stage": "Negotiation",
           "amount": 15800,
           "stale": 0,
-          "next": "",
+          "next": "JD - Called john at 12:30 per email and txt exchange. No pickup will keep trying: \nThe plan currently is to get Quanthub integrated with their LMS outside of Day One. That appears to be the best solution for fall.  Set call to addreses \" Do you bill the university? Do students pay on your site? Or another method? \"\n ",
           "id": "58025395292",
           "deal_score": 80,
           "likelihood": null
@@ -335,6 +335,16 @@
           "id": "58404371467",
           "deal_score": 56,
           "likelihood": null
+        },
+        {
+          "name": "Illinois State University - Digital Marketing",
+          "stage": "Sales Opportunity",
+          "amount": 6400,
+          "stale": 0,
+          "next": "",
+          "id": "58906081047",
+          "deal_score": null,
+          "likelihood": null
         }
       ]
     },
@@ -354,12 +364,12 @@
       "stale_7d": 0,
       "deals_advanced_week": 2,
       "avg_days_to_close": 4,
-      "ip_meetings_week": 0,
-      "vr_calls_week": 0,
+      "ip_meetings_week": 4,
+      "vr_calls_week": 3,
       "phone_calls_week": 3,
       "text_touches_week": 0,
       "raw_calls": 3,
-      "raw_meetings": 0,
+      "raw_meetings": 7,
       "raw_emails": 0,
       "raw_sms": 0,
       "raw_linkedin": 0,
@@ -409,18 +419,18 @@
       "q4_cw": 0,
       "active_deals": 19,
       "pipeline_value": 139617,
-      "stale_7d": 1,
+      "stale_7d": 3,
       "deals_advanced_week": 19,
       "avg_days_to_close": 64,
-      "ip_meetings_week": 3,
-      "vr_calls_week": 3,
-      "phone_calls_week": 13,
+      "ip_meetings_week": 12,
+      "vr_calls_week": 12,
+      "phone_calls_week": 15,
       "text_touches_week": 0,
-      "raw_calls": 13,
-      "raw_meetings": 6,
+      "raw_calls": 15,
+      "raw_meetings": 24,
       "raw_emails": 0,
       "raw_sms": 0,
-      "raw_linkedin": 3,
+      "raw_linkedin": 2,
       "meetings_target": 6,
       "calls_target": 15,
       "text_target": 5,
@@ -440,11 +450,11 @@
       ],
       "deals": [
         {
-          "name": "AUDIT - Samford University - Matt Mazzei",
+          "name": "Samford University - Matt Mazzei",
           "stage": "Discovery/Demo (SQL)",
           "amount": null,
           "stale": 0,
-          "next": "Sched intro meeting - JR\nEmail Dr. Mazzei about connecting with the marketing teachers for a review and demo session with Nate and Matthew",
+          "next": "Intro meeting sched for 4-17",
           "id": "37626456748",
           "deal_score": null,
           "likelihood": null
@@ -503,7 +513,7 @@
           "name": "RISK - Miami Dade College - Max Ramirez",
           "stage": "Trial (optional)",
           "amount": 1440,
-          "stale": 4,
+          "stale": 0,
           "next": "Circle back with updated / corrected content",
           "id": "55927271211",
           "deal_score": 51,
@@ -647,12 +657,12 @@
       "stale_7d": 0,
       "deals_advanced_week": 2,
       "avg_days_to_close": 12,
-      "ip_meetings_week": 0,
-      "vr_calls_week": 0,
+      "ip_meetings_week": 8,
+      "vr_calls_week": 7,
       "phone_calls_week": 3,
       "text_touches_week": 0,
       "raw_calls": 3,
-      "raw_meetings": 0,
+      "raw_meetings": 15,
       "raw_emails": 0,
       "raw_sms": 3,
       "raw_linkedin": 0,
@@ -692,12 +702,12 @@
   ],
   "version": 10,
   "source": "hubspot-api",
-  "workerVersion": "w1.4-prod",
+  "workerVersion": "w1.5-prod",
   "exportDate": "April 7, 2026",
-  "savedAt": "2026-04-07T19:25:17.655Z",
+  "savedAt": "2026-04-07T20:46:12.398Z",
   "history": [
     {
-      "week": "Mar 30 – Apr 3",
+      "week": "Mar 30 to Apr 3",
       "savedAt": "2026-04-03T23:59:59.999Z",
       "reps": [
         {
@@ -709,7 +719,7 @@
           "pipeline_value": 105265,
           "stale_7d": 0,
           "raw_calls": 6,
-          "raw_meetings": 8,
+          "raw_meetings": 10,
           "raw_linkedin": 0,
           "deals_advanced_week": 0
         },
@@ -722,7 +732,7 @@
           "pipeline_value": 538210,
           "stale_7d": 1,
           "raw_calls": 5,
-          "raw_meetings": 2,
+          "raw_meetings": 7,
           "raw_linkedin": 0,
           "deals_advanced_week": 28
         },
@@ -735,7 +745,7 @@
           "pipeline_value": 5760,
           "stale_7d": 2,
           "raw_calls": 0,
-          "raw_meetings": 0,
+          "raw_meetings": 3,
           "raw_linkedin": 0,
           "deals_advanced_week": 0
         },
@@ -748,7 +758,7 @@
           "pipeline_value": 149217,
           "stale_7d": 1,
           "raw_calls": 8,
-          "raw_meetings": 7,
+          "raw_meetings": 12,
           "raw_linkedin": 2,
           "deals_advanced_week": 2
         },
@@ -761,14 +771,14 @@
           "pipeline_value": 30800,
           "stale_7d": 0,
           "raw_calls": 1,
-          "raw_meetings": 0,
+          "raw_meetings": 5,
           "raw_linkedin": 0,
           "deals_advanced_week": 0
         }
       ]
     },
     {
-      "week": "Mar 23 – Mar 27",
+      "week": "Mar 23 to Mar 27",
       "savedAt": "2026-03-27T23:59:59.999Z",
       "reps": [
         {
@@ -780,7 +790,7 @@
           "pipeline_value": 107905,
           "stale_7d": 0,
           "raw_calls": 9,
-          "raw_meetings": 8,
+          "raw_meetings": 9,
           "raw_linkedin": 0,
           "deals_advanced_week": 0
         },
@@ -832,14 +842,14 @@
           "pipeline_value": 15800,
           "stale_7d": 0,
           "raw_calls": 1,
-          "raw_meetings": 3,
+          "raw_meetings": 4,
           "raw_linkedin": 0,
           "deals_advanced_week": 0
         }
       ]
     },
     {
-      "week": "Mar 16 – Mar 20",
+      "week": "Mar 16 to Mar 20",
       "savedAt": "2026-03-20T23:59:59.999Z",
       "reps": [
         {
@@ -910,7 +920,7 @@
       ]
     },
     {
-      "week": "Mar 9 – Mar 13",
+      "week": "Mar 9 to Mar 13",
       "savedAt": "2026-03-13T23:59:59.999Z",
       "reps": [
         {
@@ -921,7 +931,7 @@
           "active_deals": 7,
           "pipeline_value": 107905,
           "stale_7d": 0,
-          "raw_calls": 11,
+          "raw_calls": 9,
           "raw_meetings": 1,
           "raw_linkedin": 0,
           "deals_advanced_week": 0
