@@ -1431,9 +1431,19 @@ function renderDetail(id){
   trHtml += '<thead><tr style="background:var(--qh-dark);color:#fff">';
   trHtml += '<th style="padding:8px 10px;text-align:left;font-weight:700">Metric</th>';
   repHistory.forEach((w,i) => {
-    const weekLabel = i===0 ? 'This Week' : (w.week || ('Week -' + i));
-    const dateLabel = (i>0 && w.savedAt) ? '<div style="font-size:8px;opacity:.55;font-weight:400;font-family:var(--font)">' + new Date(w.savedAt).toLocaleDateString('en-US',{month:'short',day:'numeric'}) + '</div>' : '';
-    trHtml += '<th style="padding:8px 10px;text-align:center;font-weight:700;min-width:90px">' + weekLabel + (i===0?'<span style="font-size:9px;opacity:.7"> (live)</span>':'') + dateLabel + '</th>';
+    const wLabels = ['This Week','Last Week','2 Wks Ago','3 Wks Ago','4 Wks Ago'];
+    const weekLabel = wLabels[i] || ('Week -' + i);
+    // Build Mon-Fri range from savedAt timestamp
+    function mkRange(iso) {
+      if (!iso) return '';
+      const d = new Date(iso), day = d.getDay();
+      const mon = new Date(d); mon.setDate(d.getDate()-(day===0?6:day-1));
+      const fri = new Date(mon); fri.setDate(mon.getDate()+4);
+      const f = dt => dt.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+      return f(mon) + ' to ' + f(fri);
+    }
+    const dateLabel = i>0 ? '<div style="font-size:8px;opacity:.55;font-weight:400;font-family:var(--font)">' + mkRange(w.savedAt) + '</div>' : '';
+    trHtml += '<th style="padding:8px 10px;text-align:center;font-weight:700;min-width:100px">' + weekLabel + (i===0?'<span style="font-size:9px;opacity:.7"> (live)</span>':'') + dateLabel + '</th>';
   });
   trHtml += '</tr></thead><tbody>';
 
