@@ -109,6 +109,17 @@ input[type=file]{display:none;}
 .btn-rl{display:inline-flex;align-items:center;gap:6px;background:var(--surface);color:var(--qh-blue);border:1px solid var(--bl-bd);border-radius:7px;padding:6px 13px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);}
 .src-badge{font-size:10px;color:var(--ok);background:var(--ok-bg);padding:3px 8px;border-radius:20px;border:1px solid var(--ok-bd);display:inline-flex;align-items:center;gap:4px;}
 
+/* EXECUTIVE PANEL */
+.exec-panel{background:linear-gradient(160deg,#e8f2fb 0%,#f4f8fd 60%,#f7f9fc 100%);border:1px solid #b8d0e8;border-radius:14px;padding:20px 22px;margin-bottom:18px;box-shadow:0 3px 16px rgba(0,119,181,.09);position:relative;overflow:hidden;}
+.exec-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#0077B5,#69A62A);border-radius:14px 14px 0 0;}
+.exec-panel::after{content:'';position:absolute;bottom:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(0,119,181,.06),transparent 70%);pointer-events:none;}
+.exec-panel-hdr{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--qh-blue);display:flex;align-items:center;gap:7px;margin-bottom:14px;font-weight:700;padding-bottom:10px;border-bottom:1px solid rgba(0,119,181,.15);}
+.exec-panel-hdr svg{color:var(--qh-green);}
+.exec-panel .annual-ticker{border-radius:10px;margin-bottom:12px;}
+.exec-panel .qtr-section-label{margin-top:2px;color:var(--qh-blue);opacity:.7;}
+.exec-panel .trend-strip-wrap{background:rgba(255,255,255,.85);border-color:#c8daea;margin-bottom:0;backdrop-filter:blur(4px);}
+.exec-panel .trend-table th{background:var(--qh-dark);}
+
 /* ANNUAL TICKER */
 .annual-ticker{background:linear-gradient(135deg,#0B4971,#0077B5);border-radius:12px;padding:16px 20px;margin-bottom:14px;color:#fff;position:relative;overflow:hidden;}
 .annual-ticker::before{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.06);}
@@ -122,21 +133,48 @@ input[type=file]{display:none;}
 .at-sub{display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,.55);}
 
 /* QUARTERLY ROLLUP */
-.qtr-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
-.qt{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;border-top:3px solid var(--border2);position:relative;transition:box-shadow .15s;}
-.qt.active{border-top-color:var(--qh-blue);box-shadow:0 2px 12px rgba(0,119,181,.12);}
-.qt.hit{border-top-color:var(--ok);}
-.qt-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:6px;display:flex;align-items:center;gap:5px;}
-.qt-badge{font-size:8px;padding:1px 6px;border-radius:10px;font-weight:700;}
-.qt-badge.current{background:var(--bl-bg);color:var(--bl);border:1px solid var(--bl-bd);}
-.qt-badge.done{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-bd);}
+.qtr-section-label{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.qtr-section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.qtr-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:6px;}
+.qt{background:linear-gradient(160deg,#f7f9fc,#eef2f8);border:1px solid #d4dce8;border-radius:10px;padding:14px 16px;position:relative;transition:box-shadow .15s;overflow:hidden;}
+.qt::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--border2);border-radius:10px 10px 0 0;}
+.qt.active::before{background:linear-gradient(90deg,#4a9a0a,#69A62A);}
+.qt.hit::before{background:var(--qh-green);}
+.qt.past::before{background:var(--dim);}
+.qt.active{border-color:#69A62A;box-shadow:0 0 0 4px rgba(105,166,42,.3),0 0 20px rgba(105,166,42,.18),0 2px 14px rgba(0,0,0,.06);}
+.qt.hit{border-color:#b2d87a;background:linear-gradient(160deg,#f2fae8,#e8f5d4);}
+.qt-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:5px;}
+.qt-badge{font-size:8px;padding:1px 7px;border-radius:10px;font-weight:700;letter-spacing:.04em;}
+.qt-badge.current{background:#dbeeff;color:#0057a0;border:1px solid #9ac8f0;}
+.qt-badge.done{background:#e4f3ce;color:#3d7a00;border:1px solid #9fd460;}
 .qt-badge.future{background:var(--bg);color:var(--dim);border:1px solid var(--border);}
-.qt-amount{font-family:var(--slab);font-size:20px;font-weight:700;color:var(--text);line-height:1;margin-bottom:4px;}
-.qt.active .qt-amount{color:var(--qh-blue);}
-.qt.hit .qt-amount{color:var(--ok);}
-.qt-bar-wrap{height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-bottom:5px;}
-.qt-bar{height:100%;border-radius:2px;transition:width .6s ease;}
-.qt-sub{font-size:9px;color:var(--muted);}
+.qt-amount{font-family:var(--slab);font-size:22px;font-weight:700;color:var(--text2);line-height:1;margin-bottom:2px;}
+.qt.active .qt-amount{color:#3d7a00;}
+.qt.hit .qt-amount{color:#3d7a00;}
+.qt.past .qt-amount{color:var(--muted);}
+.qt-quota{font-size:9px;color:var(--dim);margin-bottom:8px;font-family:var(--mono);}
+.qt-bar-wrap{height:5px;background:rgba(0,0,0,.08);border-radius:3px;overflow:hidden;margin-bottom:6px;}
+.qt-bar{height:100%;border-radius:3px;transition:width .7s ease;}
+.qt-sub{font-size:9px;color:var(--muted);display:flex;align-items:center;gap:4px;}
+.qt-sub-pct{font-family:var(--mono);font-weight:700;font-size:10px;}
+
+/* TEAM TREND STRIP */
+.trend-strip-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:14px;}
+.trend-strip-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.trend-strip-title{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.07em;}
+.trend-strip-sub{font-size:10px;color:var(--muted);}
+.trend-table{width:100%;border-collapse:collapse;font-size:11px;}
+.trend-table th{padding:6px 10px;text-align:center;font-weight:700;color:#fff;background:var(--qh-dark);font-size:10px;}
+.trend-table th:first-child{text-align:left;border-radius:6px 0 0 0;}
+.trend-table th:last-child{border-radius:0 6px 0 0;}
+.trend-table td{padding:6px 10px;text-align:center;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:11px;}
+.trend-table td:first-child{text-align:left;font-family:var(--font);font-size:11px;font-weight:600;color:var(--text2);font-family:var(--font);}
+.trend-table tr:last-child td{border-bottom:none;}
+.trend-table tr:nth-child(even) td{background:var(--bg);}
+.trend-up{color:#3d7a00;font-weight:700;}
+.trend-dn{color:#b82038;font-weight:700;}
+.trend-nc{color:var(--muted);}
+.trend-cur{font-weight:700;color:var(--text);}
 
 /* KPI STRIP */
 .kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
@@ -337,7 +375,7 @@ input[type=file]{display:none;}
     </svg>
     <span class="qh-wm">quanthub</span>
   </a>
-  <div class="tb-r"><div><strong>Sales Rep Scorecard</strong> · Higher Education <span id="appVersionBadge" style="opacity:.5;font-size:9px;letter-spacing:.05em;margin-left:5px;font-family:var(--mono);"></span></div><div id="tbInfo">Upload files to begin</div></div>
+  <div class="tb-r"><div><strong>Sales Rep Scorecard</strong> · Higher Education <span id="appVersionBadge" style="opacity:.5;font-size:9px;letter-spacing:.05em;margin-left:5px;font-family:var(--mono);"></span><span id="workerVersionBadge" style="opacity:.4;font-size:9px;margin-left:6px;font-family:var(--mono);"></span></div><div id="tbInfo">Upload files to begin</div></div>
 </div>
 
 <!-- ══ DEV ENVIRONMENT BANNER ══ -->
@@ -547,8 +585,16 @@ input[type=file]{display:none;}
       <span class="src-badge" id="srcBadge" style="font-size:10px;"></span>
     </div>
   </div>
-  <div id="annualTicker"></div>
-  <div class="qtr-strip" id="qtrStrip"></div>
+  <div class="exec-panel">
+    <div class="exec-panel-hdr">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Executive Summary
+    </div>
+    <div id="annualTicker"></div>
+    <div class="qtr-section-label">Quarterly Revenue · 2026</div>
+    <div class="qtr-strip" id="qtrStrip"></div>
+    <div id="teamTrendStrip"></div>
+  </div>
   <div class="kpi-strip" id="kpiStrip"></div>
   <div class="sec">Rep Performance · Click to drill in</div>
   <div class="rep-grid" id="repGrid"></div>
@@ -578,7 +624,7 @@ input[type=file]{display:none;}
       <svg width="16" height="16" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="4" r="3" fill="#0077B5"/><circle cx="36" cy="20" r="3" fill="#0077B5"/><circle cx="20" cy="36" r="3" fill="#0077B5"/><circle cx="4" cy="20" r="3" fill="#0077B5"/><circle cx="20" cy="20" r="4" fill="#0B4971"/><line x1="20" y1="7" x2="20" y2="16" stroke="#0077B5" stroke-width="2.5" stroke-linecap="round"/><line x1="33" y1="20" x2="24" y2="20" stroke="#0077B5" stroke-width="2.5" stroke-linecap="round"/><line x1="20" y1="24" x2="20" y2="33" stroke="#0077B5" stroke-width="2.5" stroke-linecap="round"/><line x1="7" y1="20" x2="16" y2="20" stroke="#0077B5" stroke-width="2.5" stroke-linecap="round"/></svg>
       <span style="font-family:var(--font);font-size:12px;font-weight:700;color:#0B4971">quanthub</span>
     </div>
-    <div style="font-size:10px;color:var(--muted)">© 2026 QuantHub · Prepared by Dark Yeti Inc. · Confidential · <span id="footerVersion" style="font-family:var(--mono);"></span></div>
+    <div style="font-size:10px;color:var(--muted)">© 2026 QuantHub · Prepared by Dark Yeti Inc. · Confidential · <span id="footerVersion" style="font-family:var(--mono);"></span> <span id="footerWorkerVersion" style="font-family:var(--mono);opacity:.6;"></span></div>
   </div>
 </div>
 </div>
@@ -1169,7 +1215,7 @@ function scoreRep(r){
 // ═══════════════════════════════════════════════════════
 //  RENDER
 // ═══════════════════════════════════════════════════════
-function fmt(v){if(!v&&v!==0)return'—';return v>=1000?'$'+(v/1000).toFixed(0)+'K':'$'+v;}
+function fmt(v){if(!v&&v!==0)return'—';if(v>=1000000)return'$'+(v/1000000).toFixed(2).replace(/\.?0+$/,'')+'M';return v>=1000?'$'+(v/1000).toFixed(0)+'K':'$'+v;}
 function radial(s,sz,sw){
   const g=grade(s),r=(sz-sw)/2,c=sz/2,ci=2*Math.PI*r,off=ci-s/100*ci;
   return`<svg width="${sz}" height="${sz}" style="transform:rotate(-90deg)"><circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="#DDE4EF" stroke-width="${sw}"/><circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="${g.c}" stroke-width="${sw}" stroke-dasharray="${ci.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}" stroke-linecap="round"/><text x="${c}" y="${c+sz*.08}" text-anchor="middle" fill="${g.c}" font-size="${sz*.22}" font-weight="700" font-family="'Roboto Mono',monospace" style="transform:rotate(90deg);transform-origin:${c}px ${c}px">${s}</text></svg>`;
@@ -1333,7 +1379,13 @@ function renderDetail(id){
         ?'<a href="https://app.hubspot.com/contacts/'+HUBSPOT_PORTAL_ID+'/deal/'+d.id+'" target="_blank" style="color:var(--qh-blue);font-size:9px;text-decoration:none;opacity:.7;margin-left:5px;" title="Open in HubSpot">&#x2197;</a>'
         :'';
       const nextStep=d.next?'<div class="dns">'+d.next+'</div>':'';
-      pipHtml+='<div class="dr"><div class="dnw"><div class="dn">'+d.name+hsLink+'</div>'+nextStep+'</div><div class="da">'+fmt(d.amount)+'</div>'+sw+'</div>';
+      // Deal score badge — HubSpot predictive score (0-100)
+      const dsColor = d.deal_score>=70?'#3d7a00':d.deal_score>=40?'#C07800':'#B82038';
+      const dsBg    = d.deal_score>=70?'#e4f3ce':d.deal_score>=40?'#FFF4DC':'#FFECEF';
+      const dsBadge = d.deal_score!=null
+        ?'<span title="HubSpot Deal Score" style="font-size:9px;font-family:var(--mono);font-weight:700;padding:1px 5px;border-radius:4px;background:'+dsBg+';color:'+dsColor+';margin-left:4px;border:1px solid '+dsColor+'40;flex-shrink:0">'+d.deal_score+'</span>'
+        :'';
+      pipHtml+='<div class="dr"><div class="dnw"><div class="dn">'+d.name+hsLink+dsBadge+'</div>'+nextStep+'</div><div class="da">'+fmt(d.amount)+'</div>'+sw+'</div>';
     });
     pipHtml+='</div>';
   });
@@ -1373,7 +1425,7 @@ function renderDetail(id){
     return '<span style="color:var(--muted);font-size:11px;margin-left:4px">—</span>';
   }
 
-  function fmtK(v) { return v === null ? '—' : v >= 1000 ? '$'+(v/1000).toFixed(0)+'K' : '$'+v; }
+  function fmtK(v) { if(v===null)return'—'; if(v>=1000000)return'$'+(v/1000000).toFixed(2).replace(/\.?0+$/,'')+'M'; return v>=1000?'$'+(v/1000).toFixed(0)+'K':'$'+v; }
 
   let trHtml = '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12px">';
   trHtml += '<thead><tr style="background:var(--qh-dark);color:#fff">';
@@ -1482,6 +1534,114 @@ function reset(){
 }
 
 
+
+// ── TEAM 4-WEEK TREND STRIP ───────────────────────────────────────────
+function buildTeamTrendStrip() {
+  const el = document.getElementById('teamTrendStrip');
+  if (!el) return;
+
+  const history = (window._scorecardData && window._scorecardData.history) ? window._scorecardData.history : [];
+  const weeks   = history.filter(w => w.reps);
+
+  if (!weeks.length) {
+    el.innerHTML = `<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:14px;">
+      <div style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;">Team 4-Week Trend</div>
+      <div style="font-size:11px;color:var(--muted);padding:10px 0;">Trend data accumulates week-over-week. Check back after the next sync cycle (7+ days).</div>
+    </div>`;
+    return;
+  }
+
+  // Build week columns: current + up to 4 prior
+  const allWeeks = [
+    { label: 'This Week', savedAt: window._scorecardData.savedAt, reps: window._scorecardData.reps }
+  ].concat(weeks.slice(0,4));
+
+  // Aggregate team totals per week
+  const weekTotals = allWeeks.map(w => {
+    const reps = w.reps || [];
+    const aes  = reps.filter(r => r.role && r.role.includes('Account'));
+    return {
+      label:    w.label || w.week || 'Week',
+      savedAt:  w.savedAt,
+      cw:       reps.reduce((s,r) => s+(r.cw_amount||0), 0),
+      pipe:     reps.reduce((s,r) => s+(r.pipeline_value||0), 0),
+      deals:    reps.reduce((s,r) => s+(r.active_deals||0), 0),
+      stale:    reps.reduce((s,r) => s+(r.stale_7d||0), 0),
+      calls:    reps.reduce((s,r) => s+(r.raw_calls||0), 0),
+      meetings: reps.reduce((s,r) => s+(r.raw_meetings||0), 0),
+      advanced: reps.reduce((s,r) => s+(r.deals_advanced_week||0), 0),
+    };
+  });
+
+  function fmtK(v) { return v==null?'—':'$'+(v>=1000?(v/1000).toFixed(0)+'K':v); }
+  function fmtN(v) { return v==null?'—':v; }
+
+  function arrow(curr, prev, goodDir) {
+    if (curr==null||prev==null) return '';
+    if (curr===prev) return '<span class="trend-nc"> —</span>';
+    const better = goodDir==='up' ? curr>prev : curr<prev;
+    const worse  = goodDir==='up' ? curr<prev : curr>prev;
+    if (better) return '<span class="trend-up"> ▲</span>';
+    if (worse)  return '<span class="trend-dn"> ▼</span>';
+    return '';
+  }
+
+  const metrics = [
+    { label:'CW Revenue (YTD)',    key:'cw',       fmt:fmtK, good:'up'   },
+    { label:'Active Pipeline',     key:'pipe',      fmt:fmtK, good:'up'   },
+    { label:'Active Deals',        key:'deals',     fmt:fmtN, good:'up'   },
+    { label:'Stale >7 Days',       key:'stale',     fmt:fmtN, good:'down' },
+    { label:'Deals Advanced (wk)', key:'advanced',  fmt:fmtN, good:'up'   },
+    { label:'Calls (wk)',          key:'calls',     fmt:fmtN, good:'up'   },
+    { label:'Meetings (wk)',       key:'meetings',  fmt:fmtN, good:'up'   },
+  ];
+
+  let html = `<div class="trend-strip-wrap">
+    <div class="trend-strip-hdr">
+      <div class="trend-strip-title">📈 Team 4-Week Trend</div>
+      <div class="trend-strip-sub">Last 4 weeks · reconstructed live from HubSpot deal data</div>
+    </div>
+    <div style="overflow-x:auto"><table class="trend-table"><thead><tr>
+      <th style="text-align:left;min-width:140px">Metric</th>`;
+
+  // Mon-Fri range label for each week column
+  function weekRange(dateStr) {
+    const d = dateStr ? new Date(dateStr) : new Date();
+    const day = d.getDay();
+    const mon = new Date(d); mon.setDate(d.getDate() - (day===0?6:day-1));
+    const fri = new Date(mon); fri.setDate(mon.getDate()+4);
+    const fmt = dt => dt.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+    return fmt(mon) + ' to ' + fmt(fri);
+  }
+  weekTotals.forEach((w,i) => {
+    const label = i===0?'This Week':i===1?'Last Week':i===2?'2 Weeks Ago':i===3?'3 Weeks Ago':'4 Weeks Ago';
+    const range = weekRange(w.savedAt);
+    html += `<th style="min-width:110px">${label}<div style="font-size:8px;opacity:.6;font-weight:400;font-family:var(--font);margin-top:2px">${range}</div></th>`;
+  });
+
+  html += `</tr></thead><tbody>`;
+
+  metrics.forEach((m, mi) => {
+    html += `<tr>`;
+    html += `<td>${m.label}</td>`;
+    weekTotals.forEach((w, wi) => {
+      const val  = w[m.key];
+      const prev = wi < weekTotals.length-1 ? weekTotals[wi+1][m.key] : null;
+      const cls  = wi===0 ? 'trend-cur' : '';
+      const arr  = wi===0 ? arrow(val, prev, m.good) : '';
+      html += `<td class="${cls}">${m.fmt(val)}${arr}</td>`;
+    });
+    html += `</tr>`;
+  });
+
+  html += `</tbody></table></div>
+    <div style="font-size:9px;color:var(--muted);margin-top:8px;padding-top:6px;border-top:1px solid var(--border)">
+      ▲ Green = improvement · ▼ Red = decline vs prior week · All metrics reconstructed from HubSpot deal + activity data
+    </div>
+  </div>`;
+
+  el.innerHTML = html;
+}
 
 // ── ANNUAL TICKER ─────────────────────────────────────────────────────
 function buildAnnualTicker() {
@@ -1595,6 +1755,7 @@ function buildQtrStrip() {
     let cls = 'qt';
     if (isCurrent) cls += ' active';
     if (hit) cls += ' hit';
+    if (isPast && !hit) cls += ' past';
 
     let badgeLabel = isCurrent ? 'Current' : isPast ? 'Complete' : 'Upcoming';
     let badgeCls   = isCurrent ? 'current' : isPast ? 'done' : 'future';
@@ -1607,11 +1768,13 @@ function buildQtrStrip() {
         ? (hit ? '✓ Quota hit' : pct + '% of $' + (teamQuota/1000).toFixed(0) + 'K quota')
         : 'No data yet';
 
+    const pctDisplay = amt !== null && !isFuture ? `<span class="qt-sub-pct" style="color:${hit?'#3d7a00':isCurrent?'var(--qh-blue)':'var(--dim)'}">${pct}%</span>` : '';
     return `<div class="${cls}">
       <div class="qt-label">${q.label} <span class="qt-badge ${badgeCls}">${badgeLabel}</span></div>
       <div class="qt-amount">${amtDisplay}</div>
+      <div class="qt-quota">of $${(teamQuota/1000).toFixed(0)}K team quota</div>
       <div class="qt-bar-wrap"><div class="qt-bar" style="width:${pct}%;background:${barColor}"></div></div>
-      <div class="qt-sub">${subText}</div>
+      <div class="qt-sub">${pctDisplay} ${subText}</div>
     </div>`;
   }).join('');
 }
@@ -1620,6 +1783,7 @@ function buildQtrStrip() {
 function buildKpiStrip() {
   buildAnnualTicker();
   buildQtrStrip();
+  buildTeamTrendStrip();
   const totCW  = repData.reduce((s,r)=>s+r.cw_amount,0);
   const totPip = repData.reduce((s,r)=>s+r.pipeline_value,0);
   const totD   = repData.reduce((s,r)=>s+r.active_deals,0);
@@ -1651,7 +1815,7 @@ function buildKpiStrip() {
       <div style="margin:5px 0 3px;height:4px;background:var(--border);border-radius:2px;overflow:hidden;"><div style="height:100%;width:${Math.min(100,Math.round(totCW/TEAM_TARGET*100))}%;background:var(--qh-blue);border-radius:2px;transition:width .5s;"></div></div>
       <div class="kpi-s">${repData.reduce((s,r)=>s+r.cw_deals,0)} deals · vs <strong>$1M</strong> annual target</div>
     </div>
-    <div class="kpi g"><div class="kpi-l">Active Pipeline</div><div class="kpi-v-wrap"><div class="kpi-v">$${(totPip/1000).toFixed(0)}K</div><div class="ins-tip">${pipeInsight}</div></div><div class="kpi-s">${totD} active deals</div></div>
+    <div class="kpi g"><div class="kpi-l">Active Pipeline</div><div class="kpi-v-wrap"><div class="kpi-v">${totPip>=1000000?'$'+(totPip/1000000).toFixed(2).replace(/\.?0+$/,'')+'M':'$'+(totPip/1000).toFixed(0)+'K'}</div><div class="ins-tip">${pipeInsight}</div></div><div class="kpi-s">${totD} active deals</div></div>
     <div class="kpi ${totS>5?'r':totS>2?'a':'g'}"><div class="kpi-l">Stale &gt;7 Days</div><div class="kpi-v-wrap"><div class="kpi-v">${totS}</div><div class="ins-tip">${staleInsight}</div></div><div class="kpi-s">${totS>5?'⚠ Action required':totS>0?'Monitor standup':'All current ✓'}</div></div>
     <div class="kpi a"><div class="kpi-l">Team Quota Attainment</div><div class="kpi-v-wrap"><div class="kpi-v">${teamAtt}%</div><div class="ins-tip">${attInsight}</div></div><div class="kpi-s">vs $${(QUOTA*aeN/1000).toFixed(0)}K Q1 · $1M annual</div></div>`;
 }
@@ -1900,6 +2064,7 @@ window.addEventListener('DOMContentLoaded', () => {
   if(vb) vb.textContent = APP_VERSION;
   var fv = document.getElementById('footerVersion');
   if(fv) fv.textContent = APP_VERSION;
+  // footerWorkerVersion set after data loads in restoreScorecard
 
   // Show DEV banner if on dev URL
   var devBanner = document.getElementById('devBanner');
@@ -1968,6 +2133,12 @@ function restoreScorecard(saved) {
     const timePart = d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true,timeZone:'America/New_York'});
     return datePart + ' · ' + timePart + ' ET';
   })() : 'unknown';
+
+  // Show worker version in topbar
+  const wvb = document.getElementById('workerVersionBadge');
+  if (wvb && saved.workerVersion) wvb.textContent = '· ' + saved.workerVersion;
+  const fwv = document.getElementById('footerWorkerVersion');
+  if (fwv && saved.workerVersion) fwv.textContent = '· worker ' + saved.workerVersion;
 
   document.getElementById('phSb').textContent = `${QUARTER} · Quota $${(QUOTA/1000).toFixed(0)}K/rep`;
   document.getElementById('srcBadge').innerHTML = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> ${repData.reduce((s,r)=>s+r.active_deals,0)} deals · ${exportDate}`;
