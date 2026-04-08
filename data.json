@@ -563,7 +563,7 @@
           "name": "Oakland University - Brandon Gustafson",
           "stage": "Negotiation",
           "amount": 840,
-          "stale": 2,
+          "stale": 0,
           "next": "Working to get call sched to finalize module selections for summer\n",
           "id": "57019339560",
           "deal_score": 72,
@@ -704,7 +704,7 @@
   "source": "hubspot-api",
   "workerVersion": "w1.5-prod",
   "exportDate": "April 8, 2026",
-  "savedAt": "2026-04-08T13:47:35.611Z",
+  "savedAt": "2026-04-08T13:54:52.087Z",
   "history": [
     {
       "week": "Mar 30 to Apr 3",
