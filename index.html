@@ -1866,7 +1866,7 @@ function buildKpiStrip() {
   const aeN    = repData.filter(r=>r.role.includes('Account')||r.role.includes('Sales')).length;
   const curQtr2  = new Date() >= new Date('2026-07-01') ? 3 : new Date() >= new Date('2026-04-01') ? 2 : 1;
   const qKey2    = 'q' + curQtr2 + '_cw';
-  const totQtrCW = (_tq[qKey2] != null) ? _tq[qKey2] : repData.reduce((s,r) => s+(r[qKey2]||0), 0);
+  const totQtrCW = (_t[qKey2] != null) ? _t[qKey2] : repData.reduce((s,r) => s+(r[qKey2]||0), 0);
   const qtrQuota = QUOTA * Math.max(1, aeN);
   const teamAtt  = Math.round(totQtrCW / qtrQuota * 100);
 
