@@ -1776,7 +1776,7 @@ function buildQtrStrip() {
   //   no history snapshot exists yet (e.g. first week of a new quarter)
   // Use per-quarter CW from worker if available (q1_cw, q2_cw etc),
   // otherwise fall back to history snapshots or live totals
-  const liveCW = totCW; // uses team aggregate if available
+  const liveCW = (window._scorecardData?.team?.cw_amount) ?? repData.reduce((s,r)=>s+r.cw_amount,0);
   const _tq = window._scorecardData?.team || {};
   const qCW = [
     _tq.q1_cw ?? repData.reduce((s,r) => s + (r.q1_cw != null ? r.q1_cw : 0), 0),
