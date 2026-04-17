@@ -1776,12 +1776,13 @@ function buildQtrStrip() {
   //   no history snapshot exists yet (e.g. first week of a new quarter)
   // Use per-quarter CW from worker if available (q1_cw, q2_cw etc),
   // otherwise fall back to history snapshots or live totals
-  const liveCW = repData.reduce((s,r) => s + r.cw_amount, 0);
+  const liveCW = totCW; // uses team aggregate if available
+  const _tq = window._scorecardData?.team || {};
   const qCW = [
-    repData.reduce((s,r) => s + (r.q1_cw != null ? r.q1_cw : 0), 0),
-    repData.reduce((s,r) => s + (r.q2_cw != null ? r.q2_cw : 0), 0),
-    repData.reduce((s,r) => s + (r.q3_cw != null ? r.q3_cw : 0), 0),
-    repData.reduce((s,r) => s + (r.q4_cw != null ? r.q4_cw : 0), 0),
+    _tq.q1_cw ?? repData.reduce((s,r) => s + (r.q1_cw != null ? r.q1_cw : 0), 0),
+    _tq.q2_cw ?? repData.reduce((s,r) => s + (r.q2_cw != null ? r.q2_cw : 0), 0),
+    _tq.q3_cw ?? repData.reduce((s,r) => s + (r.q3_cw != null ? r.q3_cw : 0), 0),
+    _tq.q4_cw ?? repData.reduce((s,r) => s + (r.q4_cw != null ? r.q4_cw : 0), 0),
   ];
   const hasQBreakdown = repData.some(r => r.q1_cw != null);
 
@@ -1863,7 +1864,11 @@ function buildKpiStrip() {
   const totD   = _t.active_deals ?? repData.reduce((s,r)=>s+r.active_deals,0);
   const totS   = _t.stale_7d    ?? repData.reduce((s,r)=>s+r.stale_7d,0);
   const aeN    = repData.filter(r=>r.role.includes('Account')||r.role.includes('Sales')).length;
-  const teamAtt= aeN?Math.round(totCW/(QUOTA*aeN)*100):0;
+  const curQtr2  = new Date() >= new Date('2026-07-01') ? 3 : new Date() >= new Date('2026-04-01') ? 2 : 1;
+  const qKey2    = 'q' + curQtr2 + '_cw';
+  const totQtrCW = (_tq[qKey2] != null) ? _tq[qKey2] : repData.reduce((s,r) => s+(r[qKey2]||0), 0);
+  const qtrQuota = QUOTA * Math.max(1, aeN);
+  const teamAtt  = Math.round(totQtrCW / qtrQuota * 100);
 
   const staleInsight = totS===0
     ? 'All deals touched this week — perfect hygiene across the team.'
@@ -1876,7 +1881,7 @@ function buildKpiStrip() {
   const topRep = repData.filter(r=>r.role.includes('Account')).sort((a,b)=>b.cw_amount-a.cw_amount)[0];
   const cwInsight = `Team YTD closed won vs $1M annual target (net new + expansion). <strong>At ${Math.round(totCW/TEAM_TARGET*100)}% of target.</strong> ${repData.filter(r=>r.cw_amount>0).length} of ${aeN} AEs have closed revenue this year. ${topRep?topRep.name.split(' ')[0]+' leads with $'+(topRep.cw_amount/1000).toFixed(0)+'K.':''} Each rep carries a $${(QUOTA/1000).toFixed(0)}K quarterly quota.`;
 
-  const attInsight = `Q1 2026 quota attainment across ${aeN} AEs vs $${(QUOTA*aeN/1000).toFixed(0)}K combined quarterly quota. Toward annual $1M target: ${Math.round(totCW/TEAM_TARGET*100)}% achieved. ${teamAtt>=100?'Q1 quota met — exceptional.':teamAtt>=75?'On pace for Q1. Protect late-stage deals.':teamAtt>=40?'Behind Q1 quota. Identify closeable deals now.':'<strong>Significantly behind Q1 quota.</strong> Immediate pipeline review required.'} Click each rep card for details.`;
+  const attInsight = `Q${curQtr2} 2026 quota attainment across ${aeN} AEs vs $${(qtrQuota/1000).toFixed(0)}K combined quarterly quota. Toward annual $1M target: ${Math.round(totCW/TEAM_TARGET*100)}% achieved. ${teamAtt>=100?'Q'+curQtr2+' quota met — exceptional.':teamAtt>=75?'On pace for Q'+curQtr2+'. Protect late-stage deals.':teamAtt>=40?'Behind Q'+curQtr2+' quota. Identify closeable deals now.':'<strong>Significantly behind Q'+curQtr2+' quota.</strong> Immediate pipeline review required.'} Click each rep card for details.`;
 
   document.getElementById('kpiStrip').innerHTML = `
     <div class="kpi b" style="border-top-width:4px;">
@@ -1891,7 +1896,7 @@ function buildKpiStrip() {
     </div>
     <div class="kpi g"><div class="kpi-l">Active Pipeline</div><div class="kpi-v-wrap"><div class="kpi-v">${totPip>=1000000?'$'+(totPip/1000000).toFixed(2).replace(/\.?0+$/,'')+'M':'$'+(totPip/1000).toFixed(0)+'K'}</div><div class="ins-tip">${pipeInsight}</div></div><div class="kpi-s">${totD} active deals</div></div>
     <div class="kpi ${totS>5?'r':totS>2?'a':'g'}"><div class="kpi-l">Stale &gt;7 Days</div><div class="kpi-v-wrap"><div class="kpi-v">${totS}</div><div class="ins-tip">${staleInsight}</div></div><div class="kpi-s">${totS>5?'⚠ Action required':totS>0?'Monitor standup':'All current ✓'}</div></div>
-    <div class="kpi a"><div class="kpi-l">Team Quota Attainment</div><div class="kpi-v-wrap"><div class="kpi-v">${teamAtt}%</div><div class="ins-tip">${attInsight}</div></div><div class="kpi-s">vs $${(QUOTA*aeN/1000).toFixed(0)}K Q1 · $1M annual</div></div>`;
+    <div class="kpi a"><div class="kpi-l">Team Quota Attainment</div><div class="kpi-v-wrap"><div class="kpi-v">${teamAtt}%</div><div class="ins-tip">${attInsight}</div></div><div class="kpi-s">vs $${(qtrQuota/1000).toFixed(0)}K Q${curQtr2} · $1M annual</div></div>`;
 }
 
 // ── GRADE INSIGHT COPY ─────────────────────────────────────────────────
