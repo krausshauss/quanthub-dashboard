@@ -23,6 +23,7 @@
       "raw_calls": 7,
       "raw_meetings": 18,
       "raw_emails": 0,
+      "raw_sms": 0,
       "raw_linkedin": 0,
       "meetings_target": 6,
       "calls_target": 15,
@@ -92,17 +93,29 @@
       "deals": [
         {
           "name": "Mercer - University-wide AI Literacy Expansion",
-          "stage": "1095818331",
+          "stage": "Negotiation",
           "amount": 55825,
           "stale": 3,
-          "next": ""
+          "next": "",
+          "id": "42089843285",
+          "deal_score": null,
+          "likelihood": null,
+          "probability": 70,
+          "days_to_close": null,
+          "contacts": 3
         },
         {
           "name": "High Point University-Daniel Hall - BUA1050 - Summer 2026",
-          "stage": "1096685575",
+          "stage": "Commit/Verbal",
           "amount": 5760,
           "stale": 1,
-          "next": ""
+          "next": "",
+          "id": "52931741858",
+          "deal_score": null,
+          "likelihood": null,
+          "probability": 90,
+          "days_to_close": null,
+          "contacts": 1
         }
       ]
     },
@@ -129,6 +142,7 @@
       "raw_calls": 10,
       "raw_meetings": 6,
       "raw_emails": 0,
+      "raw_sms": 0,
       "raw_linkedin": 0,
       "meetings_target": 6,
       "calls_target": 15,
@@ -162,108 +176,198 @@
       "deals": [
         {
           "name": "Auburn University at Montgomery",
-          "stage": "36731685",
+          "stage": "Discovery/Demo (SQL)",
           "amount": 1344,
           "stale": 423,
-          "next": "3/26: Met with Ben and Jeff—there’s interest in running a quick pilot before rolling it out to students."
+          "next": "3/26: Met with Ben and Jeff—there’s interest in running a quick pilot before rolling it out to students.",
+          "id": "28432600466",
+          "deal_score": null,
+          "likelihood": null,
+          "probability": 20,
+          "days_to_close": null,
+          "contacts": 5
         },
         {
           "name": "Silvanus Udoka - Clark Atlanta University-SBAA",
-          "stage": "1096685575",
+          "stage": "Commit/Verbal",
           "amount": 3600,
           "stale": 3,
-          "next": "Get bookstore intro "
+          "next": "Get bookstore intro ",
+          "id": "40613389058",
+          "deal_score": null,
+          "likelihood": null,
+          "probability": 90,
+          "days_to_close": null,
+          "contacts": 3
         },
         {
           "name": "University of Evansville -Marketing Strat",
-          "stage": "1095818330",
+          "stage": "Trial (optional)",
           "amount": 3040,
           "stale": 8,
-          "next": "Connect with Suresh - regarding intro to bookstore\n"
+          "next": "Connect with Suresh - regarding intro to bookstore\n",
+          "id": "42100108688",
+          "deal_score": null,
+          "likelihood": null,
+          "probability": 40,
+          "days_to_close": null,
+          "contacts": 3
         },
         {
           "name": "SciF - Corp Deal",
-          "stage": "1095818331",
+          "stage": "Negotiation",
           "amount": 256000,
           "stale": 3,
-          "next": "Putting together rationale for Racquel - to share with Exec team"
+          "next": "Putting together rationale for Racquel - to share with Exec team",
+          "id": "52224419690",
+          "deal_score": null,
+          "likelihood": null,
+          "probability": 70,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "Illinois State University - New Deal AI / Excel Pilot",
-          "stage": "1095818330",
+          "stage": "Trial (optional)",
           "amount": 2160,
           "stale": 17,
-          "next": "Della and I sync first week in may - asking for book store intro \n"
+          "next": "Della and I sync first week in may - asking for book store intro \n",
+          "id": "54352107577",
+          "deal_score": 18,
+          "likelihood": null,
+          "probability": 40,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "Georgia Southern University - Entrepreneurship ",
-          "stage": "1095818330",
+          "stage": "Trial (optional)",
           "amount": 2960,
           "stale": 3,
-          "next": "Meeting canceled for 4/2 - JD to request Bookstore intro to move things along\n\n\n"
+          "next": "Meeting canceled for 4/2 - JD to request Bookstore intro to move things along\n\n\n",
+          "id": "54943321264",
+          "deal_score": 24,
+          "likelihood": null,
+          "probability": 40,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "CLARK UNIVERSITY - MBA Excel",
-          "stage": "1095818329",
+          "stage": "Sales Opportunity",
           "amount": 3600,
           "stale": 3,
-          "next": "Still gap in QuantHub firing inside of Canvas - Charity looking into. Professor is waiting on charity to resolve. \n"
+          "next": "Still gap in QuantHub firing inside of Canvas - Charity looking into. Professor is waiting on charity to resolve. \n",
+          "id": "55623966115",
+          "deal_score": 40,
+          "likelihood": null,
+          "probability": 30,
+          "days_to_close": null,
+          "contacts": 2
         },
         {
           "name": "Valdosta State University - New Deal",
-          "stage": "1095818331",
+          "stage": "Negotiation",
           "amount": 4000,
           "stale": 1,
-          "next": "Revised test proposal - Sent 4/14"
+          "next": "Revised test proposal - Sent 4/14",
+          "id": "56549266038",
+          "deal_score": 61,
+          "likelihood": null,
+          "probability": 70,
+          "days_to_close": null,
+          "contacts": 2
         },
         {
           "name": "AI in Marketing Loras College - New Deal",
-          "stage": "1095818330",
+          "stage": "Trial (optional)",
           "amount": 960,
           "stale": 9,
-          "next": "Working w/ IT to integrate w/ Moodle - Bob Adams. Send Bob Interation \n"
+          "next": "Working w/ IT to integrate w/ Moodle - Bob Adams. Send Bob Interation \n",
+          "id": "56896784292",
+          "deal_score": 33,
+          "likelihood": null,
+          "probability": 40,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "Lewis University - AI In Marketing",
-          "stage": "1095818328",
+          "stage": "Discovery/Demo (SQL)",
           "amount": 1344,
           "stale": 25,
-          "next": "3/20- Jim reviewing. JD to lock follow up meeting. "
+          "next": "3/20- Jim reviewing. JD to lock follow up meeting. ",
+          "id": "57553905670",
+          "deal_score": 16,
+          "likelihood": null,
+          "probability": 20,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "Coastal Alabama Community College - Student Pilot ",
-          "stage": "1095818329",
+          "stage": "Sales Opportunity",
           "amount": 1360,
           "stale": 17,
-          "next": "Set a follow-up task for early April to reconnect after Ryan speaks with Ann, and prepare a brief recap of how QuantHub could support their AI pilot so you're ready when he circles back."
+          "next": "Set a follow-up task for early April to reconnect after Ryan speaks with Ann, and prepare a brief recap of how QuantHub could support their AI pilot so you're ready when he circles back.",
+          "id": "57941138841",
+          "deal_score": 48,
+          "likelihood": null,
+          "probability": 30,
+          "days_to_close": null,
+          "contacts": 2
         },
         {
           "name": "West Georgia UoWG John Upson",
-          "stage": "1096685575",
+          "stage": "Commit/Verbal",
           "amount": 15800,
           "stale": 1,
-          "next": "MK - to help with the W9 requested by john.\n "
+          "next": "MK - to help with the W9 requested by john.\n ",
+          "id": "58025395292",
+          "deal_score": 95,
+          "likelihood": null,
+          "probability": 90,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "Lander University - New Deal",
-          "stage": "36731685",
+          "stage": "Discovery/Demo (SQL)",
           "amount": 1200,
           "stale": 31,
-          "next": "JD Scheudled Meeting for Thursday 3/18"
+          "next": "JD Scheudled Meeting for Thursday 3/18",
+          "id": "58029852189",
+          "deal_score": null,
+          "likelihood": null,
+          "probability": 20,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "IMG Academy - AI Literacy ",
-          "stage": "1095818328",
+          "stage": "Discovery/Demo (SQL)",
           "amount": 78000,
           "stale": 1,
-          "next": "Call w/ Portia to review Catalog and modules to move forward "
+          "next": "Call w/ Portia to review Catalog and modules to move forward ",
+          "id": "58288931374",
+          "deal_score": 33,
+          "likelihood": null,
+          "probability": 20,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "Southeastern Louisiana University - New Deal",
-          "stage": "appointmentscheduled",
+          "stage": "Identified",
           "amount": null,
           "stale": 18,
-          "next": ""
+          "next": "",
+          "id": "58404371467",
+          "deal_score": 53,
+          "likelihood": null,
+          "probability": 10,
+          "days_to_close": null,
+          "contacts": 1
         }
       ]
     },
@@ -290,6 +394,7 @@
       "raw_calls": 32,
       "raw_meetings": 4,
       "raw_emails": 0,
+      "raw_sms": 0,
       "raw_linkedin": 0,
       "meetings_target": 6,
       "calls_target": 15,
@@ -304,17 +409,29 @@
       "deals": [
         {
           "name": "University of Montevallo - New Deal",
-          "stage": "1095818331",
+          "stage": "Negotiation",
           "amount": 3360,
-          "stale": 0,
-          "next": "Call her to talk about my latest email on April 15th. It is exam time so it might be tougher to connect with her for the next week. "
+          "stale": 1,
+          "next": "Call her to talk about my latest email on April 15th. It is exam time so it might be tougher to connect with her for the next week. ",
+          "id": "58630731586",
+          "deal_score": 72,
+          "likelihood": null,
+          "probability": 70,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "Alabama Community College System for Jeff State - New Deal",
-          "stage": "1095818328",
+          "stage": "Discovery/Demo (SQL)",
           "amount": 480000,
           "stale": 1,
-          "next": "Ed is meeting with Chris Daniel and his team to see about compliance and if Quanthub is something they're interested in. Trying to get them to secure a time to meet before the end of the semester. "
+          "next": "Ed is meeting with Chris Daniel and his team to see about compliance and if Quanthub is something they're interested in. Trying to get them to secure a time to meet before the end of the semester. ",
+          "id": "58798284126",
+          "deal_score": 43,
+          "likelihood": null,
+          "probability": 20,
+          "days_to_close": null,
+          "contacts": 2
         }
       ]
     },
@@ -341,7 +458,8 @@
       "raw_calls": 143,
       "raw_meetings": 19,
       "raw_emails": 0,
-      "raw_linkedin": 0,
+      "raw_sms": 0,
+      "raw_linkedin": 45,
       "meetings_target": 6,
       "calls_target": 15,
       "text_target": 5,
@@ -368,122 +486,224 @@
       "deals": [
         {
           "name": "Samford University - Matt Mazzei",
-          "stage": "1095818328",
+          "stage": "Discovery/Demo (SQL)",
           "amount": null,
           "stale": 0,
-          "next": "Intro meeting sched for 4-17"
+          "next": "Intro meeting sched for 4-17",
+          "id": "37626456748",
+          "deal_score": null,
+          "likelihood": null,
+          "probability": 20,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "University of Nebraska–Lincoln - New Deal",
-          "stage": "1095818329",
+          "stage": "Sales Opportunity",
           "amount": 20000,
           "stale": 7,
-          "next": "Sched intro meeting - JR\n\nAI Marketing introduction + syllabus submission + setup next meeting after his spring break - Returns 3-23"
+          "next": "Sched intro meeting - JR\n\nAI Marketing introduction + syllabus submission + setup next meeting after his spring break - Returns 3-23",
+          "id": "52036268604",
+          "deal_score": null,
+          "likelihood": null,
+          "probability": 30,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "University of Nebraska–Lincoln - New Deal",
-          "stage": "1095818328",
+          "stage": "Discovery/Demo (SQL)",
           "amount": 4000,
           "stale": 7,
-          "next": "Sched intro meeting - JR"
+          "next": "Sched intro meeting - JR",
+          "id": "52038717369",
+          "deal_score": null,
+          "likelihood": null,
+          "probability": 20,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "Middle Georgia State University - Catherine Whelan - Fall (Bus Comm / Accounting)",
-          "stage": "1095818330",
+          "stage": "Trial (optional)",
           "amount": 80,
           "stale": 0,
-          "next": "Follow up with Catherine for feedback after next faculty meeting"
+          "next": "Follow up with Catherine for feedback after next faculty meeting",
+          "id": "55478407713",
+          "deal_score": 46,
+          "likelihood": null,
+          "probability": 40,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "Mississippi College - Retha Price - Fall",
-          "stage": "1095818329",
+          "stage": "Sales Opportunity",
           "amount": 1920,
           "stale": 7,
-          "next": "Need to get meeting sched to review module alignment"
+          "next": "Need to get meeting sched to review module alignment",
+          "id": "55927331339",
+          "deal_score": 19,
+          "likelihood": null,
+          "probability": 30,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "FIU - Tofazzal Hossain - Fall",
-          "stage": "1095818329",
+          "stage": "Sales Opportunity",
           "amount": 1872,
           "stale": 1,
-          "next": "Circling back in summer to finalize fall course"
+          "next": "Circling back in summer to finalize fall course",
+          "id": "55922545591",
+          "deal_score": 14,
+          "likelihood": null,
+          "probability": 30,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "RISK - Miami Dade College - Max Ramirez",
-          "stage": "1095818330",
+          "stage": "Trial (optional)",
           "amount": 1440,
           "stale": 0,
-          "next": "Circle back with updated / corrected content"
+          "next": "Circle back with updated / corrected content",
+          "id": "55927271211",
+          "deal_score": 56,
+          "likelihood": null,
+          "probability": 40,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "AUDIT - The College of New Jersey - New Deal",
-          "stage": "1095818328",
+          "stage": "Discovery/Demo (SQL)",
           "amount": 28800,
           "stale": 9,
-          "next": "Sched intro meeting after return from spring break on 3-23 - JR\nGet Louis Tucci in the platform. He is on a committee and needs their approval for QH. Wants a foundational course for all students to take. 600 students to start, he is mostly interested in AI foundations and AI in the age of marketing. "
+          "next": "Sched intro meeting after return from spring break on 3-23 - JR\nGet Louis Tucci in the platform. He is on a committee and needs their approval for QH. Wants a foundational course for all students to take. 600 students to start, he is mostly interested in AI foundations and AI in the age of marketing. ",
+          "id": "55927464840",
+          "deal_score": 16,
+          "likelihood": null,
+          "probability": 20,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "University of Alabama at Birmingham - George Munchus - Fall",
-          "stage": "1095818328",
+          "stage": "Discovery/Demo (SQL)",
           "amount": 2400,
           "stale": 6,
-          "next": "Reach out in late April per George's request to sched intro meeting - JR"
+          "next": "Reach out in late April per George's request to sched intro meeting - JR",
+          "id": "56175409521",
+          "deal_score": null,
+          "likelihood": null,
+          "probability": 20,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "Oakland University - Brandon Gustafson",
-          "stage": "1095818331",
+          "stage": "Negotiation",
           "amount": 840,
           "stale": 1,
-          "next": "Working to get call sched to finalize module selections for summer\n"
+          "next": "Working to get call sched to finalize module selections for summer\n",
+          "id": "57019339560",
+          "deal_score": 76,
+          "likelihood": null,
+          "probability": 70,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "University of Maryland - Mary Beth Furst - Fall",
-          "stage": "1095818330",
+          "stage": "Trial (optional)",
           "amount": 5400,
           "stale": 1,
-          "next": "Sched meeting to preview updates with Mary Beth\nSched meeting for June/July to finalize for fall"
+          "next": "Sched meeting to preview updates with Mary Beth\nSched meeting for June/July to finalize for fall",
+          "id": "57619336846",
+          "deal_score": 20,
+          "likelihood": null,
+          "probability": 40,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "University of North Texas at Dallas - Jason Garrett",
-          "stage": "1095818328",
+          "stage": "Discovery/Demo (SQL)",
           "amount": 1680,
           "stale": 9,
-          "next": "Meeting sched for 4-24, obtain syllabi & LMS admin intro prior to"
+          "next": "Meeting sched for 4-24, obtain syllabi & LMS admin intro prior to",
+          "id": "57830356277",
+          "deal_score": 47,
+          "likelihood": null,
+          "probability": 20,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "Rutgers University - Marshall Sponder Spring 27",
-          "stage": "1095818330",
+          "stage": "Trial (optional)",
           "amount": 48000,
           "stale": 1,
-          "next": "Next meeting sched 4-21"
+          "next": "Next meeting sched 4-21",
+          "id": "58029806122",
+          "deal_score": 16,
+          "likelihood": null,
+          "probability": 40,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "University of North Carolina Wilmington - Barry Wray",
-          "stage": "1095818331",
+          "stage": "Negotiation",
           "amount": 480,
           "stale": 1,
-          "next": "Touch base 2nd week of May, Need to confirm specific modules for fall"
+          "next": "Touch base 2nd week of May, Need to confirm specific modules for fall",
+          "id": "58208304444",
+          "deal_score": 36,
+          "likelihood": null,
+          "probability": 70,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "Embry-Riddle Aeronautical University - Laura Valenti - Fall 26",
-          "stage": "1095818331",
+          "stage": "Negotiation",
           "amount": 1200,
           "stale": 1,
-          "next": "Working to resched call initially set for 4-6, need to finalize modules for fall"
+          "next": "Working to resched call initially set for 4-6, need to finalize modules for fall",
+          "id": "58562149241",
+          "deal_score": 58,
+          "likelihood": null,
+          "probability": 70,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "Central Michigan University - Jeff Hoyle Fall 26/Spring 27",
-          "stage": "1095818331",
+          "stage": "Negotiation",
           "amount": 2800,
           "stale": 7,
-          "next": "Finalize module selection, Connect with bookstore"
+          "next": "Finalize module selection, Connect with bookstore",
+          "id": "59018209338",
+          "deal_score": 62,
+          "likelihood": null,
+          "probability": 70,
+          "days_to_close": null,
+          "contacts": 1
         },
         {
           "name": "The University of Toledo - MBA Program",
-          "stage": "1095818330",
+          "stage": "Trial (optional)",
           "amount": 2000,
           "stale": 3,
-          "next": "Module review meeting sched 5-4"
+          "next": "Module review meeting sched 5-4",
+          "id": "59153635159",
+          "deal_score": 54,
+          "likelihood": null,
+          "probability": 40,
+          "days_to_close": null,
+          "contacts": 1
         }
       ]
     },
@@ -505,12 +725,13 @@
       "avg_days_to_close": 21,
       "ip_meetings_week": 11,
       "vr_calls_week": 10,
-      "phone_calls_week": 1,
+      "phone_calls_week": 3,
       "text_touches_week": 0,
-      "raw_calls": 1,
+      "raw_calls": 3,
       "raw_meetings": 21,
       "raw_emails": 0,
-      "raw_linkedin": 0,
+      "raw_sms": 0,
+      "raw_linkedin": 1,
       "meetings_target": 4,
       "calls_target": 8,
       "text_target": 3,
@@ -524,23 +745,322 @@
       "deals": [
         {
           "name": "UNC Pembroke - New Deal",
-          "stage": "1095818329",
+          "stage": "Sales Opportunity",
           "amount": 15800,
           "stale": 2,
-          "next": "Coordinate with Stewart to demo 1:1 with each professor in their Canvas instance. "
+          "next": "Coordinate with Stewart to demo 1:1 with each professor in their Canvas instance. ",
+          "id": "58134866019",
+          "deal_score": 48,
+          "likelihood": null,
+          "probability": 30,
+          "days_to_close": null,
+          "contacts": 2
         },
         {
           "name": "The University of Texas Rio Grande Valley - New Deal",
-          "stage": "1096685575",
+          "stage": "Commit/Verbal",
           "amount": 16000,
           "stale": 3,
-          "next": "Follow up with Jerald to finalize deal shaping and move to signatures. "
+          "next": "Follow up with Jerald to finalize deal shaping and move to signatures. ",
+          "id": "58686450958",
+          "deal_score": 87,
+          "likelihood": null,
+          "probability": 90,
+          "days_to_close": null,
+          "contacts": 1
         }
       ]
     }
   ],
-  "exportDate": "April 17, 2026",
-  "savedAt": "2026-04-17T04:21:40.244Z",
   "version": 10,
-  "source": "hubspot-api"
+  "source": "hubspot-api",
+  "workerVersion": "w2.4-prod",
+  "exportDate": "April 17, 2026",
+  "savedAt": "2026-04-17T04:40:28.634Z",
+  "history": [
+    {
+      "week": "Apr 6 to Apr 10",
+      "savedAt": "2026-04-10T23:59:59.999Z",
+      "reps": [
+        {
+          "id": "ns",
+          "name": "Nate Spargo",
+          "cw_amount": 215516,
+          "cw_deals": 12,
+          "active_deals": 7,
+          "pipeline_value": 111025,
+          "stale_7d": 0,
+          "raw_calls": 6,
+          "raw_meetings": 11,
+          "raw_linkedin": 0,
+          "deals_advanced_week": 0
+        },
+        {
+          "id": "jd",
+          "name": "Joe DeRario",
+          "cw_amount": 5200,
+          "cw_deals": 2,
+          "active_deals": 46,
+          "pipeline_value": 472210,
+          "stale_7d": 19,
+          "raw_calls": 2,
+          "raw_meetings": 6,
+          "raw_linkedin": 0,
+          "deals_advanced_week": 2
+        },
+        {
+          "id": "mf",
+          "name": "Matthew Fickling",
+          "cw_amount": 0,
+          "cw_deals": 0,
+          "active_deals": 4,
+          "pipeline_value": 485760,
+          "stale_7d": 1,
+          "raw_calls": 4,
+          "raw_meetings": 4,
+          "raw_linkedin": 0,
+          "deals_advanced_week": 0
+        },
+        {
+          "id": "jr",
+          "name": "Jason Rupert",
+          "cw_amount": 11600,
+          "cw_deals": 2,
+          "active_deals": 18,
+          "pipeline_value": 130512,
+          "stale_7d": 0,
+          "raw_calls": 86,
+          "raw_meetings": 9,
+          "raw_linkedin": 3,
+          "deals_advanced_week": 0
+        },
+        {
+          "id": "mk",
+          "name": "Michael Krause",
+          "cw_amount": 0,
+          "cw_deals": 0,
+          "active_deals": 2,
+          "pipeline_value": 31800,
+          "stale_7d": 0,
+          "raw_calls": 2,
+          "raw_meetings": 14,
+          "raw_linkedin": 0,
+          "deals_advanced_week": 0
+        }
+      ]
+    },
+    {
+      "week": "Mar 30 to Apr 3",
+      "savedAt": "2026-04-03T23:59:59.999Z",
+      "reps": [
+        {
+          "id": "ns",
+          "name": "Nate Spargo",
+          "cw_amount": 215516,
+          "cw_deals": 12,
+          "active_deals": 7,
+          "pipeline_value": 111025,
+          "stale_7d": 0,
+          "raw_calls": 6,
+          "raw_meetings": 10,
+          "raw_linkedin": 0,
+          "deals_advanced_week": 0
+        },
+        {
+          "id": "jd",
+          "name": "Joe DeRario",
+          "cw_amount": 2000,
+          "cw_deals": 1,
+          "active_deals": 46,
+          "pipeline_value": 468210,
+          "stale_7d": 0,
+          "raw_calls": 5,
+          "raw_meetings": 7,
+          "raw_linkedin": 0,
+          "deals_advanced_week": 19
+        },
+        {
+          "id": "mf",
+          "name": "Matthew Fickling",
+          "cw_amount": 0,
+          "cw_deals": 0,
+          "active_deals": 3,
+          "pipeline_value": 5760,
+          "stale_7d": 1,
+          "raw_calls": 0,
+          "raw_meetings": 3,
+          "raw_linkedin": 0,
+          "deals_advanced_week": 0
+        },
+        {
+          "id": "jr",
+          "name": "Jason Rupert",
+          "cw_amount": 9600,
+          "cw_deals": 1,
+          "active_deals": 18,
+          "pipeline_value": 129712,
+          "stale_7d": 0,
+          "raw_calls": 8,
+          "raw_meetings": 12,
+          "raw_linkedin": 2,
+          "deals_advanced_week": 0
+        },
+        {
+          "id": "mk",
+          "name": "Michael Krause",
+          "cw_amount": 0,
+          "cw_deals": 0,
+          "active_deals": 2,
+          "pipeline_value": 31800,
+          "stale_7d": 0,
+          "raw_calls": 1,
+          "raw_meetings": 5,
+          "raw_linkedin": 0,
+          "deals_advanced_week": 0
+        }
+      ]
+    },
+    {
+      "week": "Mar 23 to Mar 27",
+      "savedAt": "2026-03-27T23:59:59.999Z",
+      "reps": [
+        {
+          "id": "ns",
+          "name": "Nate Spargo",
+          "cw_amount": 212876,
+          "cw_deals": 11,
+          "active_deals": 8,
+          "pipeline_value": 113665,
+          "stale_7d": 0,
+          "raw_calls": 9,
+          "raw_meetings": 9,
+          "raw_linkedin": 0,
+          "deals_advanced_week": 0
+        },
+        {
+          "id": "jd",
+          "name": "Joe DeRario",
+          "cw_amount": 2000,
+          "cw_deals": 1,
+          "active_deals": 46,
+          "pipeline_value": 468210,
+          "stale_7d": 0,
+          "raw_calls": 1,
+          "raw_meetings": 8,
+          "raw_linkedin": 0,
+          "deals_advanced_week": 0
+        },
+        {
+          "id": "mf",
+          "name": "Matthew Fickling",
+          "cw_amount": 0,
+          "cw_deals": 0,
+          "active_deals": 2,
+          "pipeline_value": 2400,
+          "stale_7d": 1,
+          "raw_calls": 2,
+          "raw_meetings": 4,
+          "raw_linkedin": 0,
+          "deals_advanced_week": 0
+        },
+        {
+          "id": "jr",
+          "name": "Jason Rupert",
+          "cw_amount": 9600,
+          "cw_deals": 1,
+          "active_deals": 17,
+          "pipeline_value": 128512,
+          "stale_7d": 0,
+          "raw_calls": 6,
+          "raw_meetings": 3,
+          "raw_linkedin": 0,
+          "deals_advanced_week": 0
+        },
+        {
+          "id": "mk",
+          "name": "Michael Krause",
+          "cw_amount": 0,
+          "cw_deals": 0,
+          "active_deals": 1,
+          "pipeline_value": 15800,
+          "stale_7d": 0,
+          "raw_calls": 1,
+          "raw_meetings": 4,
+          "raw_linkedin": 0,
+          "deals_advanced_week": 0
+        }
+      ]
+    },
+    {
+      "week": "Mar 16 to Mar 20",
+      "savedAt": "2026-03-20T23:59:59.999Z",
+      "reps": [
+        {
+          "id": "ns",
+          "name": "Nate Spargo",
+          "cw_amount": 212876,
+          "cw_deals": 11,
+          "active_deals": 8,
+          "pipeline_value": 113665,
+          "stale_7d": 0,
+          "raw_calls": 0,
+          "raw_meetings": 1,
+          "raw_linkedin": 0,
+          "deals_advanced_week": 0
+        },
+        {
+          "id": "jd",
+          "name": "Joe DeRario",
+          "cw_amount": 2000,
+          "cw_deals": 1,
+          "active_deals": 44,
+          "pipeline_value": 390210,
+          "stale_7d": 0,
+          "raw_calls": 0,
+          "raw_meetings": 1,
+          "raw_linkedin": 0,
+          "deals_advanced_week": 0
+        },
+        {
+          "id": "mf",
+          "name": "Matthew Fickling",
+          "cw_amount": 0,
+          "cw_deals": 0,
+          "active_deals": 2,
+          "pipeline_value": 2400,
+          "stale_7d": 1,
+          "raw_calls": 0,
+          "raw_meetings": 0,
+          "raw_linkedin": 0,
+          "deals_advanced_week": 0
+        },
+        {
+          "id": "jr",
+          "name": "Jason Rupert",
+          "cw_amount": 9600,
+          "cw_deals": 1,
+          "active_deals": 16,
+          "pipeline_value": 128032,
+          "stale_7d": 0,
+          "raw_calls": 0,
+          "raw_meetings": 3,
+          "raw_linkedin": 0,
+          "deals_advanced_week": 0
+        },
+        {
+          "id": "mk",
+          "name": "Michael Krause",
+          "cw_amount": 0,
+          "cw_deals": 0,
+          "active_deals": 1,
+          "pipeline_value": 15800,
+          "stale_7d": 0,
+          "raw_calls": 0,
+          "raw_meetings": 0,
+          "raw_linkedin": 0,
+          "deals_advanced_week": 0
+        }
+      ]
+    }
+  ]
 }
