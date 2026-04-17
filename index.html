@@ -1142,11 +1142,12 @@ function buildScorecard(){
   document.getElementById('srcBadge').innerHTML=`<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> ${repData.reduce((s,r)=>s+r.active_deals,0)} deals · ${today}`;
   document.getElementById('tbInfo').innerHTML=`<strong>Export: ${today}</strong>`;
 
-  const totCW=repData.reduce((s,r)=>s+r.cw_amount,0);
-  const totPip=repData.reduce((s,r)=>s+r.pipeline_value,0);
-  const totD=repData.reduce((s,r)=>s+r.active_deals,0);
-  const totS=repData.reduce((s,r)=>s+r.stale_7d,0);
-  const aeN=repData.filter(r=>r.role.includes('Account')).length;
+  const _team = window._scorecardData?.team || {};
+  const totCW  = _team.cw_amount   ?? repData.reduce((s,r)=>s+r.cw_amount,0);
+  const totPip = _team.pipeline    ?? repData.reduce((s,r)=>s+r.pipeline_value,0);
+  const totD   = _team.active_deals?? repData.reduce((s,r)=>s+r.active_deals,0);
+  const totS   = _team.stale_7d   ?? repData.reduce((s,r)=>s+r.stale_7d,0);
+  const aeN=repData.filter(r=>r.role.includes('Account')||r.role.includes('Sales')).length;
 
   const exportDateStr = new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
   // Set _scorecardData BEFORE buildKpiStrip so buildQtrStrip can access history (empty on first load)
@@ -1717,7 +1718,7 @@ function buildTeamTrendStrip() {
 
 // ── ANNUAL TICKER ─────────────────────────────────────────────────────
 function buildAnnualTicker() {
-  const totCW = repData.reduce((s,r)=>s+r.cw_amount,0);
+  const totCW = (window._scorecardData?.team?.cw_amount) ?? repData.reduce((s,r)=>s+r.cw_amount,0);
   const pct   = Math.min(100, Math.round(totCW / TEAM_TARGET * 100));
   const gap   = Math.max(0, TEAM_TARGET - totCW);
   const el    = document.getElementById('annualTicker');
@@ -1813,7 +1814,7 @@ function buildQtrStrip() {
     }
   });
 
-  const aeN = repData.filter(r=>r.role.includes('Account')).length;
+  const aeN = repData.filter(r=>r.role.includes('Account')||r.role.includes('Sales')).length;
 
   el.innerHTML = QUARTERS.map((q, qi) => {
     const isCurrent = qi === curQtrIdx;
@@ -1856,11 +1857,12 @@ function buildKpiStrip() {
   buildAnnualTicker();
   buildQtrStrip();
   buildTeamTrendStrip();
-  const totCW  = repData.reduce((s,r)=>s+r.cw_amount,0);
-  const totPip = repData.reduce((s,r)=>s+r.pipeline_value,0);
-  const totD   = repData.reduce((s,r)=>s+r.active_deals,0);
-  const totS   = repData.reduce((s,r)=>s+r.stale_7d,0);
-  const aeN    = repData.filter(r=>r.role.includes('Account')).length;
+  const _t     = window._scorecardData?.team || {};
+  const totCW  = _t.cw_amount    ?? repData.reduce((s,r)=>s+r.cw_amount,0);
+  const totPip = _t.pipeline     ?? repData.reduce((s,r)=>s+r.pipeline_value,0);
+  const totD   = _t.active_deals ?? repData.reduce((s,r)=>s+r.active_deals,0);
+  const totS   = _t.stale_7d    ?? repData.reduce((s,r)=>s+r.stale_7d,0);
+  const aeN    = repData.filter(r=>r.role.includes('Account')||r.role.includes('Sales')).length;
   const teamAtt= aeN?Math.round(totCW/(QUOTA*aeN)*100):0;
 
   const staleInsight = totS===0
