@@ -459,14 +459,14 @@
           "name": "Central Michigan University - Jeff Hoyle Fall 26/Spring 27",
           "stage": "1095818331",
           "amount": 2800,
-          "stale": 6,
+          "stale": 7,
           "next": "Finalize module selection, Connect with bookstore"
         },
         {
           "name": "The University of Toledo - MBA Program",
           "stage": "1095818330",
           "amount": 2000,
-          "stale": 2,
+          "stale": 3,
           "next": "Module review meeting sched 5-4"
         }
       ]
@@ -520,7 +520,7 @@
     }
   ],
   "exportDate": "April 17, 2026",
-  "savedAt": "2026-04-17T03:50:01.884Z",
+  "savedAt": "2026-04-17T04:12:48.681Z",
   "version": 10,
   "source": "hubspot-api"
 }
