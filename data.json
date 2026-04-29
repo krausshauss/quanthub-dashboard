@@ -407,7 +407,7 @@
       "raw_meetings": 12,
       "raw_emails": 0,
       "raw_sms": 0,
-      "raw_linkedin": 0,
+      "raw_linkedin": 12,
       "meetings_target": 6,
       "calls_target": 15,
       "text_target": 5,
@@ -770,7 +770,7 @@
   "source": "hubspot-api",
   "workerVersion": "w3.1",
   "exportDate": "April 29, 2026",
-  "savedAt": "2026-04-29T20:10:07.231Z",
+  "savedAt": "2026-04-29T20:10:11.403Z",
   "history": [
     {
       "week": "Apr 20 to Apr 24",
@@ -815,7 +815,7 @@
           "stale_7d": 0,
           "raw_calls": 0,
           "raw_meetings": 6,
-          "raw_linkedin": 0,
+          "raw_linkedin": 19,
           "deals_advanced_week": 1
         },
         {
@@ -877,7 +877,7 @@
           "stale_7d": 0,
           "raw_calls": 0,
           "raw_meetings": 9,
-          "raw_linkedin": 0,
+          "raw_linkedin": 46,
           "deals_advanced_week": 0
         },
         {
@@ -909,7 +909,7 @@
           "active_deals": 3,
           "pipeline_value": 101585,
           "stale_7d": 0,
-          "raw_calls": 0,
+          "raw_calls": 6,
           "raw_meetings": 11,
           "raw_linkedin": 0,
           "deals_advanced_week": 0
@@ -923,7 +923,7 @@
           "active_deals": 16,
           "pipeline_value": 382568,
           "stale_7d": 0,
-          "raw_calls": 0,
+          "raw_calls": 2,
           "raw_meetings": 5,
           "raw_linkedin": 0,
           "deals_advanced_week": 0
@@ -937,9 +937,9 @@
           "active_deals": 14,
           "pipeline_value": 72425,
           "stale_7d": 0,
-          "raw_calls": 0,
+          "raw_calls": 85,
           "raw_meetings": 9,
-          "raw_linkedin": 0,
+          "raw_linkedin": 3,
           "deals_advanced_week": 0
         },
         {
@@ -971,7 +971,7 @@
           "active_deals": 3,
           "pipeline_value": 101585,
           "stale_7d": 0,
-          "raw_calls": 0,
+          "raw_calls": 3,
           "raw_meetings": 5,
           "raw_linkedin": 0,
           "deals_advanced_week": 0
@@ -985,7 +985,7 @@
           "active_deals": 16,
           "pipeline_value": 378568,
           "stale_7d": 0,
-          "raw_calls": 0,
+          "raw_calls": 2,
           "raw_meetings": 2,
           "raw_linkedin": 0,
           "deals_advanced_week": 0
@@ -999,7 +999,7 @@
           "active_deals": 15,
           "pipeline_value": 81225,
           "stale_7d": 0,
-          "raw_calls": 0,
+          "raw_calls": 2,
           "raw_meetings": 5,
           "raw_linkedin": 0,
           "deals_advanced_week": 0
