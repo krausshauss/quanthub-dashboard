@@ -363,6 +363,35 @@ input[type=file]{display:none;}
 .cw-deal-owner{font-size:10px;color:var(--muted);min-width:80px;}
 .cw-deal-amt{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--ok);}
 .cw-deal-date{font-family:var(--mono);font-size:10px;color:var(--muted);}
+
+/* ── FORECAST PANEL ─────────────────────────────────────── */
+.fc-panel{background:linear-gradient(135deg,#f0f7ff 0%,#eaf3fb 60%,#f5f9fd 100%);border:1px solid #b8d0e8;border-radius:14px;padding:20px 24px;margin-bottom:18px;box-shadow:0 3px 16px rgba(0,119,181,.09);position:relative;overflow:hidden;}
+.fc-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#0B4971,#0077B5 40%,#22C55E 70%,#F59E0B);border-radius:14px 14px 0 0;}
+.fc-panel::after{content:'';position:absolute;bottom:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(0,119,181,.05),transparent 70%);pointer-events:none;}
+.fc-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.fc-title{font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--qh-blue);font-weight:700;}
+.fc-meta{font-size:10px;color:var(--muted);}
+.fc-runway{height:22px;background:var(--border);border-radius:11px;overflow:hidden;display:flex;margin-bottom:6px;}
+.fc-runway-cw{height:100%;background:linear-gradient(90deg,#0B4971,#0077B5);border-radius:11px 0 0 11px;transition:width .8s ease;min-width:2px;}
+.fc-runway-proj{height:100%;background:linear-gradient(90deg,rgba(0,119,181,.35),rgba(34,197,94,.25));transition:width .8s ease .15s;}
+.fc-runway-labels{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);font-family:var(--mono);margin-bottom:5px;}
+.fc-verdict{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;}
+.fc-on-track{background:#f0fdf4;color:#16a34a;border:1px solid #86efac;}
+.fc-at-risk{background:#fff4dc;color:#C07800;border:1px solid #F0C868;}
+.fc-behind{background:#ffecef;color:#B82038;border:1px solid #E8909A;}
+.fc-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px;}
+.fc-stat{background:rgba(255,255,255,.75);border:1px solid rgba(184,208,232,.6);border-radius:8px;padding:9px 12px;backdrop-filter:blur(4px);}
+.fc-stat-l{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;font-weight:600;}
+.fc-stat-v{font-family:var(--mono);font-size:17px;font-weight:700;color:var(--text);line-height:1.1;}
+.fc-stat-s{font-size:9px;color:var(--muted);margin-top:2px;}
+@media(max-width:700px){.fc-stats{grid-template-columns:repeat(2,1fr);}}
+
+/* ── SPARKLINES ──────────────────────────────────────────── */
+.spark-wrap{display:inline-block;vertical-align:middle;margin-left:8px;opacity:.85;}
+
+/* ── ENHANCED KPI BARS ───────────────────────────────────── */
+.kpi-bar-grad{height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin:5px 0 3px;}
+.kpi-bar-grad-fill{height:100%;border-radius:3px;transition:width .6s ease;background:linear-gradient(90deg,var(--qh-dark),var(--qh-blue));}
 </style>
 </head>
 <body>
@@ -597,6 +626,7 @@ input[type=file]{display:none;}
     <div class="qtr-strip" id="qtrStrip"></div>
     <div id="teamTrendStrip"></div>
   </div>
+  <div id="forecastPanel"></div>
   <div class="kpi-strip" id="kpiStrip"></div>
   <div class="sec">Rep Performance · Click to drill in</div>
   <div class="rep-grid" id="repGrid"></div>
@@ -1658,6 +1688,108 @@ function reset(){
 
 
 
+// ── SPARKLINE SVG HELPER ──────────────────────────────────────────────
+function sparklineSVG(values, w, h, color) {
+  const v = values.filter(x => x != null && !isNaN(x));
+  if (v.length < 2) return '';
+  const mn = Math.min(...v), mx = Math.max(...v), rng = mx - mn || 1;
+  const pts = v.map((val, i) => {
+    const x = (i / (v.length - 1)) * (w - 4) + 2;
+    const y = h - 2 - ((val - mn) / rng) * (h - 4);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  });
+  const last = pts[pts.length - 1].split(',');
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polyline points="${pts.join(' ')}" stroke="${color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="${last[0]}" cy="${last[1]}" r="2" fill="${color}"/>
+  </svg>`;
+}
+
+// ── REVENUE FORECAST PANEL ────────────────────────────────────────────
+function buildForecastPanel() {
+  const el = document.getElementById('forecastPanel');
+  if (!el) return;
+
+  const history  = window._scorecardData?.history || [];
+  const weeks    = history.filter(w => w.reps);
+  const totCW    = window._scorecardData?.team?.cw_amount ?? repData.reduce((s,r) => s + (r.cw_amount||0), 0);
+  const totPip   = window._scorecardData?.team?.pipeline  ?? repData.reduce((s,r) => s + (r.pipeline_value||0), 0);
+
+  // Weekly CW deltas from historical snapshots
+  const cwSnaps = [totCW, ...weeks.slice(0,4).map(w =>
+    w.team?.cw_amount ?? (w.reps||[]).reduce((s,r) => s+(r.cw_amount||0), 0)
+  )];
+  const deltas = [];
+  for (let i = 0; i < cwSnaps.length - 1; i++) deltas.push(cwSnaps[i] - cwSnaps[i+1]);
+  const avgGain = deltas.length ? deltas.reduce((s,d) => s+d, 0) / deltas.length : 0;
+
+  // Weeks remaining in current quarter
+  const now = new Date();
+  const qEnds = [new Date(now.getFullYear(),2,31), new Date(now.getFullYear(),5,30),
+                 new Date(now.getFullYear(),8,30), new Date(now.getFullYear(),11,31)];
+  const qEnd  = qEnds.find(d => d >= now) || qEnds[3];
+  const weeksLeft = Math.max(0, Math.ceil((qEnd - now) / (7*864e5)));
+
+  // Projections
+  const proj    = totCW + Math.max(0, avgGain) * weeksLeft;
+  const projLow = Math.max(totCW, proj * 0.8);
+  const projHigh = proj * 1.2;
+  const qtrQuota = QUOTA * repData.length;
+
+  // Runway widths (% of TEAM_TARGET)
+  const cwPct   = Math.min(98, (totCW   / TEAM_TARGET) * 100);
+  const projPct = Math.min(98 - cwPct, ((projHigh - totCW) / TEAM_TARGET) * 100);
+
+  const verdict    = proj >= qtrQuota ? 'on-track' : proj >= qtrQuota * 0.7 ? 'at-risk' : 'behind';
+  const verdictLbl = verdict === 'on-track' ? '✓ On Track' : verdict === 'at-risk' ? '⚠ At Risk' : '▼ Behind Pace';
+
+  const fK = v => v >= 1e6 ? '$'+(v/1e6).toFixed(2).replace(/\.?0+$/,'')+'M' : '$'+(v/1000).toFixed(0)+'K';
+  const rateColor = avgGain >= 5000 ? 'var(--ok)' : avgGain >= 1000 ? 'var(--wa)' : 'var(--rd)';
+  const gapColor  = proj >= qtrQuota ? 'var(--ok)' : 'var(--rd)';
+
+  el.innerHTML = `<div class="fc-panel">
+    <div class="fc-hdr">
+      <div class="fc-title">📊 ${QUARTER} Revenue Forecast</div>
+      <div class="fc-meta">${qEnd.toLocaleDateString('en-US',{month:'short',day:'numeric'})} deadline · <strong>${weeksLeft}</strong> week${weeksLeft!==1?'s':''} remaining</div>
+    </div>
+    <div class="fc-runway-labels">
+      <span style="color:var(--qh-blue);font-weight:700">${fK(totCW)} closed</span>
+      <span>${fK(projLow)}–${fK(projHigh)} projected range</span>
+      <span style="font-weight:700">$1M annual target</span>
+    </div>
+    <div class="fc-runway">
+      <div class="fc-runway-cw"  style="width:${cwPct.toFixed(1)}%"  title="${fK(totCW)} closed won YTD"></div>
+      <div class="fc-runway-proj" style="width:${Math.max(0,projPct).toFixed(1)}%" title="Projected additional ${fK(Math.max(0,proj-totCW))}"></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;margin-top:5px;">
+      <span class="fc-verdict fc-${verdict}">${verdictLbl}</span>
+      <span style="font-size:9px;color:var(--muted)">velocity avg over ${deltas.length||'—'} snapshot${deltas.length!==1?'s':''} · ±20% confidence band</span>
+    </div>
+    <div class="fc-stats">
+      <div class="fc-stat">
+        <div class="fc-stat-l">Closed Won YTD</div>
+        <div class="fc-stat-v">${fK(totCW)}</div>
+        <div class="fc-stat-s">${Math.round(totCW/TEAM_TARGET*100)}% of $1M target</div>
+      </div>
+      <div class="fc-stat">
+        <div class="fc-stat-l">Weekly Run Rate</div>
+        <div class="fc-stat-v" style="color:${rateColor}">${avgGain>=0?'+':''}${fK(avgGain)}/wk</div>
+        <div class="fc-stat-s">avg last ${deltas.length||'—'} snapshots</div>
+      </div>
+      <div class="fc-stat">
+        <div class="fc-stat-l">Projected ${QUARTER} Close</div>
+        <div class="fc-stat-v">${fK(proj)}</div>
+        <div class="fc-stat-s">${fK(projLow)} – ${fK(projHigh)} range</div>
+      </div>
+      <div class="fc-stat">
+        <div class="fc-stat-l">Gap to ${QUARTER} Quota</div>
+        <div class="fc-stat-v" style="color:${gapColor}">${proj>=qtrQuota?'✓ Met':fK(Math.max(0,qtrQuota-proj))}</div>
+        <div class="fc-stat-s">${QUARTER} team quota: ${fK(qtrQuota)}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
 // ── TEAM 4-WEEK TREND STRIP ───────────────────────────────────────────
 function buildTeamTrendStrip() {
   const el = document.getElementById('teamTrendStrip');
@@ -1748,15 +1880,21 @@ function buildTeamTrendStrip() {
   const SEPARATOR_BEFORE = 'advanced';
   metrics.forEach((m, mi) => {
     if (m.key === SEPARATOR_BEFORE) {
-      html += `<tr><td colspan="${weekTotals.length + 1}" style="padding:3px 10px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--bg);border-bottom:1px solid var(--border2)">Activity · rolling 7-day count</td></tr>`;
+      html += `<tr><td colspan="${weekTotals.length + 2}" style="padding:3px 10px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--bg);border-bottom:1px solid var(--border2)">Activity · rolling 7-day count</td></tr>`;
     }
+    // Build sparkline from oldest→newest
+    const sparkVals = [...weekTotals].reverse().map(w => w[m.key]);
+    const curr = weekTotals[0][m.key], prev = weekTotals[1]?.[m.key];
+    const sparkColor = curr == null || prev == null ? '#B0BCC8'
+      : (m.good === 'up' ? (curr >= prev ? '#22C55E' : '#EF4444') : (curr <= prev ? '#22C55E' : '#EF4444'));
+
     html += `<tr>`;
-    html += `<td>${m.label}</td>`;
+    html += `<td style="white-space:nowrap">${m.label}<span class="spark-wrap">${sparklineSVG(sparkVals, 52, 16, sparkColor)}</span></td>`;
     weekTotals.forEach((w, wi) => {
       const val  = w[m.key];
-      const prev = wi < weekTotals.length-1 ? weekTotals[wi+1][m.key] : null;
+      const prv  = wi < weekTotals.length-1 ? weekTotals[wi+1][m.key] : null;
       const cls  = wi===0 ? 'trend-cur' : '';
-      const arr  = wi===0 ? arrow(val, prev, m.good) : '';
+      const arr  = wi===0 ? arrow(val, prv, m.good) : '';
       html += `<td class="${cls}">${m.fmt(val)}${arr}</td>`;
     });
     html += `</tr>`;
@@ -1890,7 +2028,7 @@ function buildQtrStrip() {
     let badgeCls   = isCurrent ? 'current' : isPast ? 'done' : 'future';
 
     let amtDisplay = amt !== null ? '$' + (amt/1000).toFixed(0) + 'K' : '—';
-    let barColor   = hit ? 'var(--qh-green)' : isCurrent ? 'var(--qh-blue)' : isPast ? 'var(--dim)' : 'var(--border2)';
+    let barColor   = hit ? 'linear-gradient(90deg,#16a34a,#22C55E)' : isCurrent ? 'linear-gradient(90deg,#0B4971,#0077B5)' : isPast ? 'var(--dim)' : 'var(--border2)';
     let subText    = isFuture
       ? 'Starts ' + new Date(q.start).toLocaleDateString('en-US',{month:'short',day:'numeric'})
       : amt !== null
@@ -1913,6 +2051,7 @@ function buildKpiStrip() {
   buildAnnualTicker();
   buildQtrStrip();
   buildTeamTrendStrip();
+  buildForecastPanel();
   const _t     = window._scorecardData?.team || {};
   const totCW  = _t.cw_amount    ?? repData.reduce((s,r)=>s+r.cw_amount,0);
   const totPip = _t.pipeline     ?? repData.reduce((s,r)=>s+r.pipeline_value,0);
@@ -1946,7 +2085,7 @@ function buildKpiStrip() {
         <div style="font-family:var(--mono);font-size:13px;font-weight:700;color:${totCW>=TEAM_TARGET?'#5A9420':totCW>=TEAM_TARGET*.5?'#C07800':'#B82038'};">${Math.round(totCW/TEAM_TARGET*100)}%</div>
         <div class="ins-tip">${cwInsight}</div>
       </div>
-      <div style="margin:5px 0 3px;height:4px;background:var(--border);border-radius:2px;overflow:hidden;"><div style="height:100%;width:${Math.min(100,Math.round(totCW/TEAM_TARGET*100))}%;background:var(--qh-blue);border-radius:2px;transition:width .5s;"></div></div>
+      <div class="kpi-bar-grad"><div class="kpi-bar-grad-fill" style="width:${Math.min(100,Math.round(totCW/TEAM_TARGET*100))}%"></div></div>
       <div class="kpi-s">${repData.reduce((s,r)=>s+r.cw_deals,0)} deals · vs <strong>$1M</strong> annual target</div>
     </div>
     <div class="kpi g"><div class="kpi-l">Active Pipeline</div><div class="kpi-v-wrap"><div class="kpi-v">${totPip>=1000000?'$'+(totPip/1000000).toFixed(2).replace(/\.?0+$/,'')+'M':'$'+(totPip/1000).toFixed(0)+'K'}</div><div class="ins-tip">${pipeInsight}</div></div><div class="kpi-s">${totD} active deals</div></div>
